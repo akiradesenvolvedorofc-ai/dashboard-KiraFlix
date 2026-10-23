@@ -7,44 +7,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest"></script>
 <style>
-:root{
-  color-scheme:dark;
-  --bg:#07070d;--bg2:#0b0b14;
-  --panel:rgba(20,20,32,.72);--panel-solid:#141420;--panel2:#1a1a28;
-  --line:rgba(255,255,255,.075);--line-strong:rgba(255,255,255,.12);
-  --text:#f2f2f7;--muted:#8e8ea8;
-  --red:#e50914;--red-soft:#ff2d3a;
-  --purple:#8b5cf6;--purple-soft:#a78bfa;
-  --green:#22c55e;--amber:#f5c518;
-  --radius:16px;--radius-sm:10px;
-  --shadow:0 18px 50px -20px rgba(0,0,0,.7);
-  --transition:.25s cubic-bezier(.4,0,.2,1);
-}
+:root{color-scheme:dark;--bg:#07070d;--bg2:#0b0b14;--panel:rgba(20,20,32,.72);--panel-solid:#141420;--panel2:#1a1a28;--line:rgba(255,255,255,.075);--line-strong:rgba(255,255,255,.12);--text:#f2f2f7;--muted:#8e8ea8;--red:#e50914;--red-soft:#ff2d3a;--purple:#8b5cf6;--purple-soft:#a78bfa;--green:#22c55e;--amber:#f5c518;--radius:16px;--radius-sm:10px;--shadow:0 18px 50px -20px rgba(0,0,0,.7);--transition:.25s cubic-bezier(.4,0,.2,1)}
 *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
 *,*::before,*::after{-webkit-tap-highlight-color:transparent}
 button,a,select,input,textarea,[role="button"]{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
 html{scroll-behavior:smooth}
-body{
-  margin:0;
-  background:
-    radial-gradient(900px 600px at 8% -8%, rgba(229,9,20,.22), transparent 60%),
-    radial-gradient(800px 700px at 100% 0%, rgba(139,92,246,.18), transparent 55%),
-    radial-gradient(600px 500px at 50% 120%, rgba(139,92,246,.08), transparent 60%),
-    var(--bg);
-  color:var(--text);
-  font:14px/1.55 Inter,system-ui,Arial,sans-serif;
-  min-height:100vh;overflow-x:hidden;
-}
-::-webkit-scrollbar{width:9px;height:9px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:99px;border:2px solid transparent;background-clip:content-box}
-::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.24);background-clip:content-box}
+body{margin:0;background:radial-gradient(900px 600px at 8% -8%,rgba(229,9,20,.22),transparent 60%),radial-gradient(800px 700px at 100% 0%,rgba(139,92,246,.18),transparent 55%),radial-gradient(600px 500px at 50% 120%,rgba(139,92,246,.08),transparent 60%),var(--bg);color:var(--text);font:14px/1.55 Inter,system-ui,Arial,sans-serif;min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:9px;height:9px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:99px;border:2px solid transparent;background-clip:content-box}::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.24);background-clip:content-box}
 button,input,select,textarea{font:inherit}
 button{cursor:pointer;border:0;border-radius:var(--radius-sm);padding:10px 15px;background:linear-gradient(135deg,var(--red),#ff3b30);color:#fff;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform var(--transition),box-shadow var(--transition),filter var(--transition);box-shadow:0 8px 20px -8px rgba(229,9,20,.6);white-space:nowrap;outline:none}
 button:hover{transform:translateY(-1px);filter:brightness(1.08)}
 button:active{transform:translateY(0) scale(.985)}
-button:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
-button:focus:not(:focus-visible){outline:none}
+button:focus-visible{outline:2px solid var(--purple);outline-offset:2px}button:focus:not(:focus-visible){outline:none}
 button.secondary{background:rgba(255,255,255,.06);border:1px solid var(--line-strong);color:#d4d4e4;box-shadow:none}
 button.secondary:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2)}
 button.danger{background:rgba(229,9,20,.14);color:#ff8b94;border:1px solid rgba(229,9,20,.28);box-shadow:none}
@@ -160,26 +134,20 @@ label i{width:13px;height:13px;color:var(--muted)}
 .progress-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:6px}
 .progress-meta b{color:#c4b5fd;font-size:12px}
 .progress-stats{display:flex;justify-content:space-between;gap:8px;font-size:10.5px;color:var(--muted);margin-top:4px;flex-wrap:wrap}
-.progress-stats .p-ok{color:#86efac}
-.progress-stats .p-skip{color:#fcd34d}
-.progress-stats .p-err{color:#fda4af}
-.progress-stats .p-eta{color:#c4b5fd}
+.progress-stats .p-ok{color:#86efac}.progress-stats .p-skip{color:#fcd34d}.progress-stats .p-err{color:#fda4af}.progress-stats .p-eta{color:#c4b5fd}
 .import-log{margin-top:10px;max-height:200px;overflow-y:auto;background:rgba(0,0,0,.3);border:1px solid var(--line);border-radius:10px;padding:10px;font-family:ui-monospace,monospace;font-size:10.5px;line-height:1.7;color:#8e8ea8}
-.import-log .ok{color:#86efac}
-.import-log .err{color:#fda4af}
-.import-log .skip{color:#fcd34d}
+.import-log .ok{color:#86efac}.import-log .err{color:#fda4af}.import-log .skip{color:#fcd34d}
 .badge-preview{padding:11px 12px;border:1px solid var(--line);border-radius:11px;background:rgba(255,255,255,.025);display:flex;align-items:center;gap:11px;transition:border-color var(--transition),transform var(--transition)}
 .badge-preview:hover{border-color:var(--line-strong);transform:translateY(-2px)}
 .badge-chip{display:inline-flex;align-items:center;border-radius:6px;padding:5px 9px;font-size:9.5px;font-weight:900;letter-spacing:.5px;white-space:nowrap;box-shadow:0 4px 14px -6px currentColor}
 .cb-item{display:flex;align-items:center;gap:10px;padding:11px 12px;background:rgba(255,255,255,.025);border:1px solid var(--line);border-radius:11px;transition:border-color var(--transition),transform var(--transition)}
 .cb-item:hover{border-color:var(--line-strong);transform:translateY(-2px)}
-.cb-item .cb-preview{flex-shrink:0}
-.cb-item .cb-info{flex:1;min-width:0}
+.cb-item .cb-preview{flex-shrink:0}.cb-item .cb-info{flex:1;min-width:0}
 .cb-item .cb-info b{font-size:12.5px;display:block}
 .cb-item .cb-info small{color:var(--muted);font-size:10.5px}
 .cb-item button{padding:6px 9px;font-size:10.5px}
-.site-preview{padding:18px 20px;border-radius:14px;background:linear-gradient(135deg, var(--red), var(--purple));margin-bottom:16px;border:1px solid var(--line);position:relative;overflow:hidden;transition:background .4s ease}
-.site-preview::after{content:"";position:absolute;inset:0;background:radial-gradient(400px 200px at 100% 0%, rgba(255,255,255,.18), transparent 60%);pointer-events:none}
+.site-preview{padding:18px 20px;border-radius:14px;background:linear-gradient(135deg,var(--red),var(--purple));margin-bottom:16px;border:1px solid var(--line);position:relative;overflow:hidden;transition:background .4s ease}
+.site-preview::after{content:"";position:absolute;inset:0;background:radial-gradient(400px 200px at 100% 0%,rgba(255,255,255,.18),transparent 60%);pointer-events:none}
 .sp-logo{font-size:26px;font-weight:900;letter-spacing:1.5px;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.35);display:flex;align-items:center;gap:10px;position:relative;z-index:1}
 .sp-logo img{width:28px;height:28px;object-fit:contain;border-radius:6px}
 .sp-slogan{color:rgba(255,255,255,.88);font-size:12px;margin-top:4px;font-weight:500;position:relative;z-index:1}
@@ -217,6 +185,8 @@ label i{width:13px;height:13px;color:var(--muted)}
 .banner-info i{width:16px;height:16px;flex-shrink:0;margin-top:1px}
 .banner-ok{padding:12px 14px;border-radius:11px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.28);color:#86efac;font-size:12px;line-height:1.6;margin-bottom:14px;display:flex;gap:10px;align-items:flex-start}
 .banner-ok i{width:16px;height:16px;flex-shrink:0;margin-top:1px}
+.banner-danger{padding:12px 14px;border-radius:11px;background:rgba(229,9,20,.08);border:1px solid rgba(229,9,20,.28);color:#fda4af;font-size:12px;line-height:1.6;margin-bottom:14px;display:flex;gap:10px;align-items:flex-start}
+.banner-danger i{width:16px;height:16px;flex-shrink:0;margin-top:1px}
 .sync-indicator{position:fixed;bottom:22px;left:22px;z-index:9998;padding:10px 14px;border-radius:11px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:8px;backdrop-filter:blur(16px);border:1px solid var(--line-strong);background:rgba(20,20,32,.9);color:#a9a9c2;transition:all .3s ease;max-width:280px}
 .sync-indicator.pending{background:rgba(45,42,20,.92);border-color:rgba(245,197,24,.35);color:#fcd34d}
 .sync-indicator.error{background:rgba(45,20,25,.92);border-color:rgba(229,9,20,.4);color:#fecdd3}
@@ -242,29 +212,28 @@ label i{width:13px;height:13px;color:var(--muted)}
 .deploy-countdown.done{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.28);color:#86efac}
 .deploy-countdown i{width:16px;height:16px;flex-shrink:0;margin-top:1px}
 .deploy-countdown b{color:#fff}
-@media(max-width:980px){
-  .app{grid-template-columns:1fr}
-  .side{display:none}
-  .side.open{display:flex;position:fixed;inset:0 auto 0 0;width:270px;z-index:50;box-shadow:0 0 0 100vmax rgba(0,0,0,.6)}
-  .mobilemenu{display:inline-flex}
-  .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .layout{grid-template-columns:1fr}
-  .content{padding:18px}
-  .top{padding:14px 16px}
-  .listrow{grid-template-columns:42px minmax(100px,1fr) 70px}
-  .listrow .rowactions{grid-column:2/-1;justify-content:flex-start}
-  .topright .hide-mobile{display:none}
-  .sync-indicator{bottom:12px;left:12px;right:12px;max-width:none}
-}
-@media(max-width:460px){
-  .cards{gap:9px}
-  .stat{padding:14px}
-  .stat b{font-size:22px}
-  .two{grid-template-columns:1fr}
-  .results,.catalog{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-  .top h1{font-size:16px}
-  .mass-grid{grid-template-columns:1fr 1fr}
-}
+/* BULK DELETE */
+.bulk-delete-panel{border:1px solid rgba(229,9,20,.28);background:linear-gradient(160deg,rgba(229,9,20,.07),rgba(14,14,23,.9));position:relative}
+.bulk-delete-panel .panel-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.bulk-delete-panel .panel-head .ico{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,rgba(229,9,20,.25),rgba(139,92,246,.18));border:1px solid rgba(229,9,20,.3);display:grid;place-items:center;flex-shrink:0}
+.bulk-delete-panel .panel-head .ico i{width:18px;height:18px;color:#ff8b94}
+.bulk-delete-panel .panel-head h2{margin:0;font-size:15px}
+.bulk-delete-panel .panel-head p{margin:2px 0 0;font-size:11.5px}
+.bulk-preview-list{margin-top:12px;border:1px solid var(--line);border-radius:11px;background:rgba(0,0,0,.28);max-height:220px;overflow-y:auto;padding:8px}
+.bulk-preview-item{display:flex;gap:10px;align-items:center;padding:6px 8px;border-bottom:1px solid var(--line);font-size:11.5px}
+.bulk-preview-item:last-child{border-bottom:0}
+.bulk-preview-item img{width:28px;height:40px;object-fit:cover;border-radius:4px;background:#181824;flex-shrink:0}
+.bulk-preview-item .bp-info{flex:1;min-width:0;overflow:hidden}
+.bulk-preview-item .bp-info b{display:block;font-size:11.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bulk-preview-item .bp-info small{color:var(--muted);font-size:10px}
+.bulk-preview-more{padding:8px;text-align:center;color:var(--muted);font-size:10.5px;font-style:italic}
+.bulk-summary{padding:11px 13px;border-radius:10px;background:rgba(229,9,20,.08);border:1px solid rgba(229,9,20,.22);color:#fda4af;font-size:12px;line-height:1.6;margin-top:12px;display:flex;gap:9px;align-items:flex-start}
+.bulk-summary i{width:15px;height:15px;flex-shrink:0;margin-top:1px}
+.bulk-summary b{color:#fff}
+.bulk-progress{margin-top:12px;display:none}
+.bulk-progress.active{display:block}
+@media(max-width:980px){.app{grid-template-columns:1fr}.side{display:none}.side.open{display:flex;position:fixed;inset:0 auto 0 0;width:270px;z-index:50;box-shadow:0 0 0 100vmax rgba(0,0,0,.6)}.mobilemenu{display:inline-flex}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.layout{grid-template-columns:1fr}.content{padding:18px}.top{padding:14px 16px}.listrow{grid-template-columns:42px minmax(100px,1fr) 70px}.listrow .rowactions{grid-column:2/-1;justify-content:flex-start}.topright .hide-mobile{display:none}.sync-indicator{bottom:12px;left:12px;right:12px;max-width:none}}
+@media(max-width:460px){.cards{gap:9px}.stat{padding:14px}.stat b{font-size:22px}.two{grid-template-columns:1fr}.results,.catalog{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.top h1{font-size:16px}.mass-grid{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -323,7 +292,7 @@ label i{width:13px;height:13px;color:var(--muted)}
    </div>
    <div class="panel" style="margin-top:16px">
      <h2><i data-lucide="zap"></i> Controles rápidos do site</h2>
-     <div class="actions"><button data-goto="maintenance"><i data-lucide="wrench"></i> Modo de manutenção</button><button class="secondary" data-goto="themes"><i data-lucide="sparkles"></i> Temas prontos</button><button class="secondary" data-goto="code"><i data-lucide="code-2"></i> Editor de código</button></div>
+     <div class="actions"><button data-goto="maintenance"><i data-lucide="wrench"></i> Modo de manutenção</button><button class="secondary" data-goto="themes"><i data-lucide="sparkles"></i> Temas prontos</button><button class="secondary" data-goto="catalog"><i data-lucide="trash-2"></i> Excluir em massa</button></div>
      <div id="maintenanceQuick" class="status">Estado de manutenção ainda não carregado.</div>
    </div>
    <div class="panel" style="margin-top:16px">
@@ -340,6 +309,70 @@ label i{width:13px;height:13px;color:var(--muted)}
      </div>
      <div class="actions"><button id="loadCatalogBtn"><i data-lucide="cloud-download"></i> Carregar do Supabase</button><button class="secondary" data-goto="manual"><i data-lucide="plus"></i> Adicionar manualmente</button><button class="secondary" id="exportBtn"><i data-lucide="download"></i> Exportar JSON</button></div>
      <div id="catalogStatus" class="status">Configure a chave pública e desbloqueie a administração para sincronizar.</div>
+   </div>
+
+   <div class="panel bulk-delete-panel" style="margin-top:16px">
+     <div class="panel-head">
+       <div class="ico"><i data-lucide="trash-2"></i></div>
+       <div>
+         <h2>Excluir em Massa</h2>
+         <p>Reduza o catálogo com segurança. Ideal para quando o site não carrega por excesso de títulos.</p>
+       </div>
+     </div>
+     <div class="banner-danger">
+       <i data-lucide="alert-triangle"></i>
+       <div><b>⚠ Atenção:</b> Exclusão em massa é permanente após sincronizar com o Supabase. Um <b>backup automático</b> é baixado antes de excluir (se ativado abaixo).</div>
+     </div>
+     <div class="two">
+       <div class="field"><label><i data-lucide="filter"></i> Filtrar por tipo</label>
+         <select id="bulkType">
+           <option value="">Todos os tipos</option>
+           <option value="filme">Apenas filmes</option>
+           <option value="serie">Apenas séries/animes</option>
+         </select>
+       </div>
+       <div class="field"><label><i data-lucide="arrow-down-up"></i> Ordem de exclusão</label>
+         <select id="bulkOrder">
+           <option value="oldest">Mais antigos primeiro</option>
+           <option value="newest">Mais recentes primeiro</option>
+           <option value="az">A → Z (título)</option>
+           <option value="za">Z → A (título)</option>
+           <option value="random">Aleatório</option>
+         </select>
+       </div>
+     </div>
+     <div class="field"><label><i data-lucide="hash"></i> Quantidade a excluir</label>
+       <input type="number" id="bulkQty" min="1" placeholder="Digite a quantidade exata (ex.: 500)" autocomplete="off">
+     </div>
+     <div class="quick-qty">
+       <span>Rápido:</span>
+       <button type="button" class="secondary" data-bulk-qty="30">30</button>
+       <button type="button" class="secondary" data-bulk-qty="50">50</button>
+       <button type="button" class="secondary" data-bulk-qty="100">100</button>
+       <button type="button" class="secondary" data-bulk-qty="250">250</button>
+       <button type="button" class="secondary" data-bulk-qty="500">500</button>
+       <button type="button" class="secondary" data-bulk-qty="1000">1.000</button>
+       <button type="button" class="secondary" data-bulk-qty="2000">2.000</button>
+       <button type="button" class="secondary" data-bulk-qty="5000">5.000</button>
+       <button type="button" class="secondary" data-bulk-qty="all">Tudo</button>
+     </div>
+     <div class="checkline" style="margin:10px 0 14px"><input type="checkbox" id="bulkBackup" checked><label for="bulkBackup">Baixar backup automático antes de excluir (recomendado)</label></div>
+     <div id="bulkPreview"></div>
+     <div class="actions">
+       <button id="bulkDeleteBtn" class="danger"><i data-lucide="trash-2"></i> Excluir em massa</button>
+       <button class="secondary" id="bulkBackupBtn"><i data-lucide="download"></i> Baixar backup agora</button>
+       <button class="secondary" id="bulkRestoreBtn"><i data-lucide="upload"></i> Restaurar de backup</button>
+       <input type="file" id="bulkRestoreInput" accept=".json" style="display:none">
+     </div>
+     <div class="bulk-progress" id="bulkProgress">
+       <div class="progress-bar"><div class="progress-fill" id="bulkProgressFill"></div></div>
+       <div class="progress-meta"><span id="bulkProgressLabel">Preparando…</span><b id="bulkProgressPct">0%</b></div>
+     </div>
+     <div id="bulkStatus" class="status">Configure a quantidade e clique em "Excluir em massa".</div>
+   </div>
+
+   <div class="panel" style="margin-top:16px">
+     <h2><i data-lucide="library"></i> Títulos no catálogo <span style="font-weight:400;color:var(--muted);font-size:11.5px;margin-left:6px">(<span id="catalogCount">0</span> títulos)</span></h2>
      <div id="catalogList" class="catalog"></div>
    </div>
   </section>
@@ -365,7 +398,7 @@ label i{width:13px;height:13px;color:var(--muted)}
         <button type="button" class="secondary" data-quick-qty="5000">5.000</button>
         <button type="button" class="secondary" data-quick-qty="10000">10.000</button>
       </div>
-      <div class="fast-mode-box"><input type="checkbox" id="massFastMode" checked><label for="massFastMode"><b>⚡ Modo rápido</b> — usa apenas os dados da lista (sem buscar detalhes de cada título, sem elenco nem duração). <b>~20× mais rápido</b>. Recomendado para 500+.</label></div>
+      <div class="fast-mode-box"><input type="checkbox" id="massFastMode" checked><label for="massFastMode"><b>⚡ Modo rápido</b> — usa apenas os dados da lista (sem buscar detalhes de cada título). <b>~20× mais rápido</b>. Recomendado para 500+.</label></div>
       <div id="discoverFilters" style="display:none">
         <div class="mass-grid">
           <div class="field"><label><i data-lucide="tag"></i> Gênero (ID TMDB)</label><input id="massGenre" placeholder="Ex.: 28 (Ação), 16 (Animação)"></div>
@@ -385,10 +418,7 @@ label i{width:13px;height:13px;color:var(--muted)}
     </div>
     <div class="panel" style="margin-top:16px">
       <h2><i data-lucide="search"></i> Pesquisar filmes, séries e animes</h2>
-      <div class="two">
-        <div class="field"><label><i data-lucide="search"></i> Termo de pesquisa</label><input id="tmdbQuery" placeholder="Ex.: Interestelar, Naruto" autocomplete="off"></div>
-        <div class="field"><label><i data-lucide="filter"></i> Tipo</label><select id="tmdbType"><option value="multi">Filmes e séries</option><option value="movie">Filmes</option><option value="tv">Séries e animes</option></select></div>
-      </div>
+      <div class="two"><div class="field"><label><i data-lucide="search"></i> Termo de pesquisa</label><input id="tmdbQuery" placeholder="Ex.: Interestelar, Naruto" autocomplete="off"></div><div class="field"><label><i data-lucide="filter"></i> Tipo</label><select id="tmdbType"><option value="multi">Filmes e séries</option><option value="movie">Filmes</option><option value="tv">Séries e animes</option></select></div></div>
       <div class="actions"><button id="searchTmdbBtn"><i data-lucide="search"></i> Pesquisar</button><button class="secondary" id="tmdbTestBtn"><i data-lucide="plug-zap"></i> Testar conexão TMDB</button></div>
       <div id="tmdbStatus" class="status">Configure o token ou a chave do TMDB em Configurações.</div>
       <div id="tmdbResults" class="results"></div>
@@ -424,7 +454,7 @@ label i{width:13px;height:13px;color:var(--muted)}
   <section data-page="badges" class="hidden">
    <div class="panel" style="margin-bottom:16px">
      <h2><i data-lucide="plus-circle"></i> Criar novo selo</h2>
-     <p>Crie selos personalizados com nome e cor. Ao aplicar em um título, ele é convertido em <code>status: personalizado</code>.</p>
+     <p>Crie selos personalizados com nome e cor.</p>
      <div class="two"><div class="field"><label><i data-lucide="type"></i> Nome do selo *</label><input id="newBadgeName" maxlength="18" placeholder="Ex.: Exclusivo, Top 10" autocomplete="off"></div><div class="field"><label><i data-lucide="palette"></i> Cor do selo</label><input id="newBadgeColor" type="color" value="#8b5cf6" style="height:43px;padding:4px"></div></div>
      <div class="actions"><button id="createBadgeBtn"><i data-lucide="plus"></i> Criar selo</button></div>
      <div id="createBadgeStatus" class="status">Os selos personalizados ficam salvos no registro __badges__.</div>
@@ -454,7 +484,7 @@ label i{width:13px;height:13px;color:var(--muted)}
   <section data-page="themes" class="hidden">
    <div class="panel">
      <h2><i data-lucide="sparkles"></i> Temas Prontos para o Site</h2>
-     <div class="banner-info" id="themesGhWarning"><i data-lucide="info"></i><div><b>Como o tema chega ao site:</b> o painel edita o HTML do site diretamente no GitHub, substituindo as variáveis CSS de cor. Configure o <b>arquivo HTML do site</b> em Configurações → GitHub.</div></div>
+     <div class="banner-info" id="themesGhWarning"><i data-lucide="info"></i><div><b>Como o tema chega ao site:</b> o painel edita o HTML do site diretamente no GitHub. Configure o <b>arquivo HTML do site</b> em Configurações → GitHub.</div></div>
      <div id="themesGrid" class="themes-grid"></div>
      <div id="themesStatus" class="status">Selecione um tema para aplicar.</div>
      <div class="panel" style="margin-top:16px;background:rgba(255,255,255,.02)">
@@ -470,10 +500,7 @@ label i{width:13px;height:13px;color:var(--muted)}
      <h2><i data-lucide="code-2"></i> Editor de Código do Repositório</h2>
      <p>Escolha um arquivo do repositório GitHub, edite o código e salve direto no repositório.</p>
      <div class="code-editor-toolbar">
-       <div class="field">
-         <label><i data-lucide="file-code"></i> Arquivo</label>
-         <select id="editorFilePath"><option value="">— Clique em "Listar" —</option></select>
-       </div>
+       <div class="field"><label><i data-lucide="file-code"></i> Arquivo</label><select id="editorFilePath"><option value="">— Clique em "Listar" —</option></select></div>
        <button class="secondary" id="editorListBtn"><i data-lucide="folder-open"></i> Listar</button>
        <button id="editorLoadBtn"><i data-lucide="download"></i> Carregar</button>
        <button class="secondary" id="editorCopyBtn" title="Copiar todo o código"><i data-lucide="copy"></i> Copiar tudo</button>
@@ -487,18 +514,12 @@ label i{width:13px;height:13px;color:var(--muted)}
      <div id="editorStatus" class="status">Escolha um arquivo do repositório e clique em Carregar para começar a editar.</div>
      <div class="ai-section">
        <h3><i data-lucide="wand-2"></i> Editar com IA</h3>
-       <p>Descreva o que quer mudar e a IA reescreve o código. <b style="color:#c4b5fd">Configure a chave da API de IA em Configurações.</b> Depois revise e clique em "Salvar no GitHub".</p>
-       <textarea id="aiPrompt" placeholder="Exemplos:&#10;• Troque a cor principal para azul neon (#00d9ff)&#10;• Aumente o tamanho do logo em 30%&#10;• Mude o texto do botão "Assistir" para "Ver agora"&#10;• Adicione um rodapé com copyright" rows="4" spellcheck="false"></textarea>
-       <div class="actions">
-         <button id="aiEditBtn"><i data-lucide="wand-2"></i> Aplicar com IA</button>
-         <button class="secondary" id="aiUndoBtn" disabled><i data-lucide="undo-2"></i> Desfazer alteração da IA</button>
-         <button class="secondary" id="aiClearBtn"><i data-lucide="eraser"></i> Limpar prompt</button>
-       </div>
+       <p>Descreva o que quer mudar e a IA reescreve o código. <b style="color:#c4b5fd">Configure a chave da API de IA em Configurações.</b></p>
+       <textarea id="aiPrompt" placeholder="Exemplos:&#10;• Troque a cor principal para azul neon (#00d9ff)&#10;• Aumente o tamanho do logo em 30%&#10;• Mude o texto do botão 'Assistir' para 'Ver agora'" rows="4" spellcheck="false"></textarea>
+       <div class="actions"><button id="aiEditBtn"><i data-lucide="wand-2"></i> Aplicar com IA</button><button class="secondary" id="aiUndoBtn" disabled><i data-lucide="undo-2"></i> Desfazer</button><button class="secondary" id="aiClearBtn"><i data-lucide="eraser"></i> Limpar prompt</button></div>
        <div id="aiStatus" class="status">Digite uma instrução e clique em "Aplicar com IA".</div>
      </div>
-     <div class="code-editor-hint">
-       <b>💡 Dica:</b> Use o editor para alterar cores, textos, nomes, ou qualquer parte do HTML. As variáveis de cor geralmente estão como <code>--red</code> e <code>--purple</code> dentro de <code>:root{}</code>. Após salvar, aguarde o deploy do GitHub Pages (1–3 min) para ver no site.
-     </div>
+     <div class="code-editor-hint"><b>💡 Dica:</b> Use o editor para alterar cores, textos, nomes. As variáveis de cor geralmente estão como <code>--red</code> e <code>--purple</code> dentro de <code>:root{}</code>. Após salvar, aguarde o deploy do GitHub Pages (1–3 min).</div>
      <div id="deployCountdownEditor"></div>
    </div>
   </section>
@@ -530,7 +551,7 @@ label i{width:13px;height:13px;color:var(--muted)}
   <section data-page="settings" class="hidden">
    <div class="panel">
      <h2><i data-lucide="database"></i> Supabase do KiraFlix</h2>
-     <div class="banner-info"><i data-lucide="info"></i><div>As credenciais são salvas automaticamente neste navegador. Ao recarregar a página, a conexão é restaurada automaticamente.</div></div>
+     <div class="banner-info"><i data-lucide="info"></i><div>As credenciais são salvas automaticamente neste navegador.</div></div>
      <div class="field"><label><i data-lucide="globe"></i> URL do projeto</label><input id="sbUrl" value="https://ahtuhrzizlwcvrgbzivx.supabase.co"></div>
      <div class="field"><label><i data-lucide="key-round"></i> Chave pública (publishable / anon)</label><input id="sbKey" type="password" autocomplete="off" placeholder="sb_publishable_… ou chave anon"></div>
      <div class="field"><label><i data-lucide="lock"></i> Senha administrativa do KiraFlix</label><input id="adminPassword" type="password" autocomplete="off" placeholder="Senha validada pela função do KiraFlix"></div>
@@ -547,18 +568,17 @@ label i{width:13px;height:13px;color:var(--muted)}
 
    <div class="panel" style="margin-top:16px">
      <h2><i data-lucide="github"></i> Integração com GitHub</h2>
-     <div class="banner-info"><i data-lucide="info"></i><div>O painel modifica diretamente os arquivos do seu repositório. Os temas e o nome do site são aplicados no <b>arquivo HTML do site</b> (abaixo).</div></div>
+     <div class="banner-info"><i data-lucide="info"></i><div>O painel modifica diretamente os arquivos do seu repositório. Temas e nome são aplicados no <b>arquivo HTML do site</b>.</div></div>
      <div class="two"><div class="field"><label><i data-lucide="user"></i> Usuário / organização</label><input id="ghUser" placeholder="seu-usuario" autocomplete="off"></div><div class="field"><label><i data-lucide="folder-git-2"></i> Repositório (nome ou URL)</label><input id="ghRepo" placeholder="meu-repo ou https://github.com/user/repo" autocomplete="off"></div></div>
      <div class="two"><div class="field"><label><i data-lucide="git-branch"></i> Branch</label><input id="ghBranch" placeholder="main" value="main" autocomplete="off"></div><div class="field"><label><i data-lucide="key-round"></i> Token de acesso pessoal (PAT)</label><input id="ghToken" type="password" autocomplete="off" placeholder="ghp_… ou github_pat_…"></div></div>
      <div class="two"><div class="field"><label><i data-lucide="file-json"></i> Arquivo de configurações (JSON)</label><input id="ghPath" placeholder="kira-settings.json" value="kira-settings.json" autocomplete="off"></div><div class="field"><label><i data-lucide="file-code"></i> Arquivo HTML do site *</label><input id="ghSitePath" placeholder="KIRAFLIX.html" value="KIRAFLIX.html" autocomplete="off"></div></div>
      <div class="actions"><button id="ghTestBtn"><i data-lucide="plug-zap"></i> Testar conexão</button><button class="secondary" id="ghPushBtn"><i data-lucide="upload-cloud"></i> Enviar JSON</button><button class="secondary" id="ghPullBtn"><i data-lucide="download-cloud"></i> Puxar do GitHub</button><button class="secondary" id="ghClearBtn"><i data-lucide="trash-2"></i> Limpar GitHub</button></div>
      <div id="ghStatus" class="status">Preencha as credenciais do GitHub para habilitar.</div>
-     <div class="hint"><i data-lucide="info" style="width:12px;height:12px;vertical-align:-2px"></i> O token precisa de escopo <code>repo</code>. O <b>arquivo HTML do site</b> é onde o tema/nome será aplicado. Ex.: <code>KIRAFLIX.html</code> ou <code>index.html</code>.</div>
    </div>
 
    <div class="panel" style="margin-top:16px">
      <h2><i data-lucide="palette"></i> Identidade do Site KiraFlix</h2>
-     <div class="banner-ok"><i data-lucide="check-circle-2"></i><div><b>Altera o site real (visitantes).</b> Ao salvar, o painel aplica nome, cores e imagens diretamente no <b>arquivo HTML do site</b> configurado acima.</div></div>
+     <div class="banner-ok"><i data-lucide="check-circle-2"></i><div><b>Altera o site real (visitantes).</b> Aplica nome, cores e imagens diretamente no <b>arquivo HTML do site</b>.</div></div>
      <div class="site-preview" id="sitePreview"><span class="sp-label">PREVIEW DO SITE</span><div class="sp-logo" id="spLogo">KiraFlix</div><div class="sp-slogan" id="spSlogan">Seu streaming favorito</div></div>
      <div class="two"><div class="field"><label><i data-lucide="type"></i> Nome do site</label><input id="cfgSiteName" placeholder="KiraFlix" maxlength="40" autocomplete="off"></div><div class="field"><label><i data-lucide="quote"></i> Slogan</label><input id="cfgSlogan" placeholder="Seu streaming favorito" maxlength="80" autocomplete="off"></div></div>
      <div class="two"><div class="field"><label><i data-lucide="palette"></i> Cor primária</label><input id="cfgPrimaryColor" type="color" value="#e50914" style="height:43px;padding:4px"></div><div class="field"><label><i data-lucide="palette"></i> Cor secundária</label><input id="cfgSecondaryColor" type="color" value="#8b5cf6" style="height:43px;padding:4px"></div></div>
@@ -566,39 +586,25 @@ label i{width:13px;height:13px;color:var(--muted)}
      <div class="two"><div class="field"><label><i data-lucide="image"></i> URL do logo</label><input id="cfgLogoUrl" type="url" placeholder="https://…" autocomplete="off"></div><div class="field"><label><i data-lucide="image"></i> URL do favicon</label><input id="cfgFaviconUrl" type="url" placeholder="https://…" autocomplete="off"></div></div>
      <div class="field"><label><i data-lucide="wallpaper"></i> URL do banner da home</label><input id="cfgBannerUrl" type="url" placeholder="https://…" autocomplete="off"></div>
      <div class="actions"><button id="saveSiteSettingsBtn"><i data-lucide="save"></i> Salvar e aplicar no site</button><button class="secondary" id="applyToSiteOnlyBtn"><i data-lucide="zap"></i> Só aplicar no site (rápido)</button><button class="secondary" data-goto="themes"><i data-lucide="sparkles"></i> Escolher tema</button></div>
-     <div id="siteSettingsStatus" class="status">Configure e salve. As mudanças são aplicadas diretamente no HTML do site no GitHub.</div>
+     <div id="siteSettingsStatus" class="status">Configure e salve.</div>
      <div id="deployCountdownSettings"></div>
    </div>
 
    <div class="panel" style="margin-top:16px">
      <h2><i data-lucide="wand-2"></i> Inteligência Artificial (Editor de Código)</h2>
-     <div class="banner-info"><i data-lucide="info"></i><div>Configure a chave de API para usar o botão <b>"Aplicar com IA"</b> no Editor de Código. A chave fica só neste navegador. Escolha entre <b>Groq</b> (grátis e rápido), <b>OpenAI</b> (pago, mais preciso) ou <b>Gemini</b> (grátis com limites).</div></div>
+     <div class="banner-info"><i data-lucide="info"></i><div>Configure a chave para usar "Aplicar com IA" no Editor. A chave fica só neste navegador.</div></div>
      <div class="two">
-       <div class="field"><label><i data-lucide="server"></i> Provedor</label>
-         <select id="aiProvider">
-           <option value="groq">⚡ Groq (grátis, rápido)</option>
-           <option value="openai">🤖 OpenAI (pago)</option>
-           <option value="gemini">🌟 Google Gemini (grátis)</option>
-         </select>
-       </div>
-       <div class="field"><label><i data-lucide="cpu"></i> Modelo (opcional)</label>
-         <input id="aiModel" placeholder="Padrão do provedor" autocomplete="off">
-       </div>
+       <div class="field"><label><i data-lucide="server"></i> Provedor</label><select id="aiProvider"><option value="groq">⚡ Groq (grátis, rápido)</option><option value="openai">🤖 OpenAI (pago)</option><option value="gemini">🌟 Google Gemini (grátis)</option></select></div>
+       <div class="field"><label><i data-lucide="cpu"></i> Modelo (opcional)</label><input id="aiModel" placeholder="Padrão do provedor" autocomplete="off"></div>
      </div>
      <div class="field"><label><i data-lucide="key-round"></i> Chave da API *</label><input id="aiApiKey" type="password" autocomplete="off" placeholder="Cole a chave da API aqui"></div>
-     <div class="hint" style="margin-bottom:12px;font-size:11px"><i data-lucide="info" style="width:12px;height:12px;vertical-align:-2px"></i>
-       <b>Onde obter a chave:</b><br>
-       • Groq: <code>console.groq.com/keys</code><br>
-       • OpenAI: <code>platform.openai.com/api-keys</code><br>
-       • Gemini: <code>aistudio.google.com/app/apikey</code>
-     </div>
+     <div class="hint" style="margin-bottom:12px;font-size:11px"><i data-lucide="info" style="width:12px;height:12px;vertical-align:-2px"></i> <b>Onde obter:</b> Groq: <code>console.groq.com/keys</code> · OpenAI: <code>platform.openai.com/api-keys</code> · Gemini: <code>aistudio.google.com/app/apikey</code></div>
      <div class="actions"><button id="saveAiConfigBtn"><i data-lucide="save"></i> Salvar IA</button><button class="secondary" id="testAiBtn"><i data-lucide="plug-zap"></i> Testar IA</button><button class="secondary" id="clearAiBtn"><i data-lucide="eraser"></i> Limpar chave IA</button></div>
-     <div id="aiConfigStatus" class="status">Configure e teste a IA para habilitar a edição por prompt no Editor de Código.</div>
+     <div id="aiConfigStatus" class="status">Configure e teste a IA.</div>
    </div>
 
    <div class="panel" style="margin-top:16px">
      <h2><i data-lucide="users"></i> Sistema de Perfis do Site KiraFlix</h2>
-     <div class="banner-info"><i data-lucide="info"></i><div>Configura como os <b>visitantes do site KiraFlix</b> podem criar conta, fazer login e personalizar perfis.</div></div>
      <div class="checkline" style="margin:9px 0"><input type="checkbox" id="cfgProfilesEnabled" checked><label for="cfgProfilesEnabled">Ativar sistema de perfis no site</label></div>
      <div class="checkline" style="margin:9px 0"><input type="checkbox" id="cfgAllowRegister" checked><label for="cfgAllowRegister">Permitir cadastro de novos usuários</label></div>
      <div class="checkline" style="margin:9px 0"><input type="checkbox" id="cfgAllowAvatar" checked><label for="cfgAllowAvatar">Permitir upload de avatar</label></div>
@@ -686,11 +692,7 @@ function getNormalizedGHConfig(){
 function ghHeaders(token,extra={}){return{'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28',...extra};}
 async function ghFetch(url,options={}){
   try{return await fetch(url,{...options,cache:'default'});}
-  catch(e){
-    const msg=String(e.message||'');
-    if(msg.includes('Failed to fetch'))throw new Error('Failed to fetch — verifique: URL do repositório, conexão, URL tentada: '+url);
-    throw e;
-  }
+  catch(e){const msg=String(e.message||'');if(msg.includes('Failed to fetch'))throw new Error('Failed to fetch — verifique: URL do repositório, conexão, URL tentada: '+url);throw e;}
 }
 
 /* ============================================================
@@ -714,24 +716,17 @@ let siteSettings=JSON.parse(JSON.stringify(DEFAULT_SETTINGS));
 let githubConfig={user:'',repo:'',branch:'main',path:'kira-settings.json',sitePath:'KIRAFLIX.html',token:''};
 let aiConfig={provider:'groq',apiKey:'',model:''};
 let catalogLimit=60,badgeLimit=60;
-
 const GENRE_MAP={28:'Ação',12:'Aventura',16:'Animação',35:'Comédia',80:'Crime',99:'Documentário',18:'Drama',10751:'Família',14:'Fantasia',36:'História',27:'Terror',10402:'Música',9648:'Mistério',10749:'Romance',878:'Ficção Científica',10770:'TV',53:'Suspense',10752:'Guerra',37:'Faroeste',10759:'Ação e Aventura',10762:'Kids',10763:'Notícias',10764:'Reality',10765:'Sci-Fi & Fantasy',10766:'Soap',10767:'Talk',10768:'Guerra e Política'};
-
 function isOrdinaryTab(x){return x&&x.id!==MAINT_ID&&x.id!==PLAYERS_ID&&x.id!==BADGES_ID&&x.id!==SETTINGS_ID;}
 
 /* ============================================================
    DEPLOY COUNTDOWN
    ============================================================ */
-function startDeployCountdown(context){
-  if(state.deployCountdown.intervalId){
-    clearInterval(state.deployCountdown.intervalId);
-    state.deployCountdown.intervalId=null;
-  }
+function startDeployCountdown(){
+  if(state.deployCountdown.intervalId){clearInterval(state.deployCountdown.intervalId);state.deployCountdown.intervalId=null;}
   state.deployCountdown.startedAt=Date.now();
   state.deployCountdown.active=true;
-
   const targets=['#deployCountdownThemes','#deployCountdownEditor','#deployCountdownSettings'].map(s=>$(s)).filter(Boolean);
-
   const update=()=>{
     const elapsed=Date.now()-state.deployCountdown.startedAt;
     const remaining=Math.max(0,state.deployCountdown.totalMs-elapsed);
@@ -749,11 +744,7 @@ function startDeployCountdown(context){
       }
     });
     refreshIcons();
-    if(remaining<=0){
-      clearInterval(state.deployCountdown.intervalId);
-      state.deployCountdown.intervalId=null;
-      state.deployCountdown.active=false;
-    }
+    if(remaining<=0){clearInterval(state.deployCountdown.intervalId);state.deployCountdown.intervalId=null;state.deployCountdown.active=false;}
   };
   update();
   state.deployCountdown.intervalId=setInterval(update,1000);
@@ -762,14 +753,7 @@ function startDeployCountdown(context){
 /* ============================================================
    NAVEGAÇÃO
    ============================================================ */
-const pageMeta={
-  home:{title:'Visão geral',icon:'layout-dashboard'},catalog:{title:'Catálogo',icon:'library'},
-  tmdb:{title:'Importar do TMDB',icon:'clapperboard'},manual:{title:'Adicionar / editar título',icon:'plus-circle'},
-  badges:{title:'Selos do catálogo',icon:'award'},tabs:{title:'Abas do site',icon:'layout-list'},
-  themes:{title:'Temas Prontos',icon:'sparkles'},code:{title:'Editor de Código',icon:'code-2'},
-  players:{title:'Players e idiomas',icon:'play-circle'},maintenance:{title:'Modo de manutenção',icon:'wrench'},
-  settings:{title:'Configurações',icon:'settings'}
-};
+const pageMeta={home:{title:'Visão geral',icon:'layout-dashboard'},catalog:{title:'Catálogo',icon:'library'},tmdb:{title:'Importar do TMDB',icon:'clapperboard'},manual:{title:'Adicionar / editar título',icon:'plus-circle'},badges:{title:'Selos do catálogo',icon:'award'},tabs:{title:'Abas do site',icon:'layout-list'},themes:{title:'Temas Prontos',icon:'sparkles'},code:{title:'Editor de Código',icon:'code-2'},players:{title:'Players e idiomas',icon:'play-circle'},maintenance:{title:'Modo de manutenção',icon:'wrench'},settings:{title:'Configurações',icon:'settings'}};
 function goto(view){
   $$('[data-page]').forEach(x=>x.classList.toggle('hidden',x.dataset.page!==view));
   $$('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.view===view));
@@ -779,7 +763,7 @@ function goto(view){
   window.scrollTo({top:0,behavior:'instant'});
   requestAnimationFrame(()=>{
     safeRender('goto:'+view,()=>{
-      if(view==='catalog')renderCatalog();
+      if(view==='catalog'){renderCatalog();updateBulkPreview();}
       else if(view==='home')renderHome();
       else if(view==='badges'){renderBadges();renderCustomBadges();}
       else if(view==='tabs')renderTabs();
@@ -874,6 +858,7 @@ async function connect(){
     status('#catalogStatus',`Catálogo carregado: ${fmtNum(state.titles.length)} título(s).`,'ok');
     status('#homeStatus','Catálogo carregado.','ok');
     safeRender('renderAfterConnect',()=>renderAll());
+    updateBulkPreview();
     refreshIcons();
     return true;
   }catch(e){
@@ -945,231 +930,102 @@ function buildTabsForSave(){
 }
 
 /* ============================================================
-   APLICAR TEMA/NOME NO HTML DO SITE (MELHORADO)
+   APLICAR TEMA/NOME NO HTML DO SITE
    ============================================================ */
 async function applyToSiteHTML(opts={}){
   const{user,repo,branch,sitePath,token}=getNormalizedGHConfig();
   if(!user||!repo||!token)throw Error('Configure usuário, repositório e token do GitHub em Configurações.');
   if(!sitePath)throw Error('Configure o "Arquivo HTML do site" em Configurações → GitHub.');
-
   const apiUrl=`https://api.github.com/repos/${user}/${repo}/contents/${encodeURIComponent(sitePath)}`;
   const getR=await ghFetch(`${apiUrl}?ref=${encodeURIComponent(branch)}`,{headers:ghHeaders(token)});
   if(!getR.ok){const err=await getR.json().catch(()=>({message:`HTTP ${getR.status}`}));throw Error(`Não foi possível ler ${sitePath}: ${err.message||('HTTP '+getR.status)}`);}
   const meta=await getR.json();
   if(meta.encoding==='none'||!meta.content)throw Error(`${sitePath} é muito grande para editar pelo painel. Use o Editor de Código.`);
-
   let content=b64Decode(meta.content);
   const changes=[];
-
   const newPrimary=opts.primary||siteSettings.colors.primary;
   const newSecondary=opts.secondary||siteSettings.colors.secondary;
   const siteName=opts.siteName||siteSettings.siteName;
   const logoUrl=opts.logoUrl!==undefined?opts.logoUrl:siteSettings.logoUrl;
   const faviconUrl=opts.faviconUrl!==undefined?opts.faviconUrl:siteSettings.faviconUrl;
   const oldName=($('#cfgOldName')?.value||siteSettings.oldName||'').trim();
-
-  /* ===== ESTRATÉGIA 1: ler cor ATUAL do arquivo (via variável CSS) ===== */
-  /* Procura --red, --primary, --main-color, --accent, --brand */
-  const primaryVarPatterns=[
-    /--red\s*:\s*(#[0-9a-fA-F]{3,8})/i,
-    /--primary(?:-color)?\s*:\s*(#[0-9a-fA-F]{3,8})/i,
-    /--main-color\s*:\s*(#[0-9a-fA-F]{3,8})/i,
-    /--accent(?:-1)?\s*:\s*(#[0-9a-fA-F]{3,8})/i,
-    /--brand(?:-color)?\s*:\s*(#[0-9a-fA-F]{3,8})/i
-  ];
-  const secondaryVarPatterns=[
-    /--purple\s*:\s*(#[0-9a-fA-F]{3,8})/i,
-    /--secondary(?:-color)?\s*:\s*(#[0-9a-fA-F]{3,8})/i,
-    /--accent-2\s*:\s*(#[0-9a-fA-F]{3,8})/i,
-    /--brand-2\s*:\s*(#[0-9a-fA-F]{3,8})/i
-  ];
-
-  let currentPrimaryFromFile=null;
-  let currentSecondaryFromFile=null;
+  const primaryVarPatterns=[/--red\s*:\s*(#[0-9a-fA-F]{3,8})/i,/--primary(?:-color)?\s*:\s*(#[0-9a-fA-F]{3,8})/i,/--main-color\s*:\s*(#[0-9a-fA-F]{3,8})/i,/--accent(?:-1)?\s*:\s*(#[0-9a-fA-F]{3,8})/i,/--brand(?:-color)?\s*:\s*(#[0-9a-fA-F]{3,8})/i];
+  const secondaryVarPatterns=[/--purple\s*:\s*(#[0-9a-fA-F]{3,8})/i,/--secondary(?:-color)?\s*:\s*(#[0-9a-fA-F]{3,8})/i,/--accent-2\s*:\s*(#[0-9a-fA-F]{3,8})/i,/--brand-2\s*:\s*(#[0-9a-fA-F]{3,8})/i];
+  let currentPrimaryFromFile=null;let currentSecondaryFromFile=null;
   for(const re of primaryVarPatterns){const m=content.match(re);if(m){currentPrimaryFromFile=m[1];break;}}
   for(const re of secondaryVarPatterns){const m=content.match(re);if(m){currentSecondaryFromFile=m[1];break;}}
-
-  /* ===== ESTRATÉGIA 2: substituir por NOME da variável (fallback robusto) ===== */
   const primaryVarNames=['--red','--primary','--primary-color','--main-color','--accent','--accent-1','--brand','--brand-color'];
   const secondaryVarNames=['--purple','--secondary','--secondary-color','--accent-2','--brand-2'];
-
-  for(const v of primaryVarNames){
-    const re=new RegExp(`(${v.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}\\s*:\\s*)#[0-9a-fA-F]{3,8}`,'gi');
-    const before=content;
-    content=content.replace(re,`$1${newPrimary}`);
-    if(content!==before&&!changes.includes(v))changes.push(v);
-  }
-  for(const v of secondaryVarNames){
-    const re=new RegExp(`(${v.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}\\s*:\\s*)#[0-9a-fA-F]{3,8}`,'gi');
-    const before=content;
-    content=content.replace(re,`$1${newSecondary}`);
-    if(content!==before&&!changes.includes(v))changes.push(v);
-  }
-
-  /* ===== ESTRATÉGIA 3: se ainda tem cor antiga hardcoded, substitui por valor ===== */
-  if(currentPrimaryFromFile&&newPrimary&&currentPrimaryFromFile.toLowerCase()!==newPrimary.toLowerCase()){
-    const re=new RegExp(currentPrimaryFromFile.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');
-    const before=content;
-    content=content.replace(re,newPrimary);
-    if(content!==before)changes.push(`cor primária ${currentPrimaryFromFile}→${newPrimary}`);
-  }
-  if(currentSecondaryFromFile&&newSecondary&&currentSecondaryFromFile.toLowerCase()!==newSecondary.toLowerCase()){
-    const re=new RegExp(currentSecondaryFromFile.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');
-    const before=content;
-    content=content.replace(re,newSecondary);
-    if(content!==before)changes.push(`cor secundária ${currentSecondaryFromFile}→${newSecondary}`);
-  }
-
-  /* ===== Nome ===== */
-  if(siteName){
-    const before=content;
-    content=content.replace(/(<title[^>]*>)([^<]*)(<\/title>)/i,`$1${esc(siteName)}$3`);
-    if(content!==before)changes.push('<title>');
-  }
-  if(oldName&&siteName&&oldName!==siteName){
-    const before=content;
-    const re=new RegExp(oldName.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'g');
-    content=content.replace(re,siteName);
-    if(content!==before)changes.push(`nome "${oldName}"→"${siteName}"`);
-  }else if(siteName){
-    const before=content;
-    content=content.replace(/>KiraFlix</g,`>${siteName}<`);
-    content=content.replace(/>KIRAFLIX</g,`>${siteName.toUpperCase()}<`);
-    if(content!==before)changes.push('nome entre tags');
-  }
-
-  /* ===== Logo e Favicon ===== */
-  if(logoUrl){
-    const before=content;
-    content=content.replace(/(<meta[^>]+property=["']og:image["'][^>]+content=["'])[^"']*(["'])/gi,`$1${logoUrl}$2`);
-    if(content!==before)changes.push('og:image');
-  }
-  if(faviconUrl){
-    const before=content;
-    content=content.replace(/(<link[^>]+rel=["']icon["'][^>]+href=["'])[^"']*(["'])/gi,`$1${faviconUrl}$2`);
-    if(content!==before)changes.push('favicon');
-  }
-
-  if(changes.length===0)throw Error(`Nenhuma alteração detectada em ${sitePath}. O arquivo precisa ter variáveis --red/--purple ou <title>. Use o Editor de Código para editar manualmente.`);
-
+  for(const v of primaryVarNames){const re=new RegExp(`(${v.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}\\s*:\\s*)#[0-9a-fA-F]{3,8}`,'gi');const before=content;content=content.replace(re,`$1${newPrimary}`);if(content!==before&&!changes.includes(v))changes.push(v);}
+  for(const v of secondaryVarNames){const re=new RegExp(`(${v.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}\\s*:\\s*)#[0-9a-fA-F]{3,8}`,'gi');const before=content;content=content.replace(re,`$1${newSecondary}`);if(content!==before&&!changes.includes(v))changes.push(v);}
+  if(currentPrimaryFromFile&&newPrimary&&currentPrimaryFromFile.toLowerCase()!==newPrimary.toLowerCase()){const re=new RegExp(currentPrimaryFromFile.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');const before=content;content=content.replace(re,newPrimary);if(content!==before)changes.push(`cor primária ${currentPrimaryFromFile}→${newPrimary}`);}
+  if(currentSecondaryFromFile&&newSecondary&&currentSecondaryFromFile.toLowerCase()!==newSecondary.toLowerCase()){const re=new RegExp(currentSecondaryFromFile.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');const before=content;content=content.replace(re,newSecondary);if(content!==before)changes.push(`cor secundária ${currentSecondaryFromFile}→${newSecondary}`);}
+  if(siteName){const before=content;content=content.replace(/(<title[^>]*>)([^<]*)(<\/title>)/i,`$1${esc(siteName)}$3`);if(content!==before)changes.push('<title>');}
+  if(oldName&&siteName&&oldName!==siteName){const before=content;const re=new RegExp(oldName.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'g');content=content.replace(re,siteName);if(content!==before)changes.push(`nome "${oldName}"→"${siteName}"`);}
+  else if(siteName){const before=content;content=content.replace(/>KiraFlix</g,`>${siteName}<`);content=content.replace(/>KIRAFLIX</g,`>${siteName.toUpperCase()}<`);if(content!==before)changes.push('nome entre tags');}
+  if(logoUrl){const before=content;content=content.replace(/(<meta[^>]+property=["']og:image["'][^>]+content=["'])[^"']*(["'])/gi,`$1${logoUrl}$2`);if(content!==before)changes.push('og:image');}
+  if(faviconUrl){const before=content;content=content.replace(/(<link[^>]+rel=["']icon["'][^>]+href=["'])[^"']*(["'])/gi,`$1${faviconUrl}$2`);if(content!==before)changes.push('favicon');}
+  if(changes.length===0)throw Error(`Nenhuma alteração detectada em ${sitePath}. O arquivo precisa ter variáveis --red/--purple ou <title>.`);
   const putBody={message:`Update ${sitePath} — ${new Date().toLocaleString('pt-BR')}`,content:b64Encode(content),sha:meta.sha,branch};
   const putR=await ghFetch(apiUrl,{method:'PUT',headers:{...ghHeaders(token),'Content-Type':'application/json'},body:JSON.stringify(putBody)});
   if(!putR.ok){const err=await putR.json().catch(()=>({message:`HTTP ${putR.status}`}));throw Error(`Erro ao salvar ${sitePath}: ${err.message||('HTTP '+putR.status)}`);}
-
-  /* Inicia countdown de deploy */
   startDeployCountdown();
-
   return{changes,sitePath,rawUrl:`https://raw.githubusercontent.com/${user}/${repo}/${branch}/${sitePath}`};
 }
 
 /* ============================================================
-   IA — configuração e chamadas
+   IA
    ============================================================ */
-function loadAIConfig(){
-  try{
-    const c=JSON.parse(localStorage.getItem('kiraflix_ai_cfg')||'null');
-    if(c&&typeof c==='object'){
-      aiConfig={provider:c.provider||'groq',apiKey:c.apiKey||'',model:c.model||''};
-    }
-  }catch(e){}
-}
-function persistAIConfig(){
-  try{localStorage.setItem('kiraflix_ai_cfg',JSON.stringify(aiConfig));}catch(e){}
-}
-function readAIFields(){
-  aiConfig.provider=$('#aiProvider').value||'groq';
-  aiConfig.apiKey=$('#aiApiKey').value.trim();
-  aiConfig.model=$('#aiModel').value.trim();
-}
-function fillAIFields(){
-  $('#aiProvider').value=aiConfig.provider||'groq';
-  $('#aiApiKey').value=aiConfig.apiKey||'';
-  $('#aiModel').value=aiConfig.model||'';
-}
+function loadAIConfig(){try{const c=JSON.parse(localStorage.getItem('kiraflix_ai_cfg')||'null');if(c&&typeof c==='object')aiConfig={provider:c.provider||'groq',apiKey:c.apiKey||'',model:c.model||''};}catch(e){}}
+function persistAIConfig(){try{localStorage.setItem('kiraflix_ai_cfg',JSON.stringify(aiConfig));}catch(e){}}
+function readAIFields(){aiConfig.provider=$('#aiProvider').value||'groq';aiConfig.apiKey=$('#aiApiKey').value.trim();aiConfig.model=$('#aiModel').value.trim();}
+function fillAIFields(){$('#aiProvider').value=aiConfig.provider||'groq';$('#aiApiKey').value=aiConfig.apiKey||'';$('#aiModel').value=aiConfig.model||'';}
 async function callAI(systemPrompt,userPrompt){
   const{provider,apiKey,model}=aiConfig;
   if(!apiKey)throw Error('Configure a chave da API de IA em Configurações → Inteligência Artificial.');
-
   if(provider==='gemini'){
     const m=model||'gemini-1.5-flash';
     const url=`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(m)}:generateContent?key=${encodeURIComponent(apiKey)}`;
-    const r=await fetch(url,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        contents:[{role:'user',parts:[{text:systemPrompt+'\n\n'+userPrompt}]}],
-        generationConfig:{temperature:0.3,maxOutputTokens:8192}
-      })
-    });
-    const j=await r.json();
-    if(!r.ok)throw Error(j.error?.message||`Gemini HTTP ${r.status}`);
+    const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{role:'user',parts:[{text:systemPrompt+'\n\n'+userPrompt}]}],generationConfig:{temperature:0.3,maxOutputTokens:8192}})});
+    const j=await r.json();if(!r.ok)throw Error(j.error?.message||`Gemini HTTP ${r.status}`);
     return j.candidates?.[0]?.content?.parts?.[0]?.text||'';
   }
   const base=provider==='openai'?'https://api.openai.com/v1':'https://api.groq.com/openai/v1';
   const m=model||(provider==='openai'?'gpt-4o-mini':'llama-3.3-70b-versatile');
-  const r=await fetch(base+'/chat/completions',{
-    method:'POST',
-    headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey},
-    body:JSON.stringify({model:m,messages:[{role:'system',content:systemPrompt},{role:'user',content:userPrompt}],temperature:0.3})
-  });
-  const j=await r.json();
-  if(!r.ok)throw Error(j.error?.message||`${provider} HTTP ${r.status}`);
+  const r=await fetch(base+'/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey},body:JSON.stringify({model:m,messages:[{role:'system',content:systemPrompt},{role:'user',content:userPrompt}],temperature:0.3})});
+  const j=await r.json();if(!r.ok)throw Error(j.error?.message||`${provider} HTTP ${r.status}`);
   return j.choices?.[0]?.message?.content||'';
 }
 async function testAI(){
-  readAIFields();
-  persistAIConfig();
+  readAIFields();persistAIConfig();
   if(!aiConfig.apiKey)return status('#aiConfigStatus','Informe a chave da API.','bad');
   status('#aiConfigStatus','Testando IA…','warn');
-  try{
-    const result=await callAI('Você é um assistente. Responda de forma curta.','Responda apenas com "OK" (duas letras).');
-    status('#aiConfigStatus',`✅ IA funcionando! Resposta: "${result.trim().slice(0,60)}"`,'ok');
-    toast('IA OK');
-  }catch(e){
-    status('#aiConfigStatus','❌ '+e.message,'bad');
-    toast('IA falhou','err');
-  }
+  try{const result=await callAI('Você é um assistente. Responda de forma curta.','Responda apenas com "OK".');status('#aiConfigStatus',`✅ IA funcionando! Resposta: "${result.trim().slice(0,60)}"`,'ok');toast('IA OK');}
+  catch(e){status('#aiConfigStatus','❌ '+e.message,'bad');toast('IA falhou','err');}
 }
 async function editCodeWithAI(){
   const prompt=$('#aiPrompt').value.trim();
   if(!prompt)return status('#aiStatus','Digite o que quer mudar no código.','bad');
   const currentCode=$('#editorTextarea').value;
   if(!currentCode)return status('#aiStatus','Carregue um arquivo no editor primeiro.','bad');
-  if(!aiConfig.apiKey)return status('#aiStatus','Configure a chave da API de IA em Configurações → Inteligência Artificial.','bad');
-
-  state.aiUndoBuffer=currentCode;
-  $('#aiUndoBtn').disabled=false;
-
-  status('#aiStatus','🤖 A IA está pensando… (pode levar 10–30s para arquivos grandes)','warn');
-  toast('Enviando para IA…','warn');
-
+  if(!aiConfig.apiKey)return status('#aiStatus','Configure a chave da API de IA em Configurações.','bad');
+  state.aiUndoBuffer=currentCode;$('#aiUndoBtn').disabled=false;
+  status('#aiStatus','🤖 A IA está pensando…','warn');toast('Enviando para IA…','warn');
   try{
-    const systemPrompt=`Você é um expert em editar código HTML/CSS/JS de sites de streaming.
-REGRAS ABSOLUTAS:
-- Retorne APENAS o código completo e atualizado, SEM explicações
-- NÃO envolva em markdown, NÃO use \`\`\`html, NÃO adicione "aqui está o código"
-- Preserve TODA a estrutura existente, só mude o que foi pedido
-- Mantenha indentação e estilo do arquivo original
-- Se o arquivo tem ${currentCode.length} caracteres, seu resultado deve ter tamanho aproximado
-- Se a instrução não puder ser aplicada, retorne o código original sem mudanças
-- NUNCA invente código novo do zero, apenas EDITE o existente`;
-
-    const userPrompt=`CÓDIGO ATUAL (${currentCode.length} caracteres):\n\n${currentCode}\n\n---INSTRUÇÃO DO USUÁRIO---\n${prompt}\n\nRetorne o código completo editado, sem nada mais.`;
-
+    const systemPrompt=`Você é um expert em HTML/CSS/JS.
+REGRAS:
+- Retorne APENAS o código completo, SEM explicações
+- NÃO use \`\`\`html, NÃO adicione texto explicativo
+- Preserve a estrutura existente, só mude o que foi pedido
+- Se não puder aplicar, retorne o código original`;
+    const userPrompt=`CÓDIGO ATUAL:\n\n${currentCode}\n\n---INSTRUÇÃO---\n${prompt}\n\nRetorne o código completo editado.`;
     let result=await callAI(systemPrompt,userPrompt);
     result=result.replace(/^```(?:html|html5|xml)?\s*/i,'').replace(/\s*```\s*$/,'').trim();
-
-    if(!result)throw Error('IA retornou resposta vazia. Tente novamente.');
-    if(result.length<100)throw Error('IA retornou resposta muito curta. Tente novamente.');
-
-    $('#editorTextarea').value=result;
-    updateLineNumbers();
-    status('#aiStatus',`✅ Código editado pela IA (${fmtNum(result.length)} caracteres). Revise e clique em "Salvar no GitHub".`,'ok');
+    if(!result||result.length<100)throw Error('IA retornou resposta inválida. Tente novamente.');
+    $('#editorTextarea').value=result;updateLineNumbers();
+    status('#aiStatus',`✅ Código editado pela IA (${fmtNum(result.length)} caracteres). Revise e salve.`,'ok');
     toast('IA aplicou as mudanças');
-  }catch(e){
-    status('#aiStatus','❌ '+e.message,'bad');
-    toast('Erro na IA','err');
-  }
+  }catch(e){status('#aiStatus','❌ '+e.message,'bad');toast('Erro na IA','err');}
 }
 
 /* ============================================================
@@ -1194,7 +1050,9 @@ function renderCatalog(){
   const shown=filtered.slice(0,catalogLimit);
   let html=shown.length?shown.map(({t,i})=>card(t,i)).join(''):'<div class="empty"><i data-lucide="inbox"></i>Nenhum título encontrado.</div>';
   if(shown.length<filtered.length)html+=`<div class="load-more-wrap"><button class="secondary" id="loadMoreCatalog"><i data-lucide="chevron-down"></i> Carregar mais (${fmtNum(filtered.length-shown.length)})</button></div>`;
-  $('#catalogList').innerHTML=html;refreshIcons();
+  $('#catalogList').innerHTML=html;
+  const cc=$('#catalogCount');if(cc)cc.textContent=fmtNum(state.titles.length);
+  refreshIcons();
 }
 function renderHome(){
   renderStats();
@@ -1284,8 +1142,7 @@ async function createBadge(){
   if(customBadges.some(b=>b.name.toLowerCase()===name.toLowerCase()))return status('#createBadgeStatus','Já existe.','bad');
   const item={id:'cb_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),name,color};
   customBadges.push(item);refreshStatusDropdown();refreshBadgeFilter();renderCustomBadges();renderBadges();
-  $('#newBadgeName').value='';
-  status('#createBadgeStatus',`Selo "${item.name}" criado.`,'ok');
+  $('#newBadgeName').value='';status('#createBadgeStatus',`Selo "${item.name}" criado.`,'ok');
   try{await saveCloud({silent:true});toast('Selo criado');}
   catch(e){status('#createBadgeStatus',`Criado local. Pendente: ${e.message}`,'warn');toast('Pendente','warn');}
 }
@@ -1304,6 +1161,216 @@ function renderAll(){
   safeRender('stats',renderStats);safeRender('catalog',renderCatalog);safeRender('home',renderHome);
   safeRender('badges',renderBadges);safeRender('customBadges',renderCustomBadges);safeRender('maintenance',renderMaintenance);
   refreshIcons();
+}
+
+/* ============================================================
+   BULK DELETE — SISTEMA DE EXCLUSÃO EM MASSA
+   ============================================================ */
+function shuffleArray(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a;
+}
+
+function getBulkDeleteTargets(){
+  const type=$('#bulkType')?.value||'';
+  const order=$('#bulkOrder')?.value||'oldest';
+  const qtyRaw=$('#bulkQty')?.value||'';
+  
+  let filtered=state.titles.map((t,i)=>({t,i})).filter(({t})=>!type||t.kind===type);
+  
+  if(order==='oldest')filtered.sort((a,b)=>(a.t.added||0)-(b.t.added||0));
+  else if(order==='newest')filtered.sort((a,b)=>(b.t.added||0)-(a.t.added||0));
+  else if(order==='az')filtered.sort((a,b)=>String(a.t.title||'').localeCompare(String(b.t.title||''),'pt-BR'));
+  else if(order==='za')filtered.sort((a,b)=>String(b.t.title||'').localeCompare(String(a.t.title||''),'pt-BR'));
+  else if(order==='random')filtered=shuffleArray(filtered);
+  
+  let qty=Number(qtyRaw)||0;
+  if(qtyRaw==='all'||qty<=0)qty=filtered.length;
+  qty=Math.min(qty,filtered.length);
+  
+  return filtered.slice(0,qty);
+}
+
+function updateBulkPreview(){
+  const wrap=$('#bulkPreview');if(!wrap)return;
+  const targets=getBulkDeleteTargets();
+  const total=state.titles.length;
+  const remaining=total-targets.length;
+  
+  if(!targets.length||!state.titles.length){
+    wrap.innerHTML='';
+    return;
+  }
+  
+  const preview=targets.slice(0,8);
+  const moreCount=targets.length-preview.length;
+  
+  let html=`<div class="bulk-summary"><i data-lucide="alert-circle"></i><div><b>${fmtNum(targets.length)} título(s)</b> serão excluídos do catálogo.<br>Sobrarão <b>${fmtNum(remaining)} título(s)</b> de ${fmtNum(total)}.</div></div>`;
+  
+  html+=`<div style="font-size:11px;color:var(--muted);margin-top:10px;margin-bottom:4px;font-weight:600">Prévia (primeiros ${preview.length}):</div>`;
+  html+='<div class="bulk-preview-list">';
+  
+  for(const {t} of preview){
+    const poster=safeUrl(t.poster)||'';
+    html+=`<div class="bulk-preview-item">
+      <img src="${esc(poster)}" onerror="this.style.visibility='hidden'">
+      <div class="bp-info"><b>${esc(t.title||'Sem título')}</b><small>${esc(t.kind==='serie'?'Série':'Filme')} · ${esc(t.year||'—')} · TMDB ${esc(t.tmdbId||'—')}</small></div>
+    </div>`;
+  }
+  if(moreCount>0)html+=`<div class="bulk-preview-more">+ ${fmtNum(moreCount)} outro(s) título(s)…</div>`;
+  
+  html+='</div>';
+  wrap.innerHTML=html;
+  refreshIcons();
+}
+
+function downloadBackupBeforeDelete(){
+  const payload={titles:state.titles,tabs:state.tabs,exportedAt:new Date().toISOString(),reason:'before_bulk_delete'};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  const stamp=new Date().toISOString().replace(/[:.]/g,'-').slice(0,19);
+  a.href=URL.createObjectURL(blob);
+  a.download=`kiraflix-backup-${stamp}.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+async function executeBulkDelete(){
+  const targets=getBulkDeleteTargets();
+  
+  if(!targets.length){
+    status('#bulkStatus','Selecione uma quantidade válida para excluir.','bad');
+    return;
+  }
+  
+  const remaining=state.titles.length-targets.length;
+  const wantBackup=$('#bulkBackup')?.checked;
+  
+  const confirmMsg=
+    `⚠ EXCLUSÃO EM MASSA\n\n`+
+    `Títulos a excluir: ${fmtNum(targets.length)}\n`+
+    `Sobrarão: ${fmtNum(remaining)} de ${fmtNum(state.titles.length)}\n\n`+
+    (wantBackup?`✅ Backup será baixado automaticamente\n\n`:`⚠ SEM backup — não será possível restaurar!\n\n`)+
+    `Deseja continuar?`;
+  
+  if(!confirm(confirmMsg))return;
+  
+  /* Backup automático */
+  if(wantBackup){
+    try{downloadBackupBeforeDelete();}catch(e){console.warn('backup:',e);}
+  }
+  
+  /* Progress */
+  const prog=$('#bulkProgress');
+  prog.classList.add('active');
+  $('#bulkProgressFill').style.width='10%';
+  $('#bulkProgressLabel').textContent='Removendo títulos localmente…';
+  $('#bulkProgressPct').textContent='10%';
+  
+  status('#bulkStatus','Excluindo em massa…','warn');
+  
+  /* Remove da lista local (usa Set para eficiência) */
+  const targetsSet=new Set(targets.map(x=>x.i));
+  const originalTitles=[...state.titles];
+  
+  await new Promise(r=>setTimeout(r,100));
+  
+  state.titles=state.titles.filter((_,i)=>!targetsSet.has(i));
+  
+  $('#bulkProgressFill').style.width='40%';
+  $('#bulkProgressLabel').textContent=`Removidos ${fmtNum(targets.length)}. Sincronizando com Supabase…`;
+  $('#bulkProgressPct').textContent='40%';
+  
+  renderAll();
+  updateBulkPreview();
+  
+  try{
+    $('#bulkProgressFill').style.width='70%';
+    $('#bulkProgressLabel').textContent=`Salvando ${fmtNum(state.titles.length)} títulos no Supabase…`;
+    $('#bulkProgressPct').textContent='70%';
+    
+    await saveCloud({silent:true});
+    
+    $('#bulkProgressFill').style.width='100%';
+    $('#bulkProgressLabel').textContent='✅ Concluído!';
+    $('#bulkProgressPct').textContent='100%';
+    
+    status('#bulkStatus',
+      `✅ Exclusão em massa concluída!\n\n`+
+      `Excluídos: ${fmtNum(targets.length)} título(s)\n`+
+      `Restantes: ${fmtNum(state.titles.length)} título(s)\n\n`+
+      `O site deve carregar mais rápido agora. Recarregue com Ctrl+Shift+R.`,
+      'ok');
+    
+    toast(`${fmtNum(targets.length)} título(s) excluído(s)`);
+    
+    /* Limpa progress depois de 3s */
+    setTimeout(()=>{prog.classList.remove('active');},3000);
+    
+  }catch(e){
+    /* Falha no sync — restaura localmente para não perder dados */
+    state.titles=originalTitles;
+    renderAll();
+    updateBulkPreview();
+    
+    $('#bulkProgressFill').style.width='0%';
+    $('#bulkProgressLabel').textContent='Falha no sync — restaurado';
+    $('#bulkProgressPct').textContent='0%';
+    
+    status('#bulkStatus',
+      `❌ Erro ao sincronizar com Supabase: ${e.message}\n\n`+
+      `Os ${fmtNum(targets.length)} títulos foram restaurados localmente (não foram perdidos).\n\n`+
+      `O catálogo pode estar muito grande para salvar de uma vez. Tente excluir menos por vez (ex.: 500).`,
+      'bad');
+    
+    toast('Erro — dados restaurados','err');
+    setTimeout(()=>{prog.classList.remove('active');},5000);
+  }
+}
+
+async function restoreFromBackupFile(file){
+  if(!file){return;}
+  try{
+    const text=await file.text();
+    const data=JSON.parse(text);
+    const titles=Array.isArray(data)?data:data.titles;
+    const tabs=data.tabs;
+    
+    if(!Array.isArray(titles)){
+      throw Error('Arquivo não contém um array "titles" válido.');
+    }
+    
+    const confirmMsg=
+      `Restaurar backup?\n\n`+
+      `Backup: ${fmtNum(titles.length)} título(s)\n`+
+      `Atual: ${fmtNum(state.titles.length)} título(s)\n\n`+
+      `Modo:\n`+
+      `OK = SUBSTITUIR tudo pelo backup\n`+
+      `Cancelar = cancelar`;
+    
+    if(!confirm(confirmMsg))return;
+    
+    state.titles=titles.filter(t=>t&&typeof t==='object');
+    if(Array.isArray(tabs))state.tabs=tabs.filter(t=>t&&typeof t==='object');
+    readSpecialTabs();refreshTabSelect();
+    renderAll();
+    updateBulkPreview();
+    
+    status('#bulkStatus',`Backup importado: ${fmtNum(state.titles.length)} título(s). Sincronizando…`,'warn');
+    
+    try{
+      await saveCloud({silent:true});
+      status('#bulkStatus',`✅ Backup restaurado e sincronizado: ${fmtNum(state.titles.length)} título(s).`,'ok');
+      toast('Backup restaurado');
+    }catch(e){
+      status('#bulkStatus',`⚠ Backup importado localmente mas falha ao sincronizar: ${e.message}`,'bad');
+      toast('Restaurado local','warn');
+    }
+  }catch(e){
+    status('#bulkStatus','Erro ao importar backup: '+e.message,'bad');
+    toast('Erro no backup','err');
+  }
 }
 
 /* ============================================================
@@ -1627,9 +1694,9 @@ async function applyTheme(theme){
   try{
     const r=await applyToSiteHTML({primary:theme.primary,secondary:theme.secondary});
     try{await saveCloud({silent:true});}catch(e){}
-    status('#themesStatus',`✅ Tema "${theme.name}" aplicado em ${r.sitePath}!\n\nAlterações: ${r.changes.join(', ')}\nO site reflete em ~1–3 min após deploy do GitHub Pages.`,'ok');
+    status('#themesStatus',`✅ Tema "${theme.name}" aplicado em ${r.sitePath}!\n\nAlterações: ${r.changes.join(', ')}\nO site reflete em ~1–3 min.`,'ok');
     toast('Tema aplicado no site');renderThemes();
-  }catch(e){status('#themesStatus',`Tema salvo local. Erro ao aplicar no HTML: ${e.message}`,'bad');toast('Falha ao aplicar no site','err');}
+  }catch(e){status('#themesStatus',`Tema salvo local. Erro: ${e.message}`,'bad');toast('Falha','err');}
 }
 
 /* ============================================================
@@ -1708,24 +1775,17 @@ async function doApplySite(){
 }
 $('#saveSiteSettingsBtn').onclick=async()=>{
   status('#siteSettingsStatus','Salvando e aplicando no site…','warn');
-  try{
-    try{await saveCloud({silent:true});}catch(e){console.warn('sync:',e.message);}
-    const r=await doApplySite();
-    status('#siteSettingsStatus',`✅ Aplicado em ${r.sitePath}!\nAlterações: ${r.changes.join(', ')}\n\nAguarde o deploy (estimativa 3 min) e recarregue o site com Ctrl+Shift+R.`,'ok');
-    toast('Aplicado no site');
-  }catch(e){status('#siteSettingsStatus','Erro: '+e.message,'bad');toast('Erro','err');}
+  try{try{await saveCloud({silent:true});}catch(e){console.warn('sync:',e.message);}const r=await doApplySite();status('#siteSettingsStatus',`✅ Aplicado em ${r.sitePath}!\nAlterações: ${r.changes.join(', ')}`,'ok');toast('Aplicado');}
+  catch(e){status('#siteSettingsStatus','Erro: '+e.message,'bad');toast('Erro','err');}
 };
 $('#applyToSiteOnlyBtn').onclick=async()=>{
   status('#siteSettingsStatus','Aplicando no site…','warn');
-  try{
-    const r=await doApplySite();
-    status('#siteSettingsStatus',`✅ Aplicado em ${r.sitePath}!\nAlterações: ${r.changes.join(', ')}`,'ok');
-    toast('Aplicado');
-  }catch(e){status('#siteSettingsStatus','Erro: '+e.message,'bad');toast('Erro','err');}
+  try{const r=await doApplySite();status('#siteSettingsStatus',`✅ Aplicado em ${r.sitePath}!\nAlterações: ${r.changes.join(', ')}`,'ok');toast('Aplicado');}
+  catch(e){status('#siteSettingsStatus','Erro: '+e.message,'bad');toast('Erro','err');}
 };
 $('#saveProfilesBtn').onclick=async()=>{
   readProfileFields();status('#profilesStatus','Salvando…','warn');
-  try{await saveCloud({silent:true});status('#profilesStatus','✅ Salvo no Supabase.','ok');toast('Salvo');}
+  try{await saveCloud({silent:true});status('#profilesStatus','✅ Salvo.','ok');toast('Salvo');}
   catch(e){status('#profilesStatus','Erro: '+e.message,'bad');toast('Erro','err');}
 };
 
@@ -1745,14 +1805,8 @@ async function testGitHub(){
     let msg=`✅ Conectado como @${u.login}`;
     status('#ghStatus',`Verificando ${cfg.user}/${cfg.repo}…`,'warn');
     const rr=await ghFetch(`https://api.github.com/repos/${cfg.user}/${cfg.repo}`,{headers:ghHeaders(cfg.token)});
-    if(rr.ok){
-      const rj=await rr.json();
-      msg+=`\n\n✅ Repo: ${rj.full_name}\n🔒 ${rj.private?'Privado':'Público'}\n✍️ Escrita: ${rj.permissions?.push?'SIM ✅':'NÃO ❌'}`;
-      if(cfg.sitePath){
-        const fr=await ghFetch(`https://api.github.com/repos/${cfg.user}/${cfg.repo}/contents/${encodeURIComponent(cfg.sitePath)}?ref=${encodeURIComponent(cfg.branch)}`,{headers:ghHeaders(cfg.token)});
-        if(fr.ok){const fj=await fr.json();msg+=`\n\n📄 ${cfg.sitePath} encontrado (${Math.round((fj.size||0)/1024)}KB)`;}
-        else msg+=`\n\n⚠ ${cfg.sitePath} NÃO encontrado.`;
-      }
+    if(rr.ok){const rj=await rr.json();msg+=`\n\n✅ Repo: ${rj.full_name}\n🔒 ${rj.private?'Privado':'Público'}\n✍️ Escrita: ${rj.permissions?.push?'SIM ✅':'NÃO ❌'}`;
+      if(cfg.sitePath){const fr=await ghFetch(`https://api.github.com/repos/${cfg.user}/${cfg.repo}/contents/${encodeURIComponent(cfg.sitePath)}?ref=${encodeURIComponent(cfg.branch)}`,{headers:ghHeaders(cfg.token)});if(fr.ok){const fj=await fr.json();msg+=`\n\n📄 ${cfg.sitePath} encontrado (${Math.round((fj.size||0)/1024)}KB)`;}else msg+=`\n\n⚠ ${cfg.sitePath} NÃO encontrado.`;}
     }else{const err=await rr.json().catch(()=>({message:`HTTP ${rr.status}`}));msg+=`\n\n⚠ Repo inacessível: ${err.message}`;}
     status('#ghStatus',msg,'ok');toast('GitHub OK');
   }catch(e){status('#ghStatus','❌ '+e.message,'bad');toast('Falha','err');}
@@ -1805,7 +1859,7 @@ async function pullFromGitHub(){
 }
 
 /* ============================================================
-   CODE EDITOR + COPY + AI
+   CODE EDITOR
    ============================================================ */
 async function listRepoFiles(){
   checkConfig();
@@ -1822,7 +1876,7 @@ async function listRepoFiles(){
     const files=Array.isArray(items)?items.filter(f=>f.type==='file'):[];
     if(!files.length){sel.innerHTML='<option value="">Nenhum arquivo na raiz</option>';status('#editorStatus','Nenhum arquivo encontrado.','warn');return;}
     sel.innerHTML='<option value="">— Escolha um arquivo —</option>'+files.map(f=>`<option value="${esc(f.path)}">${esc(f.name)} · ${Math.round((f.size||0)/1024)}KB</option>`).join('');
-    status('#editorStatus',`✅ ${files.length} arquivo(s). Escolha um e clique em Carregar.`,'ok');
+    status('#editorStatus',`✅ ${files.length} arquivo(s).`,'ok');
   }catch(e){sel.innerHTML='<option value="">Erro</option>';status('#editorStatus','Erro: '+e.message,'bad');}
 }
 async function loadFileToEditor(){
@@ -1845,7 +1899,7 @@ async function loadFileToEditor(){
     updateLineNumbers();
     const kb=(j.size/1024).toFixed(1);const lines=content.split('\n').length;
     $('#editorInfo').innerHTML=`<span><i data-lucide="file-code" style="width:12px;height:12px;vertical-align:-2px"></i> <b>${esc(path)}</b></span><span><i data-lucide="database" style="width:12px;height:12px;vertical-align:-2px"></i> ${kb} KB</span><span><i data-lucide="list" style="width:12px;height:12px;vertical-align:-2px"></i> ${lines} linha(s)</span><span><i data-lucide="git-commit" style="width:12px;height:12px;vertical-align:-2px"></i> sha: <code style="font-family:ui-monospace;font-size:10px">${state.editorSha.slice(0,7)}</code></span><span><i data-lucide="git-branch" style="width:12px;height:12px;vertical-align:-2px"></i> ${esc(branch)}</span>`;
-    status('#editorStatus',`✅ Carregado. Edite e clique em "Salvar no GitHub".`,'ok');
+    status('#editorStatus',`✅ Carregado.`,'ok');
     refreshIcons();
   }catch(e){status('#editorStatus','Erro: '+e.message,'bad');}
 }
@@ -1865,10 +1919,9 @@ async function copyEditorContent(){
     if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(ta.value);}
     else{ta.focus();ta.select();document.execCommand('copy');ta.setSelectionRange(0,0);}
     toast(`✅ Copiado! (${fmtNum(ta.value.length)} caracteres)`);
-    status('#editorStatus',`✅ Código copiado para a área de transferência (${fmtNum(ta.value.length)} caracteres).`,'ok');
+    status('#editorStatus',`✅ Copiado (${fmtNum(ta.value.length)} caracteres).`,'ok');
   }catch(e){toast('Não foi possível copiar','err');}
 }
-
 async function saveEditorToGitHub(){
   checkConfig();
   const{user,repo,branch,token}=getNormalizedGHConfig();
@@ -1889,56 +1942,59 @@ async function saveEditorToGitHub(){
     if(!putR.ok){const err=await putR.json().catch(()=>({message:`HTTP ${putR.status}`}));throw new Error(err.message||`HTTP ${putR.status}`);}
     const j=await putR.json();
     state.editorSha=j.content.sha;
-    status('#editorStatus',`✅ Salvo em ${path}!\n\nO GitHub Pages reflete em ~1–3 min.\nURL raw: https://raw.githubusercontent.com/${user}/${repo}/${branch}/${path}`,'ok');
+    status('#editorStatus',`✅ Salvo em ${path}!\n\nO GitHub Pages reflete em ~1–3 min.`,'ok');
     toast('Salvo no GitHub');
-    /* Inicia countdown de deploy */
-    startDeployCountdown('editor');
+    startDeployCountdown();
     const kb=(content.length/1024).toFixed(1);const lines=content.split('\n').length;
     $('#editorInfo').innerHTML=`<span><i data-lucide="file-code" style="width:12px;height:12px;vertical-align:-2px"></i> <b>${esc(path)}</b></span><span><i data-lucide="database" style="width:12px;height:12px;vertical-align:-2px"></i> ${kb} KB</span><span><i data-lucide="list" style="width:12px;height:12px;vertical-align:-2px"></i> ${lines} linha(s)</span><span><i data-lucide="git-commit" style="width:12px;height:12px;vertical-align:-2px"></i> sha: <code style="font-family:ui-monospace;font-size:10px">${state.editorSha.slice(0,7)}</code></span><span><i data-lucide="check-circle-2" style="width:12px;height:12px;vertical-align:-2px;color:#86efac"></i> Salvo</span>`;
     refreshIcons();
-  }catch(e){status('#editorStatus','Erro ao salvar: '+e.message,'bad');toast('Erro ao salvar','err');}
+  }catch(e){status('#editorStatus','Erro ao salvar: '+e.message,'bad');toast('Erro','err');}
 }
 $('#editorListBtn').onclick=listRepoFiles;
 $('#editorLoadBtn').onclick=loadFileToEditor;
 $('#editorCopyBtn').onclick=copyEditorContent;
 $('#editorSaveBtn').onclick=saveEditorToGitHub;
 $('#editorFilePath').onchange=()=>{$('#editorStatus').textContent='Arquivo selecionado. Clique em Carregar.';$('#editorStatus').className='status';};
-
 $('#aiEditBtn').onclick=editCodeWithAI;
-$('#aiUndoBtn').onclick=()=>{
-  if(!state.aiUndoBuffer)return;
-  $('#editorTextarea').value=state.aiUndoBuffer;
-  updateLineNumbers();
-  state.aiUndoBuffer=null;
-  $('#aiUndoBtn').disabled=true;
-  status('#aiStatus','↩ Alteração da IA desfeita.','ok');
-  toast('Desfeito');
-};
+$('#aiUndoBtn').onclick=()=>{if(!state.aiUndoBuffer)return;$('#editorTextarea').value=state.aiUndoBuffer;updateLineNumbers();state.aiUndoBuffer=null;$('#aiUndoBtn').disabled=true;status('#aiStatus','↩ Desfeito.','ok');toast('Desfeito');};
 $('#aiClearBtn').onclick=()=>{$('#aiPrompt').value='';status('#aiStatus','Prompt limpo.','');};
-
-$('#saveAiConfigBtn').onclick=()=>{
-  readAIFields();persistAIConfig();
-  status('#aiConfigStatus',`✅ Configuração de IA salva (${aiConfig.provider}).`,'ok');
-  toast('IA salva');
-};
+$('#saveAiConfigBtn').onclick=()=>{readAIFields();persistAIConfig();status('#aiConfigStatus',`✅ Salvo (${aiConfig.provider}).`,'ok');toast('IA salva');};
 $('#testAiBtn').onclick=testAI;
-$('#clearAiBtn').onclick=()=>{
-  aiConfig={provider:'groq',apiKey:'',model:''};
-  persistAIConfig();fillAIFields();
-  status('#aiConfigStatus','Chave da IA removida.','ok');
-  toast('IA limpa');
-};
-
+$('#clearAiBtn').onclick=()=>{aiConfig={provider:'groq',apiKey:'',model:''};persistAIConfig();fillAIFields();status('#aiConfigStatus','Chave removida.','ok');toast('IA limpa');};
 $('#ghTestBtn').onclick=testGitHub;
 $('#ghPushBtn').onclick=async()=>{try{await pushToGitHub();}catch(e){}};
 $('#ghPullBtn').onclick=pullFromGitHub;
-$('#ghClearBtn').onclick=()=>{
-  $('#ghUser').value='';$('#ghRepo').value='';$('#ghBranch').value='main';
-  $('#ghPath').value='kira-settings.json';$('#ghSitePath').value='KIRAFLIX.html';$('#ghToken').value='';
-  githubConfig={user:'',repo:'',branch:'main',path:'kira-settings.json',sitePath:'KIRAFLIX.html',token:''};
-  try{localStorage.removeItem('kiraflix_github_cfg')}catch(e){}
-  status('#ghStatus','Credenciais do GitHub removidas.');toast('GitHub limpo');
+$('#ghClearBtn').onclick=()=>{$('#ghUser').value='';$('#ghRepo').value='';$('#ghBranch').value='main';$('#ghPath').value='kira-settings.json';$('#ghSitePath').value='KIRAFLIX.html';$('#ghToken').value='';githubConfig={user:'',repo:'',branch:'main',path:'kira-settings.json',sitePath:'KIRAFLIX.html',token:''};try{localStorage.removeItem('kiraflix_github_cfg')}catch(e){}status('#ghStatus','GitHub limpo.');toast('GitHub limpo');};
+
+/* ============================================================
+   EVENTOS BULK DELETE
+   ============================================================ */
+$('#bulkQty').addEventListener('input',debounce(updateBulkPreview,250));
+$('#bulkType').addEventListener('change',updateBulkPreview);
+$('#bulkOrder').addEventListener('change',updateBulkPreview);
+$$('[data-bulk-qty]').forEach(b=>{
+  b.onclick=()=>{
+    const v=b.dataset.bulkQty;
+    if(v==='all'){
+      $('#bulkQty').value=state.titles.length;
+    }else{
+      $('#bulkQty').value=v;
+    }
+    updateBulkPreview();
+    toast(`Quantidade definida: ${v==='all'?fmtNum(state.titles.length):v}`,'ok');
+  };
+});
+$('#bulkDeleteBtn').onclick=executeBulkDelete;
+$('#bulkBackupBtn').onclick=()=>{
+  if(!state.titles.length)return toast('Nada para backup','warn');
+  downloadBackupBeforeDelete();
+  toast(`Backup baixado (${fmtNum(state.titles.length)} títulos)`);
 };
+$('#bulkRestoreBtn').onclick=()=>{$('#bulkRestoreInput').click();};
+$('#bulkRestoreInput').addEventListener('change',async e=>{
+  const file=e.target.files?.[0];
+  if(file){await restoreFromBackupFile(file);e.target.value='';}
+});
 
 /* ============================================================
    DELEGAÇÃO
@@ -1966,7 +2022,7 @@ $('#tmdbResults').addEventListener('click',async e=>{const btn=e.target.closest(
 $('#themesGrid').addEventListener('click',async e=>{const card=e.target.closest('[data-theme-id]');if(!card)return;const theme=PRESET_THEMES.find(t=>t.id===card.dataset.themeId);if(!theme)return;await applyTheme(theme);});
 
 /* ============================================================
-   EVENTOS
+   EVENTOS GERAIS
    ============================================================ */
 $('#catalogSearch').addEventListener('input',debounce(()=>{catalogLimit=60;renderCatalog();},180));
 $('#catalogFilter').addEventListener('change',()=>{catalogLimit=60;renderCatalog();});
@@ -1988,8 +2044,7 @@ $('#saveConfigBtn').onclick=()=>{checkConfig();status('#sbStatus','✅ Salvo.','
 $('#clearTmdbBtn').onclick=()=>{$('#tmdbToken').value='';$('#tmdbKey').value='';tmdbToken='';tmdbKey='';persistAllCredentials();status('#sbStatus','TMDB limpo.');toast('TMDB limpo');};
 $('#forgetConfigBtn').onclick=()=>{
   try{localStorage.removeItem('kiraflix_admin_config');localStorage.removeItem('kiraflix_admin_pw');localStorage.removeItem('kiraflix_github_cfg');localStorage.removeItem('kiraflix_ai_cfg');}catch(e){}
-  $('#sbKey').value='';$('#adminPassword').value='';$('#tmdbToken').value='';$('#tmdbKey').value='';
-  $('#aiApiKey').value='';
+  $('#sbKey').value='';$('#adminPassword').value='';$('#tmdbToken').value='';$('#tmdbKey').value='';$('#aiApiKey').value='';
   sbKey='';adminPassword='';tmdbToken='';tmdbKey='';aiConfig={provider:'groq',apiKey:'',model:''};
   state.adminOk=false;state.connected=false;
   $('#connectionPill').innerHTML='<i data-lucide="wifi-off"></i> Não conectado';$('#connectionPill').className='pill';
@@ -2004,38 +2059,19 @@ window.addEventListener('beforeunload',e=>{if(state.hasUnsavedChanges){e.prevent
 (function initCredentials(){
   try{
     const c=JSON.parse(localStorage.getItem('kiraflix_admin_config')||'null');
-    if(c){
-      $('#sbUrl').value=c.sbUrl||'https://ahtuhrzizlwcvrgbzivx.supabase.co';
-      $('#sbKey').value=c.sbKey||'';$('#adminPassword').value=c.adminPassword||'';
-      $('#tmdbToken').value=c.tmdbToken||'';$('#tmdbKey').value=c.tmdbKey||'';
-      sbUrl=c.sbUrl||'';sbKey=c.sbKey||'';adminPassword=c.adminPassword||'';
-      tmdbToken=c.tmdbToken||'';tmdbKey=c.tmdbKey||'';
-    }
+    if(c){$('#sbUrl').value=c.sbUrl||'https://ahtuhrzizlwcvrgbzivx.supabase.co';$('#sbKey').value=c.sbKey||'';$('#adminPassword').value=c.adminPassword||'';$('#tmdbToken').value=c.tmdbToken||'';$('#tmdbKey').value=c.tmdbKey||'';sbUrl=c.sbUrl||'';sbKey=c.sbKey||'';adminPassword=c.adminPassword||'';tmdbToken=c.tmdbToken||'';tmdbKey=c.tmdbKey||'';}
     if(!adminPassword){const savedPw=localStorage.getItem('kiraflix_admin_pw');if(savedPw){try{const pw=atob(savedPw);$('#adminPassword').value=pw;adminPassword=pw;}catch(_){}}}
   }catch(e){}
   try{
     const gh=JSON.parse(localStorage.getItem('kiraflix_github_cfg')||'null');
-    if(gh){
-      const normalized=parseGitHubRepo(gh.repo||'');
-      githubConfig={user:gh.user||(normalized?normalized.owner:''),repo:normalized?normalized.repo:(gh.repo||''),branch:gh.branch||'main',path:gh.path||'kira-settings.json',sitePath:gh.sitePath||'KIRAFLIX.html',token:gh.token||''};
-      $('#ghUser').value=githubConfig.user||'';$('#ghRepo').value=githubConfig.repo||'';
-      $('#ghBranch').value=githubConfig.branch||'main';$('#ghPath').value=githubConfig.path||'kira-settings.json';
-      $('#ghSitePath').value=githubConfig.sitePath||'KIRAFLIX.html';$('#ghToken').value=githubConfig.token||'';
-    }
+    if(gh){const normalized=parseGitHubRepo(gh.repo||'');githubConfig={user:gh.user||(normalized?normalized.owner:''),repo:normalized?normalized.repo:(gh.repo||''),branch:gh.branch||'main',path:gh.path||'kira-settings.json',sitePath:gh.sitePath||'KIRAFLIX.html',token:gh.token||''};$('#ghUser').value=githubConfig.user||'';$('#ghRepo').value=githubConfig.repo||'';$('#ghBranch').value=githubConfig.branch||'main';$('#ghPath').value=githubConfig.path||'kira-settings.json';$('#ghSitePath').value=githubConfig.sitePath||'KIRAFLIX.html';$('#ghToken').value=githubConfig.token||'';}
   }catch(e){}
   loadAIConfig();
 })();
-
 ['sbUrl','sbKey','adminPassword','tmdbToken','tmdbKey'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('change',persistAllCredentials);});
 ['ghUser','ghRepo','ghBranch','ghPath','ghSitePath','ghToken'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('change',persistAllCredentials);});
 ['aiProvider','aiApiKey','aiModel'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('change',()=>{readAIFields();persistAIConfig();});});
-
-refreshStatusDropdown();
-refreshBadgeFilter();
-loadAllSettingsFields();
-safeRender('initialHome',renderHome);
-goto('home');
-refreshIcons();
+refreshStatusDropdown();refreshBadgeFilter();loadAllSettingsFields();safeRender('initialHome',renderHome);goto('home');refreshIcons();
 
 setTimeout(async()=>{
   const url=$('#sbUrl').value.trim();const key=$('#sbKey').value.trim();const pw=$('#adminPassword').value;
