@@ -3,178 +3,1659 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>KiraFlix Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
 <style>
-:root{color-scheme:dark;--bg:#090910;--panel:#14141f;--panel2:#1b1b29;--line:#2a2a3b;--text:#f4f4f8;--muted:#9b9bb0;--red:#e50914;--purple:#8b5cf6;--green:#22c55e}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top left,#260b18 0,transparent 42%),var(--bg);color:var(--text);font:14px Inter,system-ui,Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:10px;padding:10px 14px;background:var(--red);color:white;font-weight:700}button.secondary{background:var(--panel2);border:1px solid var(--line)}button.danger{background:#43151c;color:#ff9aa2}button:disabled{opacity:.5;cursor:not-allowed}input,select,textarea{width:100%;background:#0d0d16;color:var(--text);border:1px solid var(--line);border-radius:9px;padding:11px;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--purple)}label{display:block;color:#c4c4d3;font-size:12px;font-weight:700;margin:0 0 6px}.app{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:100vh}.side{background:rgba(15,15,23,.96);border-right:1px solid var(--line);padding:22px 14px;display:flex;flex-direction:column;gap:20px}.logo{font-size:20px;font-weight:950;letter-spacing:2px;color:#ff2634;padding:5px 10px}.logo small{display:block;font-size:10px;letter-spacing:3px;color:var(--muted);margin-top:4px}.nav{display:grid;gap:7px}.nav button{background:transparent;color:#b7b7c9;text-align:left;display:flex;gap:11px;align-items:center}.nav button.active,.nav button:hover{background:#29202b;color:white}.side-note{margin-top:auto;color:var(--muted);font-size:11px;line-height:1.6;padding:10px}.main{min-width:0}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:20px 26px;border-bottom:1px solid var(--line);background:#0c0c14dd;position:sticky;top:0;z-index:3;backdrop-filter:blur(14px)}h1{font-size:22px;margin:0}h2{font-size:16px;margin:0 0 14px}p{color:var(--muted);line-height:1.5}.content{padding:24px;max-width:1500px;margin:auto}.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px}.stat,.panel{background:linear-gradient(145deg,#171722,#11111a);border:1px solid var(--line);border-radius:15px;padding:17px;min-width:0}.stat span{color:var(--muted);font-size:12px}.stat b{display:block;font-size:28px;margin-top:8px}.layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(280px,.9fr);gap:16px}.field{margin-bottom:13px}.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}.actions{display:flex;gap:8px;flex-wrap:wrap}.status{padding:11px 13px;border-radius:10px;background:#191925;color:#bfc0d4;margin:12px 0;white-space:pre-wrap;overflow-wrap:anywhere}.status.ok{color:#86efac}.status.bad{color:#fda4af}.results,.catalog{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:14px}.item{background:#11111a;border:1px solid var(--line);border-radius:12px;overflow:hidden;min-width:0}.item img{width:100%;aspect-ratio:2/3;object-fit:cover;background:#222}.itembody{padding:10px}.item b{display:block;font-size:13px;line-height:1.35;overflow-wrap:anywhere}.item small{display:block;color:var(--muted);margin:6px 0 10px}.item .actions button{flex:1;padding:8px 6px;font-size:11px}.tablewrap{overflow:auto}.listrow{display:grid;grid-template-columns:48px minmax(120px,1fr) 80px 150px;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}.listrow img{width:48px;height:68px;object-fit:cover;border-radius:6px;background:#222}.listrow small{color:var(--muted)}.hidden{display:none!important}.hint{font-size:12px;color:var(--muted)}.pill{font-size:11px;background:#2a2036;border-radius:99px;padding:4px 8px;color:#d8c7ff}.badge-preview{padding:12px;border:1px solid var(--line);border-radius:12px;background:#101018;display:flex;align-items:center;gap:10px}.badge-chip{display:inline-flex;border-radius:6px;padding:5px 8px;font-size:10px;font-weight:900;letter-spacing:.5px}.statusline{font-size:12px;color:var(--muted);margin-top:8px}.toggle-on{background:#14532d!important;color:#bbf7d0!important}.toggle-off{background:#49151d!important;color:#fecdd3!important}.empty{color:var(--muted);padding:24px;text-align:center}.checkline{display:flex;align-items:center;gap:8px}.checkline input{width:auto}.topright{display:flex;gap:8px;align-items:center}.mobilemenu{display:none}
-@media(max-width:900px){.app{grid-template-columns:1fr}.side{display:none}.side.open{display:flex;position:fixed;inset:0 auto 0 0;width:260px;z-index:9;box-shadow:0 0 0 100vmax #0009}.mobilemenu{display:inline-flex}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.layout{grid-template-columns:1fr}.content{padding:15px}.top{padding:15px}.listrow{grid-template-columns:42px minmax(100px,1fr) 65px}.listrow .rowactions{grid-column:2/-1}.topright .hide-mobile{display:none}}
-@media(max-width:430px){.cards{gap:8px}.stat{padding:12px}.stat b{font-size:23px}.two{grid-template-columns:1fr}.results,.catalog{grid-template-columns:repeat(2,minmax(0,1fr))}h1{font-size:18px}}
+:root{
+  color-scheme:dark;
+  --bg:#07070d;--bg2:#0b0b14;
+  --panel:rgba(20,20,32,.72);--panel-solid:#141420;--panel2:#1a1a28;
+  --line:rgba(255,255,255,.075);--line-strong:rgba(255,255,255,.12);
+  --text:#f2f2f7;--muted:#8e8ea8;
+  --red:#e50914;--red-soft:#ff2d3a;
+  --purple:#8b5cf6;--purple-soft:#a78bfa;
+  --green:#22c55e;--amber:#f5c518;
+  --radius:16px;--radius-sm:10px;
+  --shadow:0 18px 50px -20px rgba(0,0,0,.7);
+  --transition:.25s cubic-bezier(.4,0,.2,1);
+}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+*,*::before,*::after{-webkit-tap-highlight-color:transparent}
+button,a,select,input,textarea,[role="button"]{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:
+    radial-gradient(900px 600px at 8% -8%, rgba(229,9,20,.22), transparent 60%),
+    radial-gradient(800px 700px at 100% 0%, rgba(139,92,246,.18), transparent 55%),
+    radial-gradient(600px 500px at 50% 120%, rgba(139,92,246,.08), transparent 60%),
+    var(--bg);
+  color:var(--text);
+  font:14px/1.55 Inter,system-ui,Arial,sans-serif;
+  min-height:100vh;overflow-x:hidden;
+}
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:99px;border:2px solid transparent;background-clip:content-box}
+::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.24);background-clip:content-box}
+
+button,input,select,textarea{font:inherit}
+button{
+  cursor:pointer;border:0;border-radius:var(--radius-sm);padding:10px 15px;
+  background:linear-gradient(135deg,var(--red),#ff3b30);color:#fff;font-weight:700;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  transition:transform var(--transition),box-shadow var(--transition),filter var(--transition);
+  box-shadow:0 8px 20px -8px rgba(229,9,20,.6);white-space:nowrap;
+  outline:none;
+}
+button:hover{transform:translateY(-1px);filter:brightness(1.08)}
+button:active{transform:translateY(0) scale(.985)}
+button:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
+button:focus:not(:focus-visible){outline:none}
+button.secondary{background:rgba(255,255,255,.06);border:1px solid var(--line-strong);color:#d4d4e4;box-shadow:none}
+button.secondary:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2)}
+button.danger{background:rgba(229,9,20,.14);color:#ff8b94;border:1px solid rgba(229,9,20,.28);box-shadow:none}
+button.danger:hover{background:rgba(229,9,20,.22)}
+button.ghost{background:transparent;border:1px solid transparent;color:var(--muted);box-shadow:none}
+button.ghost:hover{color:#fff;background:rgba(255,255,255,.06)}
+button:disabled{opacity:.45;cursor:not-allowed;transform:none!important;filter:none!important}
+button i{flex-shrink:0}
+
+input,select,textarea{
+  width:100%;background:rgba(8,8,15,.7);color:var(--text);
+  border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:11px 13px;outline:none;
+  transition:border-color var(--transition),box-shadow var(--transition),background var(--transition);
+}
+input:hover,select:hover,textarea:hover{border-color:rgba(255,255,255,.16)}
+input:focus,select:focus,textarea:focus{border-color:var(--purple);box-shadow:0 0 0 4px rgba(139,92,246,.15);background:rgba(8,8,15,.9)}
+input::placeholder,textarea::placeholder{color:#5b5b74}
+select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%238e8ea8' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;padding-right:34px}
+label{display:flex;align-items:center;gap:6px;color:#b9b9cc;font-size:11.5px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;margin:0 0 7px}
+label i{width:13px;height:13px;color:var(--muted)}
+
+.app{display:grid;grid-template-columns:252px minmax(0,1fr);min-height:100vh}
+
+/* ---------- SIDEBAR ---------- */
+.side{background:rgba(10,10,18,.85);border-right:1px solid var(--line);padding:24px 14px;display:flex;flex-direction:column;gap:22px;position:sticky;top:0;height:100vh;overflow-y:auto;backdrop-filter:blur(20px);z-index:20}
+.logo{display:flex;flex-direction:column;gap:3px;padding:4px 12px 0;user-select:none}
+.logo .mark{display:flex;align-items:center;gap:9px;font-size:21px;font-weight:900;letter-spacing:1.5px;color:#ff2b38;text-shadow:0 0 22px rgba(229,9,20,.5)}
+.logo .mark i{width:26px;height:26px;filter:drop-shadow(0 0 10px rgba(229,9,20,.6))}
+.logo small{font-size:9px;letter-spacing:3.4px;color:var(--muted);font-weight:700;padding-left:1px}
+.nav{display:grid;gap:5px}
+.nav button{background:transparent;color:#a3a3bd;text-align:left;display:flex;gap:11px;align-items:center;padding:10px 12px;border-radius:11px;font-weight:600;font-size:13px;box-shadow:none;transition:background var(--transition),color var(--transition),transform var(--transition);position:relative}
+.nav button i{width:17px;height:17px;opacity:.85;transition:opacity var(--transition),transform var(--transition)}
+.nav button:hover{background:rgba(255,255,255,.055);color:#fff}
+.nav button:hover i{opacity:1;transform:scale(1.06)}
+.nav button.active{background:linear-gradient(90deg,rgba(229,9,20,.16),rgba(139,92,246,.09));color:#fff;box-shadow:inset 0 0 0 1px rgba(229,9,20,.18)}
+.nav button.active i{color:#ff5a64;opacity:1}
+.nav button.active::before{content:"";position:absolute;left:0;top:9px;bottom:9px;width:3px;border-radius:0 4px 4px 0;background:linear-gradient(var(--red),var(--purple))}
+.side-note{margin-top:auto;color:#67677f;font-size:10.5px;line-height:1.7;padding:12px;border:1px dashed var(--line);border-radius:12px;background:rgba(255,255,255,.02)}
+.side-note b{color:#9d9db8;display:block;margin-bottom:3px}
+
+/* ---------- MAIN ---------- */
+.main{min-width:0}
+.top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:18px 28px;border-bottom:1px solid var(--line);background:rgba(8,8,14,.6);position:sticky;top:0;z-index:15;backdrop-filter:blur(22px) saturate(140%)}
+.top h1{font-size:19px;font-weight:800;letter-spacing:-.2px;display:flex;align-items:center;gap:9px}
+.top h1 i{width:19px;height:19px;color:var(--red-soft)}
+.hint{font-size:11.5px;color:var(--muted);margin-top:1px}
+.topright{display:flex;gap:9px;align-items:center}
+.pill{font-size:11px;font-weight:700;background:rgba(139,92,246,.13);border:1px solid rgba(139,92,246,.25);border-radius:99px;padding:5px 11px;color:#cbb9ff;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.pill i{width:11px;height:11px}
+.pill.connected{background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.28);color:#86efac}
+.pill.error{background:rgba(229,9,20,.12);border-color:rgba(229,9,20,.28);color:#fda4af}
+.content{padding:26px 28px 60px;max-width:1560px;margin:auto;animation:fadeUp .4s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ---------- CARDS / PANELS ---------- */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:18px}
+.stat,.panel{background:linear-gradient(155deg,rgba(24,24,38,.75),rgba(14,14,23,.88));border:1px solid var(--line);border-radius:var(--radius);padding:18px;min-width:0;position:relative;overflow:hidden;box-shadow:var(--shadow);transition:border-color var(--transition),transform var(--transition)}
+.stat::after,.panel::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(420px 160px at 0% 0%,rgba(229,9,20,.08),transparent 60%);opacity:.8}
+.stat:hover,.panel:hover{border-color:var(--line-strong)}
+.stat{display:flex;flex-direction:column;gap:6px;transition:transform .3s ease,border-color .3s ease}
+.stat:hover{transform:translateY(-3px)}
+.stat .stat-ico{width:34px;height:34px;border-radius:10px;background:rgba(229,9,20,.1);border:1px solid rgba(229,9,20,.16);display:grid;place-items:center;margin-bottom:6px}
+.stat .stat-ico i{width:16px;height:16px;color:#ff6b72}
+.stat span{color:var(--muted);font-size:11.5px;font-weight:600;letter-spacing:.2px}
+.stat b{display:block;font-size:27px;font-weight:800;letter-spacing:-.5px;line-height:1.15}
+.stat small{font-size:10.5px;color:#66667e}
+.layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(280px,.9fr);gap:16px}
+.panel h2{font-size:14.5px;font-weight:800;margin:0 0 12px;display:flex;align-items:center;gap:8px;letter-spacing:-.1px}
+.panel h2 i{width:16px;height:16px;color:var(--purple-soft)}
+.panel p{color:var(--muted);font-size:12.5px;line-height:1.65;margin:0 0 10px}
+.panel code{background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.18);padding:1px 5px;border-radius:5px;font-size:11px;color:#c4b5fd;font-family:ui-monospace,monospace}
+.field{margin-bottom:13px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+
+/* ---------- STATUS ---------- */
+.status{padding:11px 13px;border-radius:10px;background:rgba(255,255,255,.035);border:1px solid var(--line);color:#a9a9c2;margin:12px 0;white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:1.55;display:flex;gap:9px;align-items:flex-start;animation:fadeUp .3s ease both}
+.status::before{content:"";width:7px;height:7px;border-radius:50%;background:#6b6b85;margin-top:5px;flex-shrink:0}
+.status.ok{color:#9af0b5;border-color:rgba(34,197,94,.22);background:rgba(34,197,94,.06)}
+.status.ok::before{background:var(--green);box-shadow:0 0 10px rgba(34,197,94,.7)}
+.status.bad{color:#ffb3ba;border-color:rgba(229,9,20,.25);background:rgba(229,9,20,.06)}
+.status.bad::before{background:var(--red-soft);box-shadow:0 0 10px rgba(229,9,20,.7)}
+.status.warn{color:#fcd34d;border-color:rgba(245,197,24,.22);background:rgba(245,197,24,.06)}
+.status.warn::before{background:var(--amber)}
+
+/* ---------- GRIDS ---------- */
+.results,.catalog{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:13px;margin-top:15px}
+.item{background:linear-gradient(170deg,rgba(24,24,38,.8),rgba(13,13,21,.9));border:1px solid var(--line);border-radius:13px;overflow:hidden;min-width:0;transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;display:flex;flex-direction:column;content-visibility:auto;contain-intrinsic-size:auto 340px}
+.item:hover{transform:translateY(-4px);border-color:rgba(139,92,246,.35);box-shadow:0 16px 36px -14px rgba(0,0,0,.8)}
+.item img{width:100%;aspect-ratio:2/3;object-fit:cover;background:#181824;display:block;transition:transform .5s ease,filter .4s ease}
+.item:hover img{transform:scale(1.035);filter:brightness(1.06)}
+.itembody{padding:11px;display:flex;flex-direction:column;gap:5px;flex:1}
+.item b{display:block;font-size:12.5px;line-height:1.35;overflow-wrap:anywhere;font-weight:700}
+.item small{display:block;color:var(--muted);font-size:10.5px;margin:0 0 6px}
+.item .actions{margin-top:auto;gap:6px}
+.item .actions button{flex:1;padding:7px 5px;font-size:10.5px;border-radius:8px;gap:5px}
+.item .actions button i{width:12px;height:12px}
+
+/* ---------- LISTAS ---------- */
+.tablewrap{overflow:auto;border-radius:12px}
+.listrow{display:grid;grid-template-columns:46px minmax(120px,1fr) 90px minmax(120px,auto);gap:12px;align-items:center;padding:10px 12px;border-bottom:1px solid var(--line);transition:background var(--transition),transform var(--transition)}
+.listrow:last-child{border-bottom:0}
+.listrow:hover{background:rgba(255,255,255,.025)}
+.listrow img{width:46px;height:66px;object-fit:cover;border-radius:7px;background:#181824}
+.listrow b{font-size:12.5px}
+.listrow small{color:var(--muted);font-size:11px}
+.rowactions{display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap}
+.rowactions button{padding:7px 10px;font-size:11px}
+
+/* ---------- IMPORTAÇÃO EM MASSA ---------- */
+.mass-import{border:1px solid rgba(139,92,246,.22);background:linear-gradient(160deg,rgba(139,92,246,.07),rgba(14,14,23,.9))}
+.mass-import .panel-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.mass-import .panel-head .ico{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,rgba(139,92,246,.25),rgba(229,9,20,.18));border:1px solid rgba(139,92,246,.3);display:grid;place-items:center;flex-shrink:0}
+.mass-import .panel-head .ico i{width:18px;height:18px;color:#c4b5fd}
+.mass-import .panel-head h2{margin:0;font-size:15px}
+.mass-import .panel-head p{margin:2px 0 0;font-size:11.5px}
+.mass-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:14px}
+.progress-wrap{margin-top:14px;display:none}
+.progress-wrap.active{display:block;animation:fadeUp .3s ease both}
+.progress-bar{height:8px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden;border:1px solid var(--line)}
+.progress-fill{height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,var(--purple),var(--red));transition:width .35s ease;box-shadow:0 0 16px rgba(139,92,246,.5)}
+.progress-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:6px}
+.progress-meta b{color:#c4b5fd}
+.import-log{margin-top:10px;max-height:180px;overflow-y:auto;background:rgba(0,0,0,.3);border:1px solid var(--line);border-radius:10px;padding:10px;font-family:ui-monospace,monospace;font-size:10.5px;line-height:1.7;color:#8e8ea8}
+.import-log .ok{color:#86efac}
+.import-log .err{color:#fda4af}
+.import-log .skip{color:#fcd34d}
+
+/* ---------- BADGES ---------- */
+.badge-preview{padding:11px 12px;border:1px solid var(--line);border-radius:11px;background:rgba(255,255,255,.025);display:flex;align-items:center;gap:11px;transition:border-color var(--transition),transform var(--transition)}
+.badge-preview:hover{border-color:var(--line-strong);transform:translateY(-2px)}
+.badge-chip{display:inline-flex;align-items:center;border-radius:6px;padding:5px 9px;font-size:9.5px;font-weight:900;letter-spacing:.5px;white-space:nowrap;box-shadow:0 4px 14px -6px currentColor}
+.cb-item{display:flex;align-items:center;gap:10px;padding:11px 12px;background:rgba(255,255,255,.025);border:1px solid var(--line);border-radius:11px;transition:border-color var(--transition),transform var(--transition)}
+.cb-item:hover{border-color:var(--line-strong);transform:translateY(-2px)}
+.cb-item .cb-preview{flex-shrink:0}
+.cb-item .cb-info{flex:1;min-width:0}
+.cb-item .cb-info b{font-size:12.5px;display:block}
+.cb-item .cb-info small{color:var(--muted);font-size:10.5px}
+.cb-item button{padding:6px 9px;font-size:10.5px}
+
+.empty{color:var(--muted);padding:34px 18px;text-align:center;font-size:12.5px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.empty i{width:28px;height:28px;opacity:.4}
+.checkline{display:flex;align-items:center;gap:9px}
+.checkline input{width:auto;accent-color:var(--purple);width:16px;height:16px;cursor:pointer}
+.checkline label{margin:0;text-transform:none;letter-spacing:0;font-size:11.5px;font-weight:500;color:#b9b9cc;cursor:pointer}
+.toggle-on{background:linear-gradient(135deg,#15803d,#22c55e)!important;box-shadow:0 8px 20px -8px rgba(34,197,94,.6)!important}
+.toggle-off{background:linear-gradient(135deg,#7f1d1d,#b91c1c)!important;box-shadow:0 8px 20px -8px rgba(229,9,20,.5)!important}
+.statusline{font-size:11.5px;color:var(--muted);margin-top:7px}
+.mobilemenu{display:none}
+
+[data-page]{animation:fadeUp .35s ease both}
+.hidden{display:none!important}
+.skeleton{background:linear-gradient(90deg,rgba(255,255,255,.04) 25%,rgba(255,255,255,.08) 50%,rgba(255,255,255,.04) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:8px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.spin{animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(max-width:980px){
+  .app{grid-template-columns:1fr}
+  .side{display:none}
+  .side.open{display:flex;position:fixed;inset:0 auto 0 0;width:270px;z-index:50;box-shadow:0 0 0 100vmax rgba(0,0,0,.6)}
+  .mobilemenu{display:inline-flex}
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .layout{grid-template-columns:1fr}
+  .content{padding:18px}
+  .top{padding:14px 16px}
+  .listrow{grid-template-columns:42px minmax(100px,1fr) 70px}
+  .listrow .rowactions{grid-column:2/-1;justify-content:flex-start}
+  .topright .hide-mobile{display:none}
+}
+@media(max-width:460px){
+  .cards{gap:9px}
+  .stat{padding:14px}
+  .stat b{font-size:22px}
+  .two{grid-template-columns:1fr}
+  .results,.catalog{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .top h1{font-size:16px}
+  .mass-grid{grid-template-columns:1fr 1fr}
+}
 </style>
 </head>
 <body>
 <div class="app">
 <aside class="side" id="sidebar">
- <div class="logo">KIRAFLIX <small>PAINEL ADMINISTRATIVO</small></div>
+ <div class="logo">
+   <div class="mark"><i data-lucide="flame"></i> KIRAFLIX</div>
+   <small>PAINEL ADMINISTRATIVO</small>
+ </div>
  <nav class="nav">
-  <button class="active" data-view="home">◈ Visão geral</button>
-  <button data-view="catalog">▣ Catálogo</button>
-  <button data-view="tmdb">✦ Importar do TMDB</button>
-  <button data-view="manual">＋ Adicionar / editar</button>
-  <button data-view="badges">✦ Selos</button>
-  <button data-view="tabs">▤ Abas do site</button>
-  <button data-view="players">▶ Players</button>
-  <button data-view="maintenance">⚠ Manutenção</button>
-  <button data-view="settings">⚙ Configurações</button>
+  <button class="active" data-view="home"><i data-lucide="layout-dashboard"></i> Visão geral</button>
+  <button data-view="catalog"><i data-lucide="library"></i> Catálogo</button>
+  <button data-view="tmdb"><i data-lucide="clapperboard"></i> Importar do TMDB</button>
+  <button data-view="manual"><i data-lucide="plus-circle"></i> Adicionar / editar</button>
+  <button data-view="badges"><i data-lucide="award"></i> Selos</button>
+  <button data-view="tabs"><i data-lucide="layout-list"></i> Abas do site</button>
+  <button data-view="players"><i data-lucide="play-circle"></i> Players</button>
+  <button data-view="maintenance"><i data-lucide="wrench"></i> Manutenção</button>
+  <button data-view="settings"><i data-lucide="settings"></i> Configurações</button>
  </nav>
- <div class="side-note">Painel administrativo do KiraFlix.<br>Use apenas links de reprodução que você tem autorização para publicar.</div>
+ <div class="side-note">
+   <b><i data-lucide="shield-check" style="width:12px;height:12px;vertical-align:-2px;margin-right:4px"></i> Boas práticas</b>
+   Use apenas links de reprodução que você tem autorização para publicar.
+ </div>
 </aside>
 <main class="main">
  <header class="top">
-  <div style="display:flex;align-items:center;gap:12px"><button class="secondary mobilemenu" id="menuBtn">☰</button><div><h1 id="pageTitle">Visão geral</h1><div class="hint">Gerencie o catálogo do seu site</div></div></div>
-  <div class="topright"><span class="pill" id="connectionPill">Não conectado</span><button class="secondary hide-mobile" id="refreshBtn">↻ Atualizar</button></div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <button class="secondary mobilemenu" id="menuBtn"><i data-lucide="menu"></i></button>
+    <div>
+      <h1 id="pageTitle"><i data-lucide="layout-dashboard"></i> Visão geral</h1>
+      <div class="hint">Gerencie o catálogo do seu site</div>
+    </div>
+  </div>
+  <div class="topright">
+    <span class="pill" id="connectionPill"><i data-lucide="wifi-off"></i> Não conectado</span>
+    <button class="secondary hide-mobile" id="refreshBtn"><i data-lucide="refresh-cw"></i> Atualizar</button>
+  </div>
  </header>
  <div class="content">
+
+  <!-- HOME -->
   <section data-page="home">
    <div class="cards">
-    <div class="stat"><span>Títulos no catálogo carregado</span><b id="totalCount">—</b></div>
-    <div class="stat"><span>Filmes</span><b id="movieCount">—</b></div>
-    <div class="stat"><span>Séries e animes</span><b id="seriesCount">—</b></div>
-    <div class="stat"><span>Abas / configurações</span><b id="tabsCount">—</b></div>
-    <div class="stat"><span>Última sincronização</span><b id="syncTime" style="font-size:17px">—</b></div>
+    <div class="stat"><div class="stat-ico"><i data-lucide="film"></i></div><span>Títulos no catálogo</span><b id="totalCount">—</b><small>Total carregado</small></div>
+    <div class="stat"><div class="stat-ico"><i data-lucide="clapperboard"></i></div><span>Filmes</span><b id="movieCount">—</b><small>Longas-metragens</small></div>
+    <div class="stat"><div class="stat-ico"><i data-lucide="tv"></i></div><span>Séries e animes</span><b id="seriesCount">—</b><small>Séries / animes</small></div>
+    <div class="stat"><div class="stat-ico"><i data-lucide="layout-list"></i></div><span>Abas / configurações</span><b id="tabsCount">—</b><small>Abas personalizadas</small></div>
+    <div class="stat"><div class="stat-ico"><i data-lucide="clock"></i></div><span>Última sincronização</span><b id="syncTime" style="font-size:18px">—</b><small>Horário local</small></div>
    </div>
    <div class="layout">
-    <div class="panel"><h2>Começar rapidamente</h2><p>Importe metadados do TMDB ou cadastre um título manualmente. A publicação compartilhada exige que o Supabase esteja disponível e que as funções administrativas do KiraFlix estejam configuradas.</p><div class="actions"><button data-goto="tmdb">Importar pelo TMDB</button><button class="secondary" data-goto="manual">Novo título manual</button><button class="secondary" data-goto="catalog">Gerenciar catálogo</button></div><div class="status" id="homeStatus">Configure a conexão na seção Conexões.</div></div>
-    <div class="panel"><h2>Como a sincronização funciona</h2><p>Este painel usa a tabela <code>kira_catalog</code> e a função <code>save_kira_catalog</code> já referenciadas pelo site principal. Ele não cria um banco separado.</p><p>Quando o Supabase estiver em manutenção, você pode preparar e editar os títulos nesta sessão, mas não será possível garantir a publicação no KiraFlix até a conexão voltar.</p><div class="hint">O cache temporário desta página não substitui um backup do banco.</div></div>
+    <div class="panel">
+      <h2><i data-lucide="rocket"></i> Começar rapidamente</h2>
+      <p>Importe metadados do TMDB ou cadastre um título manualmente. A publicação compartilhada exige que o Supabase esteja disponível e que as funções administrativas do KiraFlix estejam configuradas.</p>
+      <div class="actions">
+        <button data-goto="tmdb"><i data-lucide="download-cloud"></i> Importar pelo TMDB</button>
+        <button class="secondary" data-goto="manual"><i data-lucide="plus"></i> Novo título manual</button>
+        <button class="secondary" data-goto="catalog"><i data-lucide="library"></i> Gerenciar catálogo</button>
+      </div>
+      <div class="status" id="homeStatus">Configure a conexão na seção Configurações.</div>
+    </div>
+    <div class="panel">
+      <h2><i data-lucide="refresh-ccw"></i> Como a sincronização funciona</h2>
+      <p>Este painel usa a tabela <code>kira_catalog</code> e a função <code>save_kira_catalog</code> já referenciadas pelo site principal. Ele não cria um banco separado.</p>
+      <p>Quando o Supabase estiver em manutenção, você pode preparar e editar os títulos nesta sessão, mas não será possível garantir a publicação no KiraFlix até a conexão voltar.</p>
+      <div class="hint"><i data-lucide="info" style="width:12px;height:12px;vertical-align:-2px"></i> O cache temporário desta página não substitui um backup do banco.</div>
+    </div>
    </div>
-   <div class="panel" style="margin-top:16px"><h2>Controles rápidos do site</h2><div class="actions"><button data-goto="maintenance">Modo de manutenção</button><button class="secondary" data-goto="players">Players e idiomas</button><button class="secondary" data-goto="badges">Todos os selos</button></div><div id="maintenanceQuick" class="status">Estado de manutenção ainda não carregado.</div></div>
-   <div class="panel" style="margin-top:16px"><h2>Últimos títulos carregados</h2><div id="recentList" class="tablewrap"><div class="empty">Carregue o catálogo para ver os títulos.</div></div></div>
+   <div class="panel" style="margin-top:16px">
+     <h2><i data-lucide="zap"></i> Controles rápidos do site</h2>
+     <div class="actions">
+       <button data-goto="maintenance"><i data-lucide="wrench"></i> Modo de manutenção</button>
+       <button class="secondary" data-goto="players"><i data-lucide="play-circle"></i> Players e idiomas</button>
+       <button class="secondary" data-goto="badges"><i data-lucide="award"></i> Todos os selos</button>
+     </div>
+     <div id="maintenanceQuick" class="status">Estado de manutenção ainda não carregado.</div>
+   </div>
+   <div class="panel" style="margin-top:16px">
+     <h2><i data-lucide="history"></i> Últimos títulos carregados</h2>
+     <div id="recentList" class="tablewrap"><div class="empty"><i data-lucide="inbox"></i>Carregue o catálogo para ver os títulos.</div></div>
+   </div>
   </section>
+
+  <!-- CATÁLOGO -->
   <section data-page="catalog" class="hidden">
-   <div class="panel"><div class="two"><div class="field"><label>Pesquisar no catálogo</label><input id="catalogSearch" placeholder="Título, gênero, ID TMDB…"></div><div class="field"><label>Tipo</label><select id="catalogFilter"><option value="">Todos os tipos</option><option value="filme">Filmes</option><option value="serie">Séries / animes</option></select></div></div><div class="actions"><button id="loadCatalogBtn">Carregar do Supabase</button><button class="secondary" data-goto="manual">＋ Adicionar manualmente</button><button class="secondary" id="exportBtn">Exportar JSON</button></div><div id="catalogStatus" class="status">Configure a chave pública e desbloqueie a administração para sincronizar.</div><div id="catalogList" class="catalog"></div></div>
+   <div class="panel">
+     <div class="two">
+       <div class="field"><label><i data-lucide="search"></i> Pesquisar no catálogo</label><input id="catalogSearch" placeholder="Título, gênero, ID TMDB…" autocomplete="off"></div>
+       <div class="field"><label><i data-lucide="filter"></i> Tipo</label><select id="catalogFilter"><option value="">Todos os tipos</option><option value="filme">Filmes</option><option value="serie">Séries / animes</option></select></div>
+     </div>
+     <div class="actions">
+       <button id="loadCatalogBtn"><i data-lucide="cloud-download"></i> Carregar do Supabase</button>
+       <button class="secondary" data-goto="manual"><i data-lucide="plus"></i> Adicionar manualmente</button>
+       <button class="secondary" id="exportBtn"><i data-lucide="download"></i> Exportar JSON</button>
+     </div>
+     <div id="catalogStatus" class="status">Configure a chave pública e desbloqueie a administração para sincronizar.</div>
+     <div id="catalogList" class="catalog"></div>
+   </div>
   </section>
+
+  <!-- TMDB -->
   <section data-page="tmdb" class="hidden">
-   <div class="panel"><h2>Pesquisar filmes, séries e animes</h2><p>O TMDB fornece metadados, imagens, elenco e informações de episódios — não os arquivos de vídeo.</p>
-    <div class="two"><div class="field"><label>Termo de pesquisa</label><input id="tmdbQuery" placeholder="Ex.: Interestelar, Naruto"></div><div class="field"><label>Tipo</label><select id="tmdbType"><option value="multi">Filmes e séries</option><option value="movie">Filmes</option><option value="tv">Séries e animes</option></select></div></div>
-    <div class="actions"><button id="searchTmdbBtn">Pesquisar</button><button class="secondary" id="tmdbTestBtn">Testar conexão TMDB</button></div><div id="tmdbStatus" class="status">Configure o token ou a chave do TMDB em Conexões.</div><div id="tmdbResults" class="results"></div>
-   </div>
-   <div class="panel" style="margin-top:16px"><h2>Importar por ID do TMDB</h2><div class="two"><div class="field"><label>Tipo</label><select id="idType"><option value="movie">Filme</option><option value="tv">Série / anime</option></select></div><div class="field"><label>ID numérico</label><input id="tmdbId" inputmode="numeric" placeholder="Ex.: 550"></div></div><button id="importIdBtn">Buscar e importar dados</button></div>
+    <div class="panel mass-import">
+      <div class="panel-head">
+        <div class="ico"><i data-lucide="layers"></i></div>
+        <div>
+          <h2>Importador em Massa do TMDB</h2>
+          <p>Escolha a categoria, a quantidade exata de títulos e importe em lote com paginação automática.</p>
+        </div>
+      </div>
+      <div class="mass-grid">
+        <div class="field">
+          <label><i data-lucide="list-filter"></i> Categoria</label>
+          <select id="massCategory">
+            <option value="trending_day">🔥 Trending (dia)</option>
+            <option value="trending_week" selected>🔥 Trending (semana)</option>
+            <option value="popular">⭐ Populares</option>
+            <option value="top_rated">🏆 Mais avaliados</option>
+            <option value="now_playing">🎬 Em cartaz (filmes)</option>
+            <option value="upcoming">📅 Em breve (filmes)</option>
+            <option value="discover">🎯 Discover (filtros)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label><i data-lucide="monitor-play"></i> Tipo</label>
+          <select id="massType">
+            <option value="movie">Filmes</option>
+            <option value="tv">Séries / animes</option>
+            <option value="all">Todos (trending)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label><i data-lucide="hash"></i> Quantidade</label>
+          <select id="massQuantity">
+            <option value="10">10 títulos</option>
+            <option value="20" selected>20 títulos</option>
+            <option value="30">30 títulos</option>
+            <option value="50">50 títulos</option>
+            <option value="100">100 títulos (máx.)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label><i data-lucide="shield-alert"></i> Duplicados</label>
+          <select id="massDuplicates">
+            <option value="skip" selected>Pular existentes</option>
+            <option value="update">Atualizar metadados</option>
+          </select>
+        </div>
+      </div>
+      <div id="discoverFilters" style="display:none">
+        <div class="mass-grid">
+          <div class="field"><label><i data-lucide="tag"></i> Gênero (ID TMDB)</label><input id="massGenre" placeholder="Ex.: 28 (Ação), 16 (Animação)"></div>
+          <div class="field"><label><i data-lucide="calendar"></i> Ano mínimo</label><input id="massYearGte" type="number" min="1900" max="2100" placeholder="Ex.: 2020"></div>
+          <div class="field"><label><i data-lucide="calendar"></i> Ano máximo</label><input id="massYearLte" type="number" min="1900" max="2100" placeholder="Ex.: 2026"></div>
+          <div class="field"><label><i data-lucide="star"></i> Nota mínima</label><input id="massVote" type="number" min="0" max="10" step="0.1" placeholder="Ex.: 7.0"></div>
+        </div>
+      </div>
+      <div class="actions">
+        <button id="massImportBtn"><i data-lucide="download-cloud"></i> Iniciar importação em massa</button>
+        <button class="secondary" id="massStopBtn" disabled><i data-lucide="square"></i> Parar</button>
+      </div>
+      <div class="progress-wrap" id="massProgressWrap">
+        <div class="progress-bar"><div class="progress-fill" id="massProgressFill"></div></div>
+        <div class="progress-meta"><span id="massProgressLabel">Preparando…</span><b id="massProgressPct">0%</b></div>
+        <div class="import-log" id="massLog"></div>
+      </div>
+      <div id="massStatus" class="status">Configure o token do TMDB em Configurações para habilitar o importador em massa.</div>
+    </div>
+    <div class="panel" style="margin-top:16px">
+      <h2><i data-lucide="search"></i> Pesquisar filmes, séries e animes</h2>
+      <p>O TMDB fornece metadados, imagens, elenco e informações de episódios — não os arquivos de vídeo.</p>
+      <div class="two">
+        <div class="field"><label><i data-lucide="search"></i> Termo de pesquisa</label><input id="tmdbQuery" placeholder="Ex.: Interestelar, Naruto" autocomplete="off"></div>
+        <div class="field"><label><i data-lucide="filter"></i> Tipo</label><select id="tmdbType"><option value="multi">Filmes e séries</option><option value="movie">Filmes</option><option value="tv">Séries e animes</option></select></div>
+      </div>
+      <div class="actions">
+        <button id="searchTmdbBtn"><i data-lucide="search"></i> Pesquisar</button>
+        <button class="secondary" id="tmdbTestBtn"><i data-lucide="plug-zap"></i> Testar conexão TMDB</button>
+      </div>
+      <div id="tmdbStatus" class="status">Configure o token ou a chave do TMDB em Configurações.</div>
+      <div id="tmdbResults" class="results"></div>
+    </div>
+    <div class="panel" style="margin-top:16px">
+      <h2><i data-lucide="hash"></i> Importar por ID do TMDB</h2>
+      <div class="two">
+        <div class="field"><label><i data-lucide="monitor-play"></i> Tipo</label><select id="idType"><option value="movie">Filme</option><option value="tv">Série / anime</option></select></div>
+        <div class="field"><label><i data-lucide="hash"></i> ID numérico</label><input id="tmdbId" inputmode="numeric" placeholder="Ex.: 550"></div>
+      </div>
+      <button id="importIdBtn"><i data-lucide="download-cloud"></i> Buscar e importar dados</button>
+    </div>
   </section>
+
+  <!-- MANUAL -->
   <section data-page="manual" class="hidden">
-   <div class="panel"><h2 id="formTitle">Adicionar título</h2><p>Preencha os dados do título. Campos com * são obrigatórios.</p>
-    <form id="titleForm">
-     <input type="hidden" id="editId">
-     <div class="two"><div class="field"><label>Título *</label><input id="fTitle" required maxlength="160"></div><div class="field"><label>Tipo *</label><select id="fKind"><option value="filme">Filme</option><option value="serie">Série / anime</option></select></div></div>
-     <div class="field"><label>Sinopse</label><textarea id="fDesc" rows="4"></textarea></div>
-     <div class="two"><div class="field"><label>Ano</label><input id="fYear" type="number" min="1888" max="2200"></div><div class="field"><label>Gêneros / categoria</label><input id="fGenre" placeholder="Ação, aventura, anime"></div></div>
-     <div class="two"><div class="field"><label>URL do pôster</label><input id="fPoster" type="url" placeholder="https://…"></div><div class="field"><label>URL do banner/fundo</label><input id="fBackdrop" type="url" placeholder="https://…"></div></div>
-     <div class="two"><div class="field"><label>Nota (0–10)</label><input id="fVote" type="number" min="0" max="10" step=".1"></div><div class="field"><label>Classificação indicativa</label><select id="fRating"><option>L</option><option>10</option><option>12</option><option>14</option><option>16</option><option>18</option></select></div></div>
-     <div class="two"><div class="field"><label>Elenco</label><input id="fCast"></div><div class="field"><label>Status/selo</label><select id="fStatus"><option value="novo">Novo</option><option value="lancamento">Lançamento</option><option value="em_breve">Em breve</option><option value="em_alta">Em alta</option><option value="mais_avaliado">Mais avaliado</option><option value="dublado">Dublado</option><option value="legendado">Legendado</option><option value="especial">Especial</option><option value="manutencao">Manutenção</option><option value="personalizado">Personalizado</option><option value="nenhum">Sem selo</option></select></div></div>
-     <div class="two"><div class="field"><label>Link do player autorizado</label><input id="fSrc" type="url" placeholder="https://…"></div><div class="field"><label>Tipo de player</label><select id="fPlayerType"><option value="embed">Embed / iframe</option><option value="video">Vídeo direto</option></select></div></div>
-     <div class="two"><div class="field"><label>Texto do selo personalizado</label><input id="fBadgeText" maxlength="18" placeholder="Ex.: Exclusivo"></div><div class="field"><label>Cor do selo personalizado</label><input id="fBadgeColor" type="color" value="#E50914" style="height:43px;padding:4px"></div></div>
-     <div class="field"><label>Adicionar à aba personalizada (opcional)</label><select id="fTabId"><option value="">Nenhuma aba</option></select></div>
-     <div class="actions"><button type="submit">Salvar título</button><button type="button" class="secondary" id="clearFormBtn">Limpar</button><button type="button" class="secondary" data-goto="catalog">Voltar ao catálogo</button></div>
-     <div id="formStatus" class="status">Os dados ficam pendentes até serem sincronizados com o Supabase.</div>
-    </form>
+   <div class="panel">
+     <h2 id="formTitle"><i data-lucide="plus-circle"></i> Adicionar título</h2>
+     <p>Preencha os dados do título. Campos com <b style="color:#ff6b72">*</b> são obrigatórios.</p>
+     <form id="titleForm">
+      <input type="hidden" id="editId">
+      <div class="two">
+        <div class="field"><label><i data-lucide="type"></i> Título *</label><input id="fTitle" required maxlength="160"></div>
+        <div class="field"><label><i data-lucide="monitor-play"></i> Tipo *</label><select id="fKind"><option value="filme">Filme</option><option value="serie">Série / anime</option></select></div>
+      </div>
+      <div class="field"><label><i data-lucide="align-left"></i> Sinopse</label><textarea id="fDesc" rows="4"></textarea></div>
+      <div class="two">
+        <div class="field"><label><i data-lucide="calendar"></i> Ano</label><input id="fYear" type="number" min="1888" max="2200"></div>
+        <div class="field"><label><i data-lucide="tags"></i> Gêneros / categoria</label><input id="fGenre" placeholder="Ação, aventura, anime"></div>
+      </div>
+      <div class="two">
+        <div class="field"><label><i data-lucide="image"></i> URL do pôster</label><input id="fPoster" type="url" placeholder="https://…"></div>
+        <div class="field"><label><i data-lucide="wallpaper"></i> URL do banner/fundo</label><input id="fBackdrop" type="url" placeholder="https://…"></div>
+      </div>
+      <div class="two">
+        <div class="field"><label><i data-lucide="star"></i> Nota (0–10)</label><input id="fVote" type="number" min="0" max="10" step=".1"></div>
+        <div class="field"><label><i data-lucide="shield"></i> Classificação indicativa</label><select id="fRating"><option>L</option><option>10</option><option>12</option><option>14</option><option>16</option><option>18</option></select></div>
+      </div>
+      <div class="two">
+        <div class="field"><label><i data-lucide="users"></i> Elenco</label><input id="fCast"></div>
+        <div class="field"><label><i data-lucide="award"></i> Status/selo</label><select id="fStatus">
+          <option value="novo">Novo</option><option value="lancamento">Lançamento</option><option value="em_breve">Em breve</option>
+          <option value="em_alta">Em alta</option><option value="mais_avaliado">Mais avaliado</option><option value="dublado">Dublado</option>
+          <option value="legendado">Legendado</option><option value="especial">Especial</option><option value="manutencao">Manutenção</option>
+          <option value="personalizado">Personalizado</option><option value="nenhum">Sem selo</option>
+        </select></div>
+      </div>
+      <div class="two">
+        <div class="field"><label><i data-lucide="link"></i> Link do player autorizado</label><input id="fSrc" type="url" placeholder="https://…"></div>
+        <div class="field"><label><i data-lucide="play-circle"></i> Tipo de player</label><select id="fPlayerType"><option value="embed">Embed / iframe</option><option value="video">Vídeo direto</option></select></div>
+      </div>
+      <div class="two">
+        <div class="field"><label><i data-lucide="badge"></i> Texto do selo personalizado</label><input id="fBadgeText" maxlength="18" placeholder="Ex.: Exclusivo"></div>
+        <div class="field"><label><i data-lucide="palette"></i> Cor do selo personalizado</label><input id="fBadgeColor" type="color" value="#E50914" style="height:43px;padding:4px"></div>
+      </div>
+      <div class="field"><label><i data-lucide="folder-plus"></i> Adicionar à aba personalizada (opcional)</label><select id="fTabId"><option value="">Nenhuma aba</option></select></div>
+      <div class="actions">
+        <button type="submit"><i data-lucide="save"></i> Salvar título</button>
+        <button type="button" class="secondary" id="clearFormBtn"><i data-lucide="eraser"></i> Limpar</button>
+        <button type="button" class="secondary" data-goto="catalog"><i data-lucide="arrow-left"></i> Voltar ao catálogo</button>
+      </div>
+      <div id="formStatus" class="status">Os dados ficam pendentes até serem sincronizados com o Supabase.</div>
+     </form>
    </div>
   </section>
+
+  <!-- BADGES -->
   <section data-page="badges" class="hidden">
-   <div class="panel"><h2>Todos os selos do KiraFlix</h2><p>Os selos são guardados no campo <code>status</code> de cada título. “Novo” e “Lançamento” podem expirar pelo ciclo automático configurado no site; os outros permanecem até você alterar.</p><div id="badgeLegend" class="results"></div><div class="two" style="margin-top:18px"><div class="field"><label>Filtrar títulos por selo</label><select id="badgeFilter"><option value="">Todos os selos</option><option value="novo">Novo</option><option value="lancamento">Lançamento</option><option value="em_breve">Em breve</option><option value="em_alta">Em alta</option><option value="mais_avaliado">Mais avaliado</option><option value="dublado">Dublado</option><option value="legendado">Legendado</option><option value="especial">Especial</option><option value="manutencao">Manutenção</option><option value="personalizado">Personalizado</option><option value="nenhum">Sem selo</option></select></div><div class="field"><label>Buscar título</label><input id="badgeSearch" placeholder="Nome do filme, série ou anime"></div></div><div id="badgeStatus" class="status">Conecte o catálogo para ver todos os selos existentes.</div><div id="badgeList" class="catalog"></div></div>
+   <!-- CRIAR SELO -->
+   <div class="panel" style="margin-bottom:16px">
+     <h2><i data-lucide="plus-circle"></i> Criar novo selo</h2>
+     <p>Crie selos personalizados com nome e cor. Eles aparecerão no dropdown de status em <b>Adicionar / editar</b> e poderão ser aplicados a qualquer título.</p>
+     <div class="two">
+       <div class="field"><label><i data-lucide="type"></i> Nome do selo *</label><input id="newBadgeName" maxlength="18" placeholder="Ex.: Exclusivo, Top 10, Novo" autocomplete="off"></div>
+       <div class="field"><label><i data-lucide="palette"></i> Cor do selo</label><input id="newBadgeColor" type="color" value="#8b5cf6" style="height:43px;padding:4px"></div>
+     </div>
+     <div class="actions">
+       <button id="createBadgeBtn"><i data-lucide="plus"></i> Criar selo</button>
+     </div>
+     <div id="createBadgeStatus" class="status">Os selos personalizados ficam salvos junto ao catálogo (registro __badges__).</div>
+     <div id="customBadgesList" class="results" style="margin-top:12px"></div>
+   </div>
+
+   <!-- LEGENDA E FILTROS -->
+   <div class="panel">
+     <h2><i data-lucide="award"></i> Todos os selos do KiraFlix</h2>
+     <p>Os selos são guardados no campo <code>status</code> de cada título. “Novo” e “Lançamento” podem expirar pelo ciclo automático configurado no site; os outros permanecem até você alterar.</p>
+     <div id="badgeLegend" class="results"></div>
+     <div class="two" style="margin-top:18px">
+       <div class="field"><label><i data-lucide="filter"></i> Filtrar títulos por selo</label><select id="badgeFilter"></select></div>
+       <div class="field"><label><i data-lucide="search"></i> Buscar título</label><input id="badgeSearch" placeholder="Nome do filme, série ou anime" autocomplete="off"></div>
+     </div>
+     <div id="badgeStatus" class="status">Conecte o catálogo para ver todos os selos existentes.</div>
+     <div id="badgeList" class="catalog"></div>
+   </div>
   </section>
+
+  <!-- TABS -->
   <section data-page="tabs" class="hidden">
-   <div class="panel"><h2>Abas personalizadas da navegação</h2><p>As abas usam o mesmo formato do KiraFlix: <code>id</code>, <code>name</code>, <code>icon</code> e <code>after</code>. Ao excluir uma aba, os títulos permanecem no catálogo, mas deixam de estar associados àquela aba.</p><div class="two"><div class="field"><label>Nome da aba</label><input id="tabName" maxlength="28" placeholder="Ex.: Anime, Documentários, Shorts"></div><div class="field"><label>Ícone</label><select id="tabIcon"><option>folder-open</option><option>sparkles</option><option>clapperboard</option><option>tv</option><option>ghost</option><option>heart</option><option>rocket</option><option>gamepad-2</option><option>star</option><option>flame</option></select></div></div><div class="field"><label>Posição na navegação</label><select id="tabAfter"><option value="home">Depois de Início</option><option value="filme">Depois de Filmes</option><option value="serie">Depois de Séries</option><option value="new">Depois de Bombando</option><option value="list" selected>Depois de Minha lista</option></select></div><div class="actions"><button id="createTabBtn">Criar aba</button><button class="secondary" id="refreshTabsBtn">Atualizar lista</button></div><div id="tabsStatus" class="status">Conecte e carregue o catálogo para editar as abas compartilhadas.</div><div id="tabsList" style="margin-top:12px"></div></div>
+   <div class="panel">
+     <h2><i data-lucide="layout-list"></i> Abas personalizadas da navegação</h2>
+     <p>As abas usam o mesmo formato do KiraFlix: <code>id</code>, <code>name</code>, <code>icon</code> e <code>after</code>. Ao excluir uma aba, os títulos permanecem no catálogo, mas deixam de estar associados àquela aba.</p>
+     <div class="two">
+       <div class="field"><label><i data-lucide="type"></i> Nome da aba</label><input id="tabName" maxlength="28" placeholder="Ex.: Anime, Documentários, Shorts"></div>
+       <div class="field"><label><i data-lucide="smile"></i> Ícone</label><select id="tabIcon">
+         <option>folder-open</option><option>sparkles</option><option>clapperboard</option><option>tv</option>
+         <option>ghost</option><option>heart</option><option>rocket</option><option>gamepad-2</option>
+         <option>star</option><option>flame</option>
+       </select></div>
+     </div>
+     <div class="field"><label><i data-lucide="arrow-down-to-line"></i> Posição na navegação</label><select id="tabAfter">
+       <option value="home">Depois de Início</option><option value="filme">Depois de Filmes</option><option value="serie">Depois de Séries</option>
+       <option value="new">Depois de Bombando</option><option value="list" selected>Depois de Minha lista</option>
+     </select></div>
+     <div class="actions">
+       <button id="createTabBtn"><i data-lucide="folder-plus"></i> Criar aba</button>
+       <button class="secondary" id="refreshTabsBtn"><i data-lucide="refresh-cw"></i> Atualizar lista</button>
+     </div>
+     <div id="tabsStatus" class="status">Conecte e carregue o catálogo para editar as abas compartilhadas.</div>
+     <div id="tabsList" style="margin-top:12px"></div>
+   </div>
   </section>
+
+  <!-- PLAYERS -->
   <section data-page="players" class="hidden">
-   <div class="panel"><h2>Players globais do KiraFlix</h2><p>Esses quatro campos correspondem à configuração compartilhada usada pelo site principal. Variáveis aceitas: <code>{tmdb_id}</code>, <code>{id}</code>, <code>{season_number}</code>, <code>{episode_number}</code>, <code>{season}</code>, <code>{episode}</code> e <code>{start}</code>. Use somente fontes de vídeo que você tem autorização para incorporar.</p>
-    <div class="field"><label>Filme — dublado</label><input id="plMovie" placeholder="https://.../{tmdb_id}"></div><div class="field"><label>Filme — legendado</label><input id="plMovieSub" placeholder="Deixe vazio se não houver player padrão"></div><div class="field"><label>Série / anime — dublado</label><input id="plSerie" placeholder="https://.../{tmdb_id}/{season_number}/{episode_number}"></div><div class="field"><label>Série / anime — legendado</label><input id="plSerieSub" placeholder="https://.../{tmdb_id}/{season_number}/{episode_number}"></div>
-    <div class="actions"><button id="savePlayersBtn">Salvar players para todos</button><button class="secondary" id="resetPlayersBtn">Restaurar padrões do site</button></div><div id="playersStatus" class="status">Os players só serão aplicados aos visitantes depois de sincronizar com o Supabase.</div>
+   <div class="panel">
+     <h2><i data-lucide="play-circle"></i> Players globais do KiraFlix</h2>
+     <p>Esses quatro campos correspondem à configuração compartilhada usada pelo site principal. Variáveis aceitas: <code>{tmdb_id}</code>, <code>{id}</code>, <code>{season_number}</code>, <code>{episode_number}</code>, <code>{season}</code>, <code>{episode}</code> e <code>{start}</code>. Use somente fontes de vídeo que você tem autorização para incorporar.</p>
+     <div class="field"><label><i data-lucide="film"></i> Filme — dublado</label><input id="plMovie" placeholder="https://.../{tmdb_id}"></div>
+     <div class="field"><label><i data-lucide="film"></i> Filme — legendado</label><input id="plMovieSub" placeholder="Deixe vazio se não houver player padrão"></div>
+     <div class="field"><label><i data-lucide="tv"></i> Série / anime — dublado</label><input id="plSerie" placeholder="https://.../{tmdb_id}/{season_number}/{episode_number}"></div>
+     <div class="field"><label><i data-lucide="tv"></i> Série / anime — legendado</label><input id="plSerieSub" placeholder="https://.../{tmdb_id}/{season_number}/{episode_number}"></div>
+     <div class="actions">
+       <button id="savePlayersBtn"><i data-lucide="save"></i> Salvar players para todos</button>
+       <button class="secondary" id="resetPlayersBtn"><i data-lucide="rotate-ccw"></i> Restaurar padrões do site</button>
+     </div>
+     <div id="playersStatus" class="status">Os players só serão aplicados aos visitantes depois de sincronizar com o Supabase.</div>
    </div>
   </section>
+
+  <!-- MANUTENÇÃO -->
   <section data-page="maintenance" class="hidden">
-   <div class="panel"><h2>Modo de manutenção</h2><p>Quando ativado, o site principal mostra a tela de manutenção para visitantes. A alteração é compartilhada pelo registro especial <code>__maintenance__</code> dentro de <code>kira_catalog.data.tabs</code>.</p><div id="maintenanceState" class="status">Estado desconhecido — carregue o catálogo primeiro.</div><div class="field"><label>Mensagem que aparece aos visitantes</label><input id="maintenanceMessage" maxlength="140" placeholder="Estamos melhorando o KIRAFLIX para você. Voltamos em instantes!"></div><div class="actions"><button id="maintenanceToggleBtn">Ativar manutenção</button><button class="secondary" id="saveMaintenanceMsgBtn">Salvar mensagem</button></div><div id="maintenanceStatus" class="status">A alteração requer conexão administrativa e Supabase disponível.</div></div>
+   <div class="panel">
+     <h2><i data-lucide="wrench"></i> Modo de manutenção</h2>
+     <p>Quando ativado, o site principal mostra a tela de manutenção para visitantes. A alteração é compartilhada pelo registro especial <code>__maintenance__</code> dentro de <code>kira_catalog.data.tabs</code>.</p>
+     <div id="maintenanceState" class="status">Estado desconhecido — carregue o catálogo primeiro.</div>
+     <div class="field"><label><i data-lucide="message-square"></i> Mensagem que aparece aos visitantes</label><input id="maintenanceMessage" maxlength="140" placeholder="Estamos melhorando o KIRAFLIX para você. Voltamos em instantes!"></div>
+     <div class="actions">
+       <button id="maintenanceToggleBtn"><i data-lucide="power"></i> Ativar manutenção</button>
+       <button class="secondary" id="saveMaintenanceMsgBtn"><i data-lucide="save"></i> Salvar mensagem</button>
+     </div>
+     <div id="maintenanceStatus" class="status">A alteração requer conexão administrativa e Supabase disponível.</div>
+   </div>
   </section>
+
+  <!-- SETTINGS -->
   <section data-page="settings" class="hidden">
-   <div class="panel"><h2>Supabase do KiraFlix</h2><p>Use apenas a chave pública publishable/anon. Nunca coloque service_role ou chaves secretas no navegador.</p>
-    <div class="field"><label>URL do projeto</label><input id="sbUrl" value="https://ahtuhrzizlwcvrgbzivx.supabase.co"></div>
-    <div class="field"><label>Chave pública (publishable / anon)</label><input id="sbKey" type="password" autocomplete="off" placeholder="sb_publishable_… ou chave anon"></div>
-    <div class="field"><label>Senha administrativa do KiraFlix</label><input id="adminPassword" type="password" autocomplete="off" placeholder="Senha validada pela função do KiraFlix"></div>
-    <div class="actions"><button id="connectBtn">Conectar e carregar catálogo</button><button class="secondary" id="showSbKeyBtn">Mostrar chave</button><button class="secondary" id="forgetConfigBtn">Limpar configuração local</button></div>
-    <div id="sbStatus" class="status">A manutenção do Supabase pode impedir a conexão temporariamente.</div>
+   <div class="panel">
+     <h2><i data-lucide="database"></i> Supabase do KiraFlix</h2>
+     <p>Use apenas a chave pública publishable/anon. Nunca coloque <b style="color:#fda4af">service_role</b> ou chaves secretas no navegador.</p>
+     <div class="field"><label><i data-lucide="globe"></i> URL do projeto</label><input id="sbUrl" value="https://ahtuhrzizlwcvrgbzivx.supabase.co"></div>
+     <div class="field"><label><i data-lucide="key-round"></i> Chave pública (publishable / anon)</label><input id="sbKey" type="password" autocomplete="off" placeholder="sb_publishable_… ou chave anon"></div>
+     <div class="field"><label><i data-lucide="lock"></i> Senha administrativa do KiraFlix</label><input id="adminPassword" type="password" autocomplete="off" placeholder="Senha validada pela função do KiraFlix"></div>
+     <div class="actions">
+       <button id="connectBtn"><i data-lucide="plug"></i> Conectar e carregar catálogo</button>
+       <button class="secondary" id="showSbKeyBtn"><i data-lucide="eye"></i> Mostrar chave</button>
+       <button class="secondary" id="forgetConfigBtn"><i data-lucide="trash-2"></i> Limpar configuração local</button>
+     </div>
+     <div id="sbStatus" class="status">A manutenção do Supabase pode impedir a conexão temporariamente.</div>
    </div>
-   <div class="panel" style="margin-top:16px"><h2>TMDB</h2><p>Você pode usar o token de leitura ou a chave API v3. O token é um segredo de acesso de leitura: evite publicá-lo em repositórios públicos. Os valores ficam apenas nesta sessão do navegador, salvo se você optar por salvar configuração local.</p>
-    <div class="field"><label>Token de leitura (Bearer)</label><textarea id="tmdbToken" rows="3" autocomplete="off" placeholder="Cole o token de leitura aqui"></textarea></div>
-    <div class="field"><label>Chave API v3 (alternativa)</label><input id="tmdbKey" type="password" autocomplete="off" placeholder="Chave API v3"></div>
-    <div class="checkline" style="margin:10px 0 14px"><input id="persistConfig" type="checkbox" checked><label for="persistConfig" style="margin:0">Salvar URL/chave pública e credenciais TMDB neste navegador</label></div><div class="actions"><button id="saveConfigBtn">Salvar configurações</button><button class="secondary" id="clearTmdbBtn">Limpar credenciais TMDB</button></div><div class="hint">A gravação é local neste navegador/dispositivo, não no Supabase. O token TMDB ficará no armazenamento do navegador; não use essa opção em aparelho compartilhado. Nunca coloque credenciais no código publicado.</div>
+   <div class="panel" style="margin-top:16px">
+     <h2><i data-lucide="clapperboard"></i> TMDB</h2>
+     <p>Você pode usar o token de leitura ou a chave API v3. O token é um segredo de acesso de leitura: evite publicá-lo em repositórios públicos. Os valores ficam apenas nesta sessão do navegador, salvo se você optar por salvar configuração local.</p>
+     <div class="field"><label><i data-lucide="key-round"></i> Token de leitura (Bearer)</label><textarea id="tmdbToken" rows="3" autocomplete="off" placeholder="Cole o token de leitura aqui"></textarea></div>
+     <div class="field"><label><i data-lucide="key"></i> Chave API v3 (alternativa)</label><input id="tmdbKey" type="password" autocomplete="off" placeholder="Chave API v3"></div>
+     <div class="checkline" style="margin:10px 0 14px"><input id="persistConfig" type="checkbox" checked><label for="persistConfig">Salvar URL/chave pública e credenciais TMDB neste navegador</label></div>
+     <div class="actions">
+       <button id="saveConfigBtn"><i data-lucide="save"></i> Salvar configurações</button>
+       <button class="secondary" id="clearTmdbBtn"><i data-lucide="eraser"></i> Limpar credenciais TMDB</button>
+     </div>
+     <div class="hint"><i data-lucide="info" style="width:12px;height:12px;vertical-align:-2px"></i> A gravação é local neste navegador/dispositivo, não no Supabase. O token TMDB ficará no armazenamento do navegador; não use essa opção em aparelho compartilhado. Nunca coloque credenciais no código publicado.</div>
    </div>
-   <div class="panel" style="margin-top:16px"><h2>Esquema de integração esperado</h2><p>GET <code>/rest/v1/kira_catalog?id=eq.main&amp;select=data</code> e RPCs <code>verify_kira_admin</code> / <code>save_kira_catalog</code>, seguindo os nomes e parâmetros usados pelo KiraFlix existente. Se as funções ou políticas não estiverem disponíveis, o painel mostrará o erro recebido.</p></div>
+   <div class="panel" style="margin-top:16px">
+     <h2><i data-lucide="workflow"></i> Esquema de integração esperado</h2>
+     <p>GET <code>/rest/v1/kira_catalog?id=eq.main&amp;select=data</code> e RPCs <code>verify_kira_admin</code> / <code>save_kira_catalog</code>, seguindo os nomes e parâmetros usados pelo KiraFlix existente. Se as funções ou políticas não estiverem disponíveis, o painel mostrará o erro recebido.</p>
+   </div>
   </section>
+
  </div>
 </main>
 </div>
+
 <script>
+/* ============================================================
+   UTILITÁRIOS BASE
+   ============================================================ */
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-const state={titles:[],tabs:[],rawData:null,connected:false,adminOk:false,tmdbResults:[],pending:new Map(),syncTime:null};
-let sbUrl='https://ahtuhrzizlwcvrgbzivx.supabase.co',sbKey='',adminPassword='',tmdbToken='',tmdbKey='';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const safeUrl=s=>{try{const u=new URL(s);return ['http:','https:'].includes(u.protocol)?u.href:''}catch{return ''}};
-function status(el,msg,type=''){const e=typeof el==='string'?$(el):el;if(e){e.textContent=msg;e.className='status '+type}}
-function goto(view){$$('[data-page]').forEach(x=>x.classList.toggle('hidden',x.dataset.page!==view));$$('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.view===view));const titles={home:'Visão geral',catalog:'Catálogo',tmdb:'Importar do TMDB',manual:'Adicionar / editar título',badges:'Selos do catálogo',tabs:'Abas do site',players:'Players e idiomas',maintenance:'Modo de manutenção',settings:'Configurações'};$('#pageTitle').textContent=titles[view]||'KiraFlix Admin';$('#sidebar').classList.remove('open');if(view==='catalog')renderCatalog();if(view==='home')renderHome();if(view==='settings'){}if(view==='badges')renderBadges();if(view==='tabs')renderTabs();if(view==='players')loadPlayerFields();if(view==='maintenance')renderMaintenance(); }
-$$('.nav button').forEach(b=>b.onclick=()=>goto(b.dataset.view));$$('[data-goto]').forEach(b=>b.onclick=()=>goto(b.dataset.goto));$('#menuBtn').onclick=()=>$('#sidebar').classList.toggle('open');
-const MAINT_ID='__maintenance__', PLAYERS_ID='__players__', MAINT_DEFAULT='Estamos melhorando o KIRAFLIX para você. Voltamos em instantes!';
-const DEFAULT_PLAYERS={movie:'https://myembed.biz/filme/{tmdb_id}',movieSub:'',serie:'https://mgeb.lat/embed/{tmdb_id}/{season_number}/{episode_number}',serieSub:'https://nhdapi.com/embed/tv/{tmdb_id}/{season_number}/{episode_number}'};
-let maintenanceOn=false,maintenanceMsg='',playerCfg={...DEFAULT_PLAYERS};
-const badgeInfo={novo:['Novo','#e50914','#fff'],lancamento:['Lançamento','#f5c518','#000'],em_breve:['Em breve','#8b5cf6','#fff'],em_alta:['Em alta','#ff5722','#fff'],mais_avaliado:['Mais avaliado','#f5c518','#000'],dublado:['Dublado','#1db954','#000'],legendado:['Legendado','#18b6ff','#000'],especial:['Especial','#b56cff','#fff'],manutencao:['Manutenção','#ff9800','#000'],personalizado:['Personalizado','#e50914','#fff'],nenhum:['Sem selo','#30303e','#ddd']};
-function readSpecialTabs(){const m=state.tabs.find(x=>x&&x.id===MAINT_ID);maintenanceOn=!!m?.on;maintenanceMsg=m?.msg||'';const p=state.tabs.find(x=>x&&x.id===PLAYERS_ID);playerCfg={...DEFAULT_PLAYERS,...(p?.cfg||{})};}
-function buildTabsForSave(){const ordinary=state.tabs.filter(x=>x&&x.id!==MAINT_ID&&x.id!==PLAYERS_ID);return [...ordinary,{id:MAINT_ID,on:!!maintenanceOn,msg:maintenanceMsg||''},{id:PLAYERS_ID,cfg:{...playerCfg}}];}
-function sbHeaders(){return {'apikey':sbKey,'Authorization':'Bearer '+sbKey,'Content-Type':'application/json'};}
-function checkConfig(){sbUrl=$('#sbUrl').value.trim().replace(/\/+$/,'');sbKey=$('#sbKey').value.trim();adminPassword=$('#adminPassword').value;tmdbToken=$('#tmdbToken').value.trim();tmdbKey=$('#tmdbKey').value.trim();if($('#persistConfig')?.checked){try{localStorage.setItem('kiraflix_admin_config',JSON.stringify({sbUrl,sbKey,tmdbToken,tmdbKey}))}catch(e){}}}
-async function rpc(name,body){if(!sbKey)throw Error('Informe a chave pública do Supabase em Conexões.');const r=await fetch(sbUrl+'/rest/v1/rpc/'+name,{method:'POST',headers:sbHeaders(),body:JSON.stringify(body)});const j=await r.json().catch(()=>null);if(!r.ok)throw Error(j?.message||j?.details||`RPC ${name}: HTTP ${r.status}`);return j;}
-async function connect(){checkConfig();if(!sbUrl||!sbKey||!adminPassword){status('#sbStatus','Preencha URL, chave pública e senha administrativa.','bad');return}
- status('#sbStatus','Verificando permissão administrativa e carregando catálogo…');
- try{const ok=await rpc('verify_kira_admin',{p_password:adminPassword});if(ok!==true)throw Error('A função administrativa não confirmou a senha.');state.adminOk=true;
- const r=await fetch(sbUrl+'/rest/v1/kira_catalog?id=eq.main&select=data',{headers:sbHeaders()});const j=await r.json().catch(()=>[]);if(!r.ok)throw Error(j?.message||`Leitura do catálogo: HTTP ${r.status}`);
- state.rawData=j?.[0]?.data||{titles:[],tabs:[]};state.titles=Array.isArray(state.rawData.titles)?state.rawData.titles:[];state.tabs=Array.isArray(state.rawData.tabs)?state.rawData.tabs:[];readSpecialTabs();refreshTabSelect();state.connected=true;state.syncTime=new Date();$('#connectionPill').textContent='Supabase conectado';$('#connectionPill').style.color='#86efac';status('#sbStatus',`Conectado. ${state.titles.length} título(s) carregado(s).`,'ok');status('#catalogStatus',`Catálogo carregado: ${state.titles.length} título(s).`,'ok');status('#homeStatus','Catálogo carregado. As alterações podem ser sincronizadas enquanto o Supabase estiver disponível.','ok');try{const c=JSON.parse(localStorage.getItem('kiraflix_admin_config')||'null');if(c){$('#sbUrl').value=c.sbUrl||sbUrl;$('#sbKey').value=c.sbKey||'';$('#tmdbToken').value=c.tmdbToken||'';$('#tmdbKey').value=c.tmdbKey||'';tmdbToken=c.tmdbToken||'';tmdbKey=c.tmdbKey||'';$('#persistConfig').checked=true;}}catch(e){}renderAll();goto('home');
- }catch(e){state.connected=false;state.adminOk=false;$('#connectionPill').textContent='Sem conexão';status('#sbStatus','Não foi possível conectar: '+e.message+'\\nSe o Supabase está em manutenção, tente novamente quando voltar.','bad');status('#homeStatus','Conexão indisponível. Você ainda pode preparar títulos localmente nesta sessão, mas não serão publicados até sincronizar.','bad');}
-}
-async function saveCloud(){checkConfig();if(!state.adminOk)throw Error('Conecte e valide a senha administrativa primeiro.');const tabs=buildTabsForSave();await rpc('save_kira_catalog',{p_titles:state.titles,p_tabs:tabs,p_password:adminPassword});state.tabs=tabs;state.rawData={...(state.rawData||{}),titles:state.titles,tabs};state.syncTime=new Date();status('#catalogStatus','Catálogo sincronizado com sucesso.','ok');status('#formStatus','Título sincronizado com o Supabase.','ok');renderAll();}
-function renderStats(){$('#tabsCount').textContent=state.tabs.filter(x=>x.id!==MAINT_ID&&x.id!==PLAYERS_ID).length;$('#totalCount').textContent=state.titles.length;$('#movieCount').textContent=state.titles.filter(t=>t.kind==='filme').length;$('#seriesCount').textContent=state.titles.filter(t=>t.kind==='serie').length;$('#syncTime').textContent=state.syncTime?state.syncTime.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}):'—';}
-function card(t,i){const poster=safeUrl(t.poster)||'';return `<article class="item"><img loading="lazy" src="${esc(poster)}" alt="" onerror="this.style.visibility='hidden'"><div class="itembody"><b>${esc(t.title||'Sem título')}</b><small>${esc(t.kind==='serie'?'Série':'Filme')} · ${esc(t.year||'—')} ${t.tmdbId?'· TMDB '+esc(t.tmdbId):''}</small><div class="actions"><button class="secondary" data-edit="${i}">Editar</button><button class="danger" data-delete="${i}">Excluir</button></div></div></article>`}
-function renderCatalog(){const q=($('#catalogSearch')?.value||'').toLowerCase();const kind=$('#catalogFilter')?.value||'';const filtered=state.titles.map((t,i)=>({t,i})).filter(({t})=>(!kind||t.kind===kind)&&(!q||[t.title,t.desc,t.genre,t.tmdbId,t.id].join(' ').toLowerCase().includes(q)));$('#catalogList').innerHTML=filtered.length?filtered.map(({t,i})=>card(t,i)).join(''):'<div class="empty">Nenhum título encontrado. Carregue o catálogo ou adicione um título.</div>';$$('[data-edit]').forEach(b=>b.onclick=()=>editTitle(Number(b.dataset.edit)));$$('[data-delete]').forEach(b=>b.onclick=()=>deleteTitle(Number(b.dataset.delete)));}
-function renderHome(){renderStats();const arr=state.titles.slice(-6).reverse();$('#recentList').innerHTML=arr.length?arr.map(t=>`<div class="listrow"><img src="${esc(safeUrl(t.poster))}" onerror="this.style.visibility='hidden'"><div><b>${esc(t.title||'Sem título')}</b><br><small>${esc(t.kind||'')} · ${esc(t.year||'')}</small></div><div><span class="pill">${esc(t.status||'sem selo')}</span></div><div></div></div>`).join(''):'<div class="empty">Nenhum título carregado ainda.</div>';}
-function renderBadges(){
- const legend=$('#badgeLegend');legend.innerHTML=Object.entries(badgeInfo).map(([k,v])=>`<div class="badge-preview"><span class="badge-chip" style="background:${v[1]};color:${v[2]}">${esc(v[0].toUpperCase())}</span><div><b>${esc(k)}</b><div class="hint">${k==='novo'||k==='lancamento'?'Pode expirar automaticamente':'Selo persistente até ser alterado'}</div></div></div>`).join('');
- const q=($('#badgeSearch')?.value||'').toLowerCase(),f=$('#badgeFilter')?.value||'';const arr=state.titles.map((t,i)=>({t,i})).filter(({t})=>(!f||(f==='nenhum'?(!t.status||t.status==='nenhum'):t.status===f))&&(!q||String(t.title||'').toLowerCase().includes(q)));
- $('#badgeList').innerHTML=arr.length?arr.map(({t,i})=>{const k=t.status||'nenhum',b=badgeInfo[k]||badgeInfo.personalizado;const label=k==='personalizado'?(t.badgeText||'Personalizado'):(b?.[0]||k);const color=k==='personalizado'?(t.badgeColor||'#e50914'):(b?.[1]||'#30303e');const fg=k==='personalizado'?'#fff':(b?.[2]||'#fff');return `<article class="item"><img loading="lazy" src="${esc(safeUrl(t.poster))}" onerror="this.style.visibility='hidden'"><div class="itembody"><b>${esc(t.title||'Sem título')}</b><small>${esc(t.kind||'')} · ${esc(t.year||'')}</small><span class="badge-chip" style="display:inline-flex;background:${esc(color)};color:${esc(fg)};margin-bottom:10px">${esc(label.toUpperCase())}</span><button class="secondary" style="width:100%" data-badge-edit="${i}">Editar selo / título</button></div></article>`}).join(''):'<div class="empty">Nenhum título corresponde a esse filtro.</div>';
- $$('[data-badge-edit]').forEach(b=>b.onclick=()=>editTitle(Number(b.dataset.badgeEdit)));status('#badgeStatus',`${arr.length} título(s) encontrados · ${state.titles.length} no catálogo carregado.`,state.connected?'ok':'');
-}
-function refreshTabSelect(){const sel=$('#fTabId');if(!sel)return;const chosen=sel.value;const ordinary=state.tabs.filter(x=>x&&x.id!==MAINT_ID&&x.id!==PLAYERS_ID);sel.innerHTML='<option value="">Nenhuma aba</option>'+ordinary.map(t=>`<option value="${esc(t.id)}">${esc(t.name||t.id)}</option>`).join('');if(ordinary.some(t=>t.id===chosen))sel.value=chosen;}
-function renderTabs(){const ordinary=state.tabs.filter(x=>x&&x.id!==MAINT_ID&&x.id!==PLAYERS_ID);$('#tabsList').innerHTML=ordinary.length?ordinary.map((t,i)=>`<div class="listrow"><div class="pill">${esc(t.icon||'folder-open')}</div><div><b>${esc(t.name||'Aba sem nome')}</b><br><small>ID: ${esc(t.id||'—')} · posição: ${esc(t.after||'list')}</small></div><div><span class="pill">${state.titles.filter(x=>x.tabId===t.id).length} títulos</span></div><div class="rowactions"><button class="danger" data-tab-delete="${i}">Excluir aba</button></div></div>`).join(''):'<div class="empty">Nenhuma aba personalizada carregada.</div>';$$('[data-tab-delete]').forEach(b=>b.onclick=async()=>{const i=Number(b.dataset.tabDelete),tab=ordinary[i];if(!tab||!confirm(`Excluir a aba “${tab.name}”? Os títulos não serão apagados.`))return;state.tabs=state.tabs.filter(x=>x.id!==tab.id);state.titles=state.titles.map(t=>t.tabId===tab.id?{...t,tabId:''}:t);refreshTabSelect();renderAll();try{await saveCloud();status('#tabsStatus','Aba excluída e catálogo sincronizado.','ok')}catch(e){status('#tabsStatus','Falha ao sincronizar exclusão: '+e.message,'bad')}});status('#tabsStatus',`${ordinary.length} aba(s) personalizada(s) carregada(s).`,state.connected?'ok':'');}
-async function createTab(){const name=$('#tabName').value.trim();if(!name)return status('#tabsStatus','Digite o nome da aba.','bad');const existing=state.tabs.filter(x=>x.id!==MAINT_ID&&x.id!==PLAYERS_ID);if(existing.some(x=>String(x.name||'').toLowerCase()===name.toLowerCase()))return status('#tabsStatus','Já existe uma aba com esse nome.','bad');const item={id:'tab'+Date.now(),name,icon:$('#tabIcon').value,after:$('#tabAfter').value||'list'};state.tabs.push(item);refreshTabSelect();renderTabs();try{await saveCloud();$('#tabName').value='';status('#tabsStatus','Aba criada e sincronizada com o KiraFlix.','ok')}catch(e){state.tabs=state.tabs.filter(x=>x.id!==item.id);renderTabs();status('#tabsStatus','Não foi possível salvar a aba: '+e.message,'bad')}}
-function loadPlayerFields(){readSpecialTabs();$('#plMovie').value=playerCfg.movie||'';$('#plMovieSub').value=playerCfg.movieSub||'';$('#plSerie').value=playerCfg.serie||'';$('#plSerieSub').value=playerCfg.serieSub||'';}
-function renderMaintenance(){readSpecialTabs();$('#maintenanceMessage').value=maintenanceMsg;$('#maintenanceState').textContent=maintenanceOn?'ATIVADA — visitantes verão a tela de manutenção.':'DESATIVADA — site liberado para visitantes.';$('#maintenanceState').className='status '+(maintenanceOn?'bad':'ok');$('#maintenanceToggleBtn').textContent=maintenanceOn?'Desativar manutenção e liberar site':'Ativar modo manutenção';$('#maintenanceToggleBtn').className=maintenanceOn?'toggle-on':'danger';$('#maintenanceQuick').textContent=maintenanceOn?'Manutenção ATIVADA':'Manutenção desativada';}
-async function saveSpecialConfig(kind){try{if(kind==='players'){const f={movie:$('#plMovie').value.trim(),movieSub:$('#plMovieSub').value.trim(),serie:$('#plSerie').value.trim(),serieSub:$('#plSerieSub').value.trim()};for(const [k,v] of Object.entries(f)){if(v&&!/^https?:\/\//i.test(v))throw Error('Todos os links precisam começar com http:// ou https://.');if((k==='serie'||k==='serieSub')&&v&&!/\{(tmdb_id|tmdbId|id)\}/.test(v))throw Error('Player de série/anime precisa incluir {tmdb_id} (ou {id}).');}playerCfg=f;}else{maintenanceMsg=$('#maintenanceMessage').value.trim();}await saveCloud();if(kind==='players')status('#playersStatus','Players salvos para filmes, séries e animes.','ok');else status('#maintenanceStatus','Configuração de manutenção sincronizada.','ok');renderMaintenance();}catch(e){status(kind==='players'?'#playersStatus':'#maintenanceStatus','Não foi possível salvar: '+e.message,'bad');}}
-function renderAll(){renderStats();renderCatalog();renderHome();renderBadges();renderMaintenance();}
 
-function emptyForm(){ $('#titleForm').reset();refreshTabSelect();$('#editId').value='';$('#formTitle').textContent='Adicionar título';$('#formStatus').textContent='Os dados ficam pendentes até serem sincronizados com o Supabase.';}
-function editTitle(i){const t=state.titles[i];if(!t)return;goto('manual');$('#editId').value=String(i);$('#formTitle').textContent='Editar título';$('#fTitle').value=t.title||'';$('#fKind').value=t.kind||'filme';$('#fDesc').value=t.desc||'';$('#fYear').value=t.year||'';$('#fGenre').value=t.genre||'';$('#fPoster').value=t.poster||'';$('#fBackdrop').value=t.backdrop||'';$('#fVote').value=t.vote??'';$('#fRating').value=t.rating||'L';$('#fCast').value=t.cast||'';$('#fStatus').value=t.status||'novo';$('#fSrc').value=t.src||'';$('#fPlayerType').value=t.type||'embed';refreshTabSelect();$('#fTabId').value=t.tabId||'';$('#fBadgeText').value=t.badgeText||'';$('#fBadgeColor').value=/^#[0-9a-f]{6}$/i.test(t.badgeColor||'')?t.badgeColor:'#E50914';status('#formStatus','Editando um título existente. Clique em Salvar título para aplicar a alteração.');}
-function formToTitle(old={}){const kind=$('#fKind').value;return {...old,id:old.id||('manual-'+Date.now()),custom:1,title:$('#fTitle').value.trim(),desc:$('#fDesc').value.trim(),kind,genre:$('#fGenre').value.trim()||'Geral',year:Number($('#fYear').value)||0,poster:safeUrl($('#fPoster').value),backdrop:safeUrl($('#fBackdrop').value),vote:Number($('#fVote').value)||0,match:old.match||90,rating:$('#fRating').value,cast:$('#fCast').value.trim()||'—',status:$('#fStatus').value,src:safeUrl($('#fSrc').value),type:$('#fPlayerType').value,tabId:$('#fTabId').value.trim(),badgeText:$('#fBadgeText').value.trim(),badgeColor:$('#fBadgeColor').value||'#E50914',added:old.added||Date.now(),colors:old.colors||['#E50914','#0a0a0f']};}
-$('#titleForm').onsubmit=async e=>{e.preventDefault();const idx=$('#editId').value;const old=idx!==''?state.titles[Number(idx)]:{};const item=formToTitle(old);if(!item.title){status('#formStatus','Informe o título.','bad');return}if(idx!=='')state.titles[Number(idx)]=item;else state.titles.push(item);status('#formStatus','Título preparado nesta sessão. Tentando sincronizar…');renderAll();try{await saveCloud();status('#formStatus','Título salvo e sincronizado.','ok')}catch(err){status('#formStatus','Título preparado apenas nesta sessão; não foi possível sincronizar: '+err.message,'bad')}};
+/* debounce — deixa a busca lisinha */
+function debounce(fn, wait){
+  let timer;
+  return function(...args){
+    clearTimeout(timer);
+    timer = setTimeout(()=>fn.apply(this,args), wait);
+  };
+}
+
+function refreshIcons(){ if(window.lucide) lucide.createIcons(); }
+
+function status(el,msg,type=''){
+  const e=typeof el==='string'?$(el):el;
+  if(e){e.textContent=msg;e.className='status '+type;}
+  refreshIcons();
+}
+
+function toast(msg,type='ok'){
+  const t=document.createElement('div');
+  t.style.cssText=`position:fixed;bottom:22px;right:22px;z-index:9999;padding:13px 18px;border-radius:12px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:9px;box-shadow:0 18px 50px -12px rgba(0,0,0,.8);animation:fadeUp .3s ease both;max-width:340px;backdrop-filter:blur(16px);border:1px solid ${type==='ok'?'rgba(34,197,94,.35)':'rgba(229,9,20,.4)'};background:${type==='ok'?'rgba(20,45,30,.92)':'rgba(45,20,25,.92)'};color:${type==='ok'?'#bbf7d0':'#fecdd3'}`;
+  t.innerHTML=`<i data-lucide="${type==='ok'?'check-circle-2':'alert-circle'}" style="width:16px;height:16px"></i><span>${esc(msg)}</span>`;
+  document.body.appendChild(t); refreshIcons();
+  setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity .3s';setTimeout(()=>t.remove(),320)},3200);
+}
+
+/* ============================================================
+   ESTADO GLOBAL
+   ============================================================ */
+const state={
+  titles:[], tabs:[], rawData:null,
+  connected:false, adminOk:false,
+  tmdbResults:[], syncTime:null,
+  massImporting:false, massAbort:false
+};
+let sbUrl='https://ahtuhrzizlwcvrgbzivx.supabase.co', sbKey='', adminPassword='', tmdbToken='', tmdbKey='';
+
+const MAINT_ID='__maintenance__', PLAYERS_ID='__players__', BADGES_ID='__badges__';
+const MAINT_DEFAULT='Estamos melhorando o KIRAFLIX para você. Voltamos em instantes!';
+const DEFAULT_PLAYERS={
+  movie:'https://myembed.biz/filme/{tmdb_id}',
+  movieSub:'',
+  serie:'https://mgeb.lat/embed/{tmdb_id}/{season_number}/{episode_number}',
+  serieSub:'https://nhdapi.com/embed/tv/{tmdb_id}/{season_number}/{episode_number}'
+};
+let maintenanceOn=false, maintenanceMsg='', playerCfg={...DEFAULT_PLAYERS};
+let customBadges=[]; // [{id, name, color}]
+
+/* ============================================================
+   NAVEGAÇÃO
+   ============================================================ */
+const pageMeta={
+  home:{title:'Visão geral',icon:'layout-dashboard'},
+  catalog:{title:'Catálogo',icon:'library'},
+  tmdb:{title:'Importar do TMDB',icon:'clapperboard'},
+  manual:{title:'Adicionar / editar título',icon:'plus-circle'},
+  badges:{title:'Selos do catálogo',icon:'award'},
+  tabs:{title:'Abas do site',icon:'layout-list'},
+  players:{title:'Players e idiomas',icon:'play-circle'},
+  maintenance:{title:'Modo de manutenção',icon:'wrench'},
+  settings:{title:'Configurações',icon:'settings'}
+};
+
+function goto(view){
+  $$('[data-page]').forEach(x=>x.classList.toggle('hidden',x.dataset.page!==view));
+  $$('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.view===view));
+  const m=pageMeta[view]||pageMeta.home;
+  $('#pageTitle').innerHTML=`<i data-lucide="${m.icon}"></i> ${m.title}`;
+  $('#sidebar').classList.remove('open');
+  if(view==='catalog')renderCatalog();
+  if(view==='home')renderHome();
+  if(view==='badges'){renderBadges();renderCustomBadges();}
+  if(view==='tabs')renderTabs();
+  if(view==='players')loadPlayerFields();
+  if(view==='maintenance')renderMaintenance();
+  refreshIcons();
+}
+
+$$('.nav button').forEach(b=>b.onclick=()=>goto(b.dataset.view));
+$$('[data-goto]').forEach(b=>b.onclick=()=>goto(b.dataset.goto));
+$('#menuBtn').onclick=()=>$('#sidebar').classList.toggle('open');
+
+/* ============================================================
+   METADADOS DOS SELOS
+   ============================================================ */
+const badgeInfo={
+  novo:['Novo','#e50914','#fff'], lancamento:['Lançamento','#f5c518','#000'],
+  em_breve:['Em breve','#8b5cf6','#fff'], em_alta:['Em alta','#ff5722','#fff'],
+  mais_avaliado:['Mais avaliado','#f5c518','#000'], dublado:['Dublado','#1db954','#000'],
+  legendado:['Legendado','#18b6ff','#000'], especial:['Especial','#b56cff','#fff'],
+  manutencao:['Manutenção','#ff9800','#000'], personalizado:['Personalizado','#e50914','#fff'],
+  nenhum:['Sem selo','#30303e','#ddd']
+};
+
+/* Resolve metadados de um selo (sistema, personalizado do título, ou custom) */
+function getBadgeMeta(status, title){
+  if(status==='personalizado' && title){
+    return {label:title.badgeText||'Personalizado', bg:title.badgeColor||'#e50914', fg:'#fff', custom:false};
+  }
+  if(!status || status==='nenhum') return {label:'Sem selo', bg:'#30303e', fg:'#ddd', custom:false};
+  if(status.startsWith('cb:')){
+    const id=status.slice(3);
+    const cb=customBadges.find(b=>b.id===id);
+    if(cb) return {label:cb.name, bg:cb.color, fg:'#fff', custom:true};
+    return {label:'Selo removido', bg:'#30303e', fg:'#ddd', custom:false};
+  }
+  const b=badgeInfo[status];
+  if(b) return {label:b[0], bg:b[1], fg:b[2], custom:false};
+  return {label:status, bg:'#30303e', fg:'#ddd', custom:false};
+}
+
+/* Rebuild dropdown de status do formulário */
+function refreshStatusDropdown(){
+  const sel=$('#fStatus'); if(!sel) return;
+  const cur=sel.value;
+  sel.querySelectorAll('optgroup[data-custom]').forEach(g=>g.remove());
+  if(customBadges.length){
+    const og=document.createElement('optgroup');
+    og.label='Meus selos';
+    og.setAttribute('data-custom','1');
+    customBadges.forEach(b=>{
+      const opt=document.createElement('option');
+      opt.value='cb:'+b.id;
+      opt.textContent=b.name;
+      og.appendChild(opt);
+    });
+    sel.appendChild(og);
+  }
+  if([...sel.options].some(o=>o.value===cur)) sel.value=cur;
+}
+
+/* Rebuild filtro de selos */
+function refreshBadgeFilter(){
+  const sel=$('#badgeFilter'); if(!sel) return;
+  const cur=sel.value;
+  sel.querySelectorAll('optgroup[data-custom]').forEach(g=>g.remove());
+  if(customBadges.length){
+    const og=document.createElement('optgroup');
+    og.label='Meus selos';
+    og.setAttribute('data-custom','1');
+    customBadges.forEach(b=>{
+      const opt=document.createElement('option');
+      opt.value='cb:'+b.id;
+      opt.textContent=b.name;
+      og.appendChild(opt);
+    });
+    sel.appendChild(og);
+  }
+  if([...sel.options].some(o=>o.value===cur)) sel.value=cur;
+}
+
+/* ============================================================
+   CONFIG / CONEXÃO SUPABASE
+   ============================================================ */
+function checkConfig(){
+  sbUrl=$('#sbUrl').value.trim().replace(/\/+$/,'');
+  sbKey=$('#sbKey').value.trim();
+  adminPassword=$('#adminPassword').value;
+  tmdbToken=$('#tmdbToken').value.trim();
+  tmdbKey=$('#tmdbKey').value.trim();
+  if($('#persistConfig')?.checked){
+    try{localStorage.setItem('kiraflix_admin_config',JSON.stringify({sbUrl,sbKey,tmdbToken,tmdbKey}))}catch(e){}
+  }
+}
+function sbHeaders(){return {'apikey':sbKey,'Authorization':'Bearer '+sbKey,'Content-Type':'application/json'};}
+
+async function rpc(name,body){
+  if(!sbKey)throw Error('Informe a chave pública do Supabase em Configurações.');
+  const r=await fetch(sbUrl+'/rest/v1/rpc/'+name,{method:'POST',headers:sbHeaders(),body:JSON.stringify(body)});
+  const j=await r.json().catch(()=>null);
+  if(!r.ok)throw Error(j?.message||j?.details||`RPC ${name}: HTTP ${r.status}`);
+  return j;
+}
+
+async function connect(){
+  checkConfig();
+  if(!sbUrl||!sbKey||!adminPassword){status('#sbStatus','Preencha URL, chave pública e senha administrativa.','bad');return;}
+  status('#sbStatus','Verificando permissão administrativa e carregando catálogo…');
+  try{
+    const ok=await rpc('verify_kira_admin',{p_password:adminPassword});
+    if(ok!==true)throw Error('A função administrativa não confirmou a senha.');
+    state.adminOk=true;
+    const r=await fetch(sbUrl+'/rest/v1/kira_catalog?id=eq.main&select=data',{headers:sbHeaders()});
+    const j=await r.json().catch(()=>[]);
+    if(!r.ok)throw Error(j?.message||`Leitura do catálogo: HTTP ${r.status}`);
+    state.rawData=j?.[0]?.data||{titles:[],tabs:[]};
+    state.titles=Array.isArray(state.rawData.titles)?state.rawData.titles:[];
+    state.tabs=Array.isArray(state.rawData.tabs)?state.rawData.tabs:[];
+    readSpecialTabs(); refreshTabSelect();
+    state.connected=true; state.syncTime=new Date();
+    $('#connectionPill').innerHTML='<i data-lucide="wifi"></i> Supabase conectado';
+    $('#connectionPill').className='pill connected';
+    status('#sbStatus',`Conectado. ${state.titles.length} título(s) carregado(s).`,'ok');
+    status('#catalogStatus',`Catálogo carregado: ${state.titles.length} título(s).`,'ok');
+    status('#homeStatus','Catálogo carregado. As alterações podem ser sincronizadas enquanto o Supabase estiver disponível.','ok');
+    try{
+      const c=JSON.parse(localStorage.getItem('kiraflix_admin_config')||'null');
+      if(c){
+        $('#sbUrl').value=c.sbUrl||sbUrl; $('#sbKey').value=c.sbKey||'';
+        $('#tmdbToken').value=c.tmdbToken||''; $('#tmdbKey').value=c.tmdbKey||'';
+        tmdbToken=c.tmdbToken||''; tmdbKey=c.tmdbKey||'';
+        $('#persistConfig').checked=true;
+      }
+    }catch(e){}
+    renderAll(); goto('home'); refreshIcons();
+  }catch(e){
+    state.connected=false; state.adminOk=false;
+    $('#connectionPill').innerHTML='<i data-lucide="wifi-off"></i> Sem conexão';
+    $('#connectionPill').className='pill error';
+    status('#sbStatus','Não foi possível conectar: '+e.message+'\nSe o Supabase está em manutenção, tente novamente quando voltar.','bad');
+    status('#homeStatus','Conexão indisponível. Você ainda pode preparar títulos localmente nesta sessão, mas não serão publicados até sincronizar.','bad');
+  }
+}
+
+async function saveCloud(){
+  checkConfig();
+  if(!state.adminOk)throw Error('Conecte e valide a senha administrativa primeiro.');
+  const tabs=buildTabsForSave();
+  await rpc('save_kira_catalog',{p_titles:state.titles,p_tabs:tabs,p_password:adminPassword});
+  state.tabs=tabs;
+  state.rawData={...(state.rawData||{}),titles:state.titles,tabs};
+  state.syncTime=new Date();
+  status('#catalogStatus','Catálogo sincronizado com sucesso.','ok');
+  renderAll();
+}
+
+/* ============================================================
+   TABS ESPECIAIS
+   ============================================================ */
+function readSpecialTabs(){
+  const m=state.tabs.find(x=>x&&x.id===MAINT_ID);
+  maintenanceOn=!!m?.on; maintenanceMsg=m?.msg||'';
+  const p=state.tabs.find(x=>x&&x.id===PLAYERS_ID);
+  playerCfg={...DEFAULT_PLAYERS,...(p?.cfg||{})};
+  const b=state.tabs.find(x=>x&&x.id===BADGES_ID);
+  customBadges=Array.isArray(b?.items)
+    ? b.items.map(x=>({id:String(x.id||('cb_'+Math.random().toString(36).slice(2))),name:String(x.name||''),color:String(x.color||'#8b5cf6')})).filter(x=>x.name)
+    : [];
+  refreshStatusDropdown();
+  refreshBadgeFilter();
+}
+
+function buildTabsForSave(){
+  const ordinary=state.tabs.filter(x=>x&&x.id!==MAINT_ID&&x.id!==PLAYERS_ID&&x.id!==BADGES_ID);
+  return [
+    ...ordinary,
+    {id:MAINT_ID,on:!!maintenanceOn,msg:maintenanceMsg||''},
+    {id:PLAYERS_ID,cfg:{...playerCfg}},
+    {id:BADGES_ID,items:customBadges.map(b=>({id:b.id,name:b.name,color:b.color}))}
+  ];
+}
+
+/* ============================================================
+   RENDERIZAÇÃO
+   ============================================================ */
+function renderStats(){
+  const ordinary=state.tabs.filter(x=>x&&x.id!==MAINT_ID&&x.id!==PLAYERS_ID&&x.id!==BADGES_ID);
+  $('#tabsCount').textContent=ordinary.length;
+  $('#totalCount').textContent=state.titles.length;
+  $('#movieCount').textContent=state.titles.filter(t=>t.kind==='filme').length;
+  $('#seriesCount').textContent=state.titles.filter(t=>t.kind==='serie').length;
+  $('#syncTime').textContent=state.syncTime?state.syncTime.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}):'—';
+  refreshIcons();
+}
+
+function card(t,i){
+  const poster=safeUrl(t.poster)||'';
+  return `<article class="item">
+    <img loading="lazy" src="${esc(poster)}" alt="" onerror="this.style.opacity=0">
+    <div class="itembody">
+      <b>${esc(t.title||'Sem título')}</b>
+      <small>${esc(t.kind==='serie'?'Série':'Filme')} · ${esc(t.year||'—')} ${t.tmdbId?'· TMDB '+esc(t.tmdbId):''}</small>
+      <div class="actions">
+        <button class="secondary" data-edit="${i}"><i data-lucide="pencil"></i> Editar</button>
+        <button class="danger" data-delete="${i}"><i data-lucide="trash-2"></i> Excluir</button>
+      </div>
+    </div>
+  </article>`;
+}
+
+function renderCatalog(){
+  const q=($('#catalogSearch')?.value||'').toLowerCase().trim();
+  const kind=$('#catalogFilter')?.value||'';
+  const filtered=state.titles.map((t,i)=>({t,i})).filter(({t})=>
+    (!kind||t.kind===kind) &&
+    (!q||[t.title,t.desc,t.genre,t.tmdbId,t.id].join(' ').toLowerCase().includes(q))
+  );
+  $('#catalogList').innerHTML=filtered.length
+    ? filtered.map(({t,i})=>card(t,i)).join('')
+    : '<div class="empty"><i data-lucide="inbox"></i>Nenhum título encontrado.<br><span style="font-size:11px">Carregue o catálogo ou adicione um título.</span></div>';
+  refreshIcons();
+}
+
+function renderHome(){
+  renderStats();
+  const arr=state.titles.slice(-6).reverse();
+  $('#recentList').innerHTML=arr.length
+    ? arr.map(t=>{
+        const meta=getBadgeMeta(t.status,t);
+        return `<div class="listrow">
+          <img src="${esc(safeUrl(t.poster))}" onerror="this.style.opacity=0">
+          <div><b>${esc(t.title||'Sem título')}</b><br><small>${esc(t.kind||'')} · ${esc(t.year||'')}</small></div>
+          <div><span class="badge-chip" style="background:${esc(meta.bg)};color:${esc(meta.fg)}">${esc(meta.label.toUpperCase())}</span></div>
+          <div></div>
+        </div>`;
+      }).join('')
+    : '<div class="empty"><i data-lucide="inbox"></i>Nenhum título carregado ainda.</div>';
+  refreshIcons();
+}
+
+/* ---------- LISTA DE SELOS CUSTOMIZADOS (painel criar) ---------- */
+function renderCustomBadges(){
+  const wrap=$('#customBadgesList'); if(!wrap) return;
+  if(!customBadges.length){
+    wrap.innerHTML='<div class="empty" style="padding:18px"><i data-lucide="award"></i>Nenhum selo personalizado criado ainda.</div>';
+    refreshIcons();
+    return;
+  }
+  wrap.innerHTML=customBadges.map(b=>`
+    <div class="cb-item">
+      <div class="cb-preview">
+        <span class="badge-chip" style="background:${esc(b.color)};color:#fff">${esc((b.name||'').toUpperCase())}</span>
+      </div>
+      <div class="cb-info">
+        <b>${esc(b.name)}</b>
+        <small>${state.titles.filter(t=>t.status==='cb:'+b.id).length} título(s) usando</small>
+      </div>
+      <button class="danger" data-delete-cb="${esc(b.id)}"><i data-lucide="trash-2"></i></button>
+    </div>
+  `).join('');
+  refreshIcons();
+}
+
+/* ---------- BADGES ---------- */
+function renderBadges(){
+  // Legenda: sistema + custom
+  const legendItems=[
+    ...Object.entries(badgeInfo).map(([k,v])=>({key:k,label:v[0],bg:v[1],fg:v[2],type:'system'})),
+    ...customBadges.map(b=>({key:'cb:'+b.id,label:b.name,bg:b.color,fg:'#fff',type:'custom'}))
+  ];
+  const legend=$('#badgeLegend');
+  legend.innerHTML=legendItems.map(it=>`
+    <div class="badge-preview">
+      <span class="badge-chip" style="background:${esc(it.bg)};color:${esc(it.fg)}">${esc(it.label.toUpperCase())}</span>
+      <div>
+        <b style="font-size:12px">${esc(it.type==='custom'?'Personalizado':it.key)}</b>
+        <div class="hint" style="font-size:10px">${it.type==='custom'?'Selo criado por você':(it.key==='novo'||it.key==='lancamento'?'Pode expirar automaticamente':'Persistente até ser alterado')}</div>
+      </div>
+    </div>
+  `).join('');
+
+  // Filtro
+  const q=($('#badgeSearch')?.value||'').toLowerCase().trim();
+  const f=$('#badgeFilter')?.value||'';
+  const matchesBadge=(t)=>{
+    if(!f) return true;
+    if(f==='nenhum') return !t.status||t.status==='nenhum';
+    return t.status===f;
+  };
+  const arr=state.titles.map((t,i)=>({t,i})).filter(({t})=>
+    matchesBadge(t) && (!q||String(t.title||'').toLowerCase().includes(q))
+  );
+
+  $('#badgeList').innerHTML=arr.length
+    ? arr.map(({t,i})=>{
+        const meta=getBadgeMeta(t.status,t);
+        return `<article class="item">
+          <img loading="lazy" src="${esc(safeUrl(t.poster))}" onerror="this.style.opacity=0">
+          <div class="itembody">
+            <b>${esc(t.title||'Sem título')}</b>
+            <small>${esc(t.kind||'')} · ${esc(t.year||'')}</small>
+            <span class="badge-chip" style="background:${esc(meta.bg)};color:${esc(meta.fg)};margin-bottom:9px;display:inline-flex">${esc(meta.label.toUpperCase())}</span>
+            <button class="secondary" style="width:100%" data-badge-edit="${i}"><i data-lucide="pencil"></i> Editar selo / título</button>
+          </div>
+        </article>`;
+      }).join('')
+    : '<div class="empty"><i data-lucide="inbox"></i>Nenhum título corresponde a esse filtro.</div>';
+
+  status('#badgeStatus',`${arr.length} título(s) encontrados · ${state.titles.length} no catálogo carregado.`,state.connected?'ok':'');
+  refreshIcons();
+}
+
+/* ---------- TABS ---------- */
+function refreshTabSelect(){
+  const sel=$('#fTabId'); if(!sel) return;
+  const chosen=sel.value;
+  const ordinary=state.tabs.filter(x=>x&&x.id!==MAINT_ID&&x.id!==PLAYERS_ID&&x.id!==BADGES_ID);
+  sel.innerHTML='<option value="">Nenhuma aba</option>'+ordinary.map(t=>`<option value="${esc(t.id)}">${esc(t.name||t.id)}</option>`).join('');
+  if(ordinary.some(t=>t.id===chosen))sel.value=chosen;
+}
+
+function renderTabs(){
+  const ordinary=state.tabs.filter(x=>x&&x.id!==MAINT_ID&&x.id!==PLAYERS_ID&&x.id!==BADGES_ID);
+  $('#tabsList').innerHTML=ordinary.length
+    ? ordinary.map((t,i)=>`<div class="listrow">
+        <div class="pill" style="justify-content:center"><i data-lucide="${esc(t.icon||'folder-open')}"></i></div>
+        <div><b>${esc(t.name||'Aba sem nome')}</b><br><small>ID: ${esc(t.id||'—')} · posição: ${esc(t.after||'list')}</small></div>
+        <div><span class="pill">${state.titles.filter(x=>x.tabId===t.id).length} títulos</span></div>
+        <div class="rowactions"><button class="danger" data-tab-delete="${i}"><i data-lucide="trash-2"></i> Excluir aba</button></div>
+      </div>`).join('')
+    : '<div class="empty"><i data-lucide="folder-open"></i>Nenhuma aba personalizada carregada.</div>';
+  status('#tabsStatus',`${ordinary.length} aba(s) personalizada(s) carregada(s).`,state.connected?'ok':'');
+  refreshIcons();
+}
+
+async function createTab(){
+  const name=$('#tabName').value.trim();
+  if(!name)return status('#tabsStatus','Digite o nome da aba.','bad');
+  const existing=state.tabs.filter(x=>x.id!==MAINT_ID&&x.id!==PLAYERS_ID&&x.id!==BADGES_ID);
+  if(existing.some(x=>String(x.name||'').toLowerCase()===name.toLowerCase()))
+    return status('#tabsStatus','Já existe uma aba com esse nome.','bad');
+  const item={id:'tab'+Date.now(),name,icon:$('#tabIcon').value,after:$('#tabAfter').value||'list'};
+  state.tabs.push(item); refreshTabSelect(); renderTabs();
+  try{await saveCloud();$('#tabName').value='';status('#tabsStatus','Aba criada e sincronizada com o KiraFlix.','ok');toast('Aba criada');}
+  catch(e){state.tabs=state.tabs.filter(x=>x.id!==item.id);renderTabs();status('#tabsStatus','Não foi possível salvar a aba: '+e.message,'bad');toast('Erro ao criar aba','err');}
+}
+
+/* ---------- PLAYERS ---------- */
+function loadPlayerFields(){
+  readSpecialTabs();
+  $('#plMovie').value=playerCfg.movie||'';
+  $('#plMovieSub').value=playerCfg.movieSub||'';
+  $('#plSerie').value=playerCfg.serie||'';
+  $('#plSerieSub').value=playerCfg.serieSub||'';
+}
+
+/* ---------- MANUTENÇÃO ---------- */
+function renderMaintenance(){
+  readSpecialTabs();
+  $('#maintenanceMessage').value=maintenanceMsg;
+  $('#maintenanceState').textContent=maintenanceOn?'ATIVADA — visitantes verão a tela de manutenção.':'DESATIVADA — site liberado para visitantes.';
+  $('#maintenanceState').className='status '+(maintenanceOn?'bad':'ok');
+  $('#maintenanceToggleBtn').innerHTML=maintenanceOn?'<i data-lucide="power"></i> Desativar manutenção e liberar site':'<i data-lucide="wrench"></i> Ativar modo manutenção';
+  $('#maintenanceToggleBtn').className=maintenanceOn?'toggle-on':'';
+  $('#maintenanceQuick').textContent=maintenanceOn?'⚠ Manutenção ATIVADA':'✓ Manutenção desativada';
+  $('#maintenanceQuick').className='status '+(maintenanceOn?'bad':'ok');
+  refreshIcons();
+}
+
+async function saveSpecialConfig(kind){
+  try{
+    if(kind==='players'){
+      const f={
+        movie:$('#plMovie').value.trim(), movieSub:$('#plMovieSub').value.trim(),
+        serie:$('#plSerie').value.trim(), serieSub:$('#plSerieSub').value.trim()
+      };
+      for(const [k,v] of Object.entries(f)){
+        if(v&&!/^https?:\/\//i.test(v))throw Error('Todos os links precisam começar com http:// ou https://.');
+        if((k==='serie'||k==='serieSub')&&v&&!/\{(tmdb_id|tmdbId|id)\}/.test(v))
+          throw Error('Player de série/anime precisa incluir {tmdb_id} (ou {id}).');
+      }
+      playerCfg=f;
+    }else{
+      maintenanceMsg=$('#maintenanceMessage').value.trim();
+    }
+    await saveCloud();
+    if(kind==='players'){status('#playersStatus','Players salvos para filmes, séries e animes.','ok');toast('Players atualizados');}
+    else{status('#maintenanceStatus','Configuração de manutenção sincronizada.','ok');toast('Manutenção atualizada');}
+    renderMaintenance();
+  }catch(e){
+    status(kind==='players'?'#playersStatus':'#maintenanceStatus','Não foi possível salvar: '+e.message,'bad');
+    toast('Erro ao salvar','err');
+  }
+}
+
+/* ============================================================
+   SELOS CUSTOMIZADOS — CRIAR / EXCLUIR
+   ============================================================ */
+async function createBadge(){
+  const name=$('#newBadgeName').value.trim();
+  const color=$('#newBadgeColor').value||'#8b5cf6';
+  if(!name){status('#createBadgeStatus','Digite o nome do selo.','bad');$('#newBadgeName').focus();return;}
+  if(customBadges.some(b=>b.name.toLowerCase()===name.toLowerCase()))
+    return status('#createBadgeStatus','Já existe um selo com esse nome.','bad');
+
+  const item={id:'cb_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6), name, color};
+  customBadges.push(item);
+  refreshStatusDropdown();
+  refreshBadgeFilter();
+  renderCustomBadges();
+  renderBadges();
+  $('#newBadgeName').value='';
+  status('#createBadgeStatus',`Selo "${item.name}" criado. Agora ele aparece no dropdown de status em Adicionar / editar.`,'ok');
+
+  try{
+    await saveCloud();
+    status('#createBadgeStatus',`Selo "${item.name}" criado e sincronizado.`,'ok');
+    toast('Selo criado');
+  }catch(e){
+    status('#createBadgeStatus',`Selo "${item.name}" criado localmente. Não foi possível sincronizar: ${e.message}`,'warn');
+    toast('Selo criado (sem sync)','err');
+  }
+}
+
+async function deleteCustomBadge(id){
+  const cb=customBadges.find(b=>b.id===id);
+  if(!cb) return;
+  const affected=state.titles.filter(t=>t.status==='cb:'+id).length;
+  const msg=affected>0
+    ? `Excluir o selo "${cb.name}"? ${affected} título(s) usando este selo ficarão sem selo.`
+    : `Excluir o selo "${cb.name}"?`;
+  if(!confirm(msg)) return;
+
+  customBadges=customBadges.filter(b=>b.id!==id);
+  if(affected>0) state.titles=state.titles.map(t=>t.status==='cb:'+id?{...t,status:'nenhum'}:t);
+
+  refreshStatusDropdown();
+  refreshBadgeFilter();
+  renderCustomBadges();
+  renderBadges();
+  renderHome();
+
+  try{
+    await saveCloud();
+    status('#createBadgeStatus',`Selo "${cb.name}" excluído e catálogo sincronizado.`,'ok');
+    toast('Selo excluído');
+  }catch(e){
+    status('#createBadgeStatus',`Selo "${cb.name}" excluído localmente. Não foi possível sincronizar: ${e.message}`,'warn');
+    toast('Selo excluído (sem sync)','err');
+  }
+}
+
+/* ============================================================
+   RENDER ALL
+   ============================================================ */
+function renderAll(){
+  renderStats();
+  renderCatalog();
+  renderHome();
+  renderBadges();
+  renderCustomBadges();
+  renderMaintenance();
+  refreshIcons();
+}
+
+/* ============================================================
+   FORMULÁRIO MANUAL
+   ============================================================ */
+function emptyForm(){
+  $('#titleForm').reset(); refreshTabSelect();
+  $('#editId').value=''; $('#formTitle').innerHTML='<i data-lucide="plus-circle"></i> Adicionar título';
+  $('#formStatus').textContent='Os dados ficam pendentes até serem sincronizados com o Supabase.';
+  refreshIcons();
+}
+
+function editTitle(i){
+  const t=state.titles[i]; if(!t)return;
+  goto('manual');
+  $('#editId').value=String(i);
+  $('#formTitle').innerHTML='<i data-lucide="pencil"></i> Editar título';
+  $('#fTitle').value=t.title||''; $('#fKind').value=t.kind||'filme';
+  $('#fDesc').value=t.desc||''; $('#fYear').value=t.year||''; $('#fGenre').value=t.genre||'';
+  $('#fPoster').value=t.poster||''; $('#fBackdrop').value=t.backdrop||'';
+  $('#fVote').value=t.vote??''; $('#fRating').value=t.rating||'L'; $('#fCast').value=t.cast||'';
+  refreshTabSelect(); $('#fTabId').value=t.tabId||'';
+  $('#fBadgeText').value=t.badgeText||'';
+  $('#fBadgeColor').value=/^#[0-9a-f]{6}$/i.test(t.badgeColor||'')?t.badgeColor:'#E50914';
+
+  /* Status — valida selo custom */
+  let statusVal=t.status||'novo';
+  if(statusVal.startsWith('cb:')){
+    const id=statusVal.slice(3);
+    if(!customBadges.some(b=>b.id===id)) statusVal='nenhum';
+  }
+  /* Garante que o valor está no dropdown */
+  if(![...$('#fStatus').options].some(o=>o.value===statusVal)) statusVal='nenhum';
+  $('#fStatus').value=statusVal;
+  $('#fSrc').value=t.src||''; $('#fPlayerType').value=t.type||'embed';
+
+  status('#formStatus','Editando um título existente. Clique em Salvar título para aplicar a alteração.');
+  refreshIcons();
+}
+
+function formToTitle(old={}){
+  return {
+    ...old,
+    id:old.id||('manual-'+Date.now()),
+    custom:1,
+    title:$('#fTitle').value.trim(),
+    desc:$('#fDesc').value.trim(),
+    kind:$('#fKind').value,
+    genre:$('#fGenre').value.trim()||'Geral',
+    year:Number($('#fYear').value)||0,
+    poster:safeUrl($('#fPoster').value),
+    backdrop:safeUrl($('#fBackdrop').value),
+    vote:Number($('#fVote').value)||0,
+    match:old.match||90,
+    rating:$('#fRating').value,
+    cast:$('#fCast').value.trim()||'—',
+    status:$('#fStatus').value,
+    src:safeUrl($('#fSrc').value),
+    type:$('#fPlayerType').value,
+    tabId:$('#fTabId').value.trim(),
+    badgeText:$('#fBadgeText').value.trim(),
+    badgeColor:$('#fBadgeColor').value||'#E50914',
+    added:old.added||Date.now(),
+    colors:old.colors||['#E50914','#0a0a0f']
+  };
+}
+
+$('#titleForm').onsubmit=async e=>{
+  e.preventDefault();
+  const idx=$('#editId').value;
+  const old=idx!==''?state.titles[Number(idx)]:{};
+  const item=formToTitle(old);
+  if(!item.title){status('#formStatus','Informe o título.','bad');return;}
+  if(idx!=='')state.titles[Number(idx)]=item; else state.titles.push(item);
+  status('#formStatus','Título preparado nesta sessão. Tentando sincronizar…');
+  renderAll();
+  try{await saveCloud();status('#formStatus','Título salvo e sincronizado.','ok');toast('Título salvo');}
+  catch(err){status('#formStatus','Título preparado apenas nesta sessão; não foi possível sincronizar: '+err.message,'bad');toast('Salvo localmente (sem sync)','err');}
+};
+
 $('#clearFormBtn').onclick=emptyForm;
-async function deleteTitle(i){const t=state.titles[i];if(!t||!confirm(`Excluir "${t.title}" do catálogo?`))return;const old=state.titles[i];state.titles.splice(i,1);renderAll();try{await saveCloud();status('#catalogStatus','Título excluído e sincronizado.','ok')}catch(e){state.titles.splice(i,0,old);renderAll();status('#catalogStatus','Não foi possível excluir no servidor: '+e.message,'bad')}}
-function tmdbImage(p){return p?'https://image.tmdb.org/t/p/w500'+p:''}
-async function tmdbFetch(path,params={}){checkConfig();if(!tmdbToken&&!tmdbKey)throw Error('Informe token ou chave TMDB em Conexões.');const u=new URL('https://api.themoviedb.org/3'+path);u.searchParams.set('language','pt-BR');Object.entries(params).forEach(([k,v])=>u.searchParams.set(k,v));const headers={accept:'application/json'};if(tmdbToken)headers.Authorization='Bearer '+tmdbToken;else u.searchParams.set('api_key',tmdbKey);const r=await fetch(u,{headers});const j=await r.json();if(!r.ok||j.success===false)throw Error(j.status_message||`TMDB HTTP ${r.status}`);return j}
-function normalizeTMDB(x,kind,details={}){const k=kind==='tv'?'serie':'filme';const date=x.release_date||x.first_air_date||'';const g=(x.genres||[]).map(a=>a.name).filter(Boolean);const anime=(x.original_language==='ja'||/anime/i.test(g.join(' ')));return {id:`tmdb-${k}-${x.id}`,tmdbId:Number(x.id),custom:1,title:x.title||x.name||x.original_title||x.original_name||'Sem título',desc:x.overview||'Sinopse não disponível.',kind:k,genre:g.join(', ')||(anime?'Anime':'Geral'),year:date?Number(date.slice(0,4)):0,rating:details.rating||'L',match:Math.round((x.vote_average||0)*10)||90,dur:details.dur||'',cast:details.cast||'—',src:'',type:'embed',poster:tmdbImage(x.poster_path),avatar:'',status:'novo',tabId:'',colors:['#E50914','#0a0a0f'],added:Date.now(),tmdb:1,originalLanguage:x.original_language||'',backdrop:tmdbImage(x.backdrop_path),vote:x.vote_average||0};}
-async function tmdbDetails(id,kind){const d=await tmdbFetch(`/${kind}/${id}`,{append_to_response:kind==='tv'?'content_ratings,aggregate_credits':'release_dates,credits'});let credits=d.credits||d.aggregate_credits||{};let cert='';if(kind==='movie'){const br=(d.release_dates?.results||[]).find(x=>x.iso_3166_1==='BR');cert=(br?.release_dates||[]).map(x=>x.certification).find(Boolean)||''}else{const br=(d.content_ratings?.results||[]).find(x=>x.iso_3166_1==='BR');cert=br?.rating||''}const rating=({'L':'L','G':'L','10':'10','12':'12','14':'14','16':'16','18':'18','PG':'10','PG-13':'12','R':'16','NC-17':'18','TV-Y':'L','TV-Y7':'10','TV-G':'L','TV-PG':'10','TV-14':'14','TV-MA':'18'})[String(cert).toUpperCase()]||'L';const cast=(credits.cast||[]).map(c=>c.name||c.original_name).filter(Boolean).slice(0,8).join(', ');return normalizeTMDB(d,kind,{rating,dur:kind==='movie'&&d.runtime?d.runtime+' min':kind==='tv'&&d.episode_run_time?.[0]?d.episode_run_time[0]+' min':'',cast:cast||'—'});}
-function renderTMDBResults(results){$('#tmdbResults').innerHTML=results.map(x=>{const k=x.media_type||(x.name||x.first_air_date?'tv':'movie');return `<article class="item"><img loading="lazy" src="${esc(tmdbImage(x.poster_path))}" onerror="this.style.visibility='hidden'"><div class="itembody"><b>${esc(x.title||x.name||'Sem título')}</b><small>${esc((x.release_date||x.first_air_date||'').slice(0,4)||'Ano desconhecido')} · ${k==='tv'?'Série':'Filme'} · ID ${x.id}</small><button data-import="${k}:${x.id}" style="width:100%">Importar</button></div></article>`}).join('');$$('[data-import]').forEach(b=>b.onclick=async()=>{const [k,id]=b.dataset.import.split(':');await importOne(id,k,b)});}
-async function importOne(id,kind,button){if(button){button.disabled=true;button.textContent='Buscando…'}try{let item=await tmdbDetails(id,kind);const idx=state.titles.findIndex(t=>String(t.tmdbId)===String(item.tmdbId)||t.id===item.id);if(idx>=0){if(!confirm(`"${item.title}" já existe. Atualizar metadados?`))return;item={...state.titles[idx],...item,src:state.titles[idx].src||item.src};state.titles[idx]=item}else state.titles.push(item);renderAll();try{await saveCloud();status('#tmdbStatus',`${item.title} importado e sincronizado.`,'ok')}catch(e){status('#tmdbStatus',`${item.title} foi preparado nesta sessão, mas não sincronizou: ${e.message}`,'bad')}goto('catalog');}catch(e){status('#tmdbStatus','Falha na importação: '+e.message,'bad')}finally{if(button){button.disabled=false;button.textContent='Importar'}}}
-$('#searchTmdbBtn').onclick=async()=>{const q=$('#tmdbQuery').value.trim();if(!q)return status('#tmdbStatus','Digite o nome de um título.','bad');status('#tmdbStatus','Pesquisando no TMDB…');try{const type=$('#tmdbType').value;const d=await tmdbFetch('/search/'+type,{query:q,include_adult:'false',page:1});state.tmdbResults=(d.results||[]).map(x=>({...x,media_type:x.media_type||(type==='multi'?(x.title?'movie':'tv'):type)}));renderTMDBResults(state.tmdbResults);status('#tmdbStatus',`${state.tmdbResults.length} resultado(s). Escolha Importar para adicionar ao catálogo.`,'ok')}catch(e){status('#tmdbStatus','Erro na pesquisa: '+e.message,'bad')}};
-$('#importIdBtn').onclick=()=>{const id=$('#tmdbId').value.trim();if(!/^\d+$/.test(id))return status('#tmdbStatus','Informe um ID numérico válido.','bad');importOne(id,$('#idType').value)};
-$('#tmdbTestBtn').onclick=async()=>{status('#tmdbStatus','Testando TMDB…');try{await tmdbFetch('/configuration');status('#tmdbStatus','TMDB conectada com sucesso.','ok')}catch(e){status('#tmdbStatus','Falha no TMDB: '+e.message,'bad')}};
-$('#connectBtn').onclick=connect;$('#refreshBtn').onclick=()=>connect();$('#badgeFilter').onchange=renderBadges;$('#badgeSearch').oninput=renderBadges;$('#createTabBtn').onclick=createTab;$('#refreshTabsBtn').onclick=renderTabs;$('#savePlayersBtn').onclick=()=>saveSpecialConfig('players');$('#resetPlayersBtn').onclick=()=>{if(!confirm('Restaurar os links padrão de players?'))return;playerCfg={...DEFAULT_PLAYERS};loadPlayerFields();saveSpecialConfig('players')};$('#maintenanceToggleBtn').onclick=async()=>{maintenanceOn=!maintenanceOn;maintenanceMsg=$('#maintenanceMessage').value.trim();await saveSpecialConfig('maintenance')};$('#saveMaintenanceMsgBtn').onclick=()=>saveSpecialConfig('maintenance');$('#loadCatalogBtn').onclick=connect;$('#catalogSearch').oninput=renderCatalog;$('#catalogFilter').onchange=renderCatalog;
-$('#showSbKeyBtn').onclick=()=>$('#sbKey').type=$('#sbKey').type==='password'?'text':'password';
-$('#saveConfigBtn').onclick=()=>{checkConfig();if($('#persistConfig').checked){try{localStorage.setItem('kiraflix_admin_config',JSON.stringify({sbUrl,sbKey,tmdbToken,tmdbKey}));status('#sbStatus','Configurações salvas neste navegador. Ao reabrir o painel, os campos serão preenchidos automaticamente.','ok')}catch(e){status('#sbStatus','Não foi possível salvar no navegador. Confira as permissões/armazenamento.','bad')}}else status('#sbStatus','Configurações aplicadas apenas nesta sessão.','ok')};
-$('#clearTmdbBtn').onclick=()=>{$('#tmdbToken').value='';$('#tmdbKey').value='';tmdbToken='';tmdbKey='';try{const c=JSON.parse(localStorage.getItem('kiraflix_admin_config')||'{}');delete c.tmdbToken;delete c.tmdbKey;localStorage.setItem('kiraflix_admin_config',JSON.stringify(c))}catch(e){}status('#sbStatus','Credenciais TMDB removidas do formulário e da configuração local.')};
-$('#forgetConfigBtn').onclick=()=>{try{localStorage.removeItem('kiraflix_admin_config')}catch(e){}$('#sbKey').value='';$('#adminPassword').value='';$('#tmdbToken').value='';$('#tmdbKey').value='';sbKey='';adminPassword='';tmdbToken='';tmdbKey='';state.adminOk=false;state.connected=false;$('#connectionPill').textContent='Não conectado';status('#sbStatus','Campos de credenciais limpos.');};
-$('#exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify({titles:state.titles,tabs:state.tabs},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='kiraflix-catalog-backup.json';a.click();URL.revokeObjectURL(a.href)};
-try{const c=JSON.parse(localStorage.getItem('kiraflix_admin_config')||'null');if(c){$('#sbUrl').value=c.sbUrl||sbUrl;$('#sbKey').value=c.sbKey||'';$('#tmdbToken').value=c.tmdbToken||'';$('#tmdbKey').value=c.tmdbKey||'';tmdbToken=c.tmdbToken||'';tmdbKey=c.tmdbKey||'';$('#persistConfig').checked=true;}}catch(e){}renderAll();goto('home');
+
+async function deleteTitle(i){
+  const t=state.titles[i];
+  if(!t||!confirm(`Excluir "${t.title}" do catálogo?`))return;
+  const old=state.titles[i];
+  state.titles.splice(i,1); renderAll();
+  try{await saveCloud();status('#catalogStatus','Título excluído e sincronizado.','ok');toast('Título excluído');}
+  catch(e){state.titles.splice(i,0,old);renderAll();status('#catalogStatus','Não foi possível excluir no servidor: '+e.message,'bad');toast('Erro ao excluir','err');}
+}
+
+/* ============================================================
+   TMDB — FUNÇÕES BASE
+   ============================================================ */
+function tmdbImage(p){return p?'https://image.tmdb.org/t/p/w500'+p:'';}
+
+async function tmdbFetch(path,params={}){
+  checkConfig();
+  if(!tmdbToken&&!tmdbKey)throw Error('Informe token ou chave TMDB em Configurações.');
+  const u=new URL('https://api.themoviedb.org/3'+path);
+  u.searchParams.set('language','pt-BR');
+  Object.entries(params).forEach(([k,v])=>u.searchParams.set(k,v));
+  const headers={accept:'application/json'};
+  if(tmdbToken)headers.Authorization='Bearer '+tmdbToken;
+  else u.searchParams.set('api_key',tmdbKey);
+  const r=await fetch(u,{headers});
+  const j=await r.json();
+  if(!r.ok||j.success===false)throw Error(j.status_message||`TMDB HTTP ${r.status}`);
+  return j;
+}
+
+function normalizeTMDB(x,kind,details={}){
+  const k=kind==='tv'?'serie':'filme';
+  const date=x.release_date||x.first_air_date||'';
+  const g=(x.genres||[]).map(a=>a.name).filter(Boolean);
+  const anime=(x.original_language==='ja'||/anime/i.test(g.join(' ')));
+  return {
+    id:`tmdb-${k}-${x.id}`,
+    tmdbId:Number(x.id),
+    custom:1,
+    title:x.title||x.name||x.original_title||x.original_name||'Sem título',
+    desc:x.overview||'Sinopse não disponível.',
+    kind:k,
+    genre:g.join(', ')||(anime?'Anime':'Geral'),
+    year:date?Number(date.slice(0,4)):0,
+    rating:details.rating||'L',
+    match:Math.round((x.vote_average||0)*10)||90,
+    dur:details.dur||'',
+    cast:details.cast||'—',
+    src:'', type:'embed',
+    poster:tmdbImage(x.poster_path), avatar:'',
+    status:'novo', tabId:'',
+    colors:['#E50914','#0a0a0f'],
+    added:Date.now(), tmdb:1,
+    originalLanguage:x.original_language||'',
+    backdrop:tmdbImage(x.backdrop_path),
+    vote:x.vote_average||0
+  };
+}
+
+async function tmdbDetails(id,kind){
+  const d=await tmdbFetch(`/${kind}/${id}`,{append_to_response:kind==='tv'?'content_ratings,aggregate_credits':'release_dates,credits'});
+  let credits=d.credits||d.aggregate_credits||{};
+  let cert='';
+  if(kind==='movie'){
+    const br=(d.release_dates?.results||[]).find(x=>x.iso_3166_1==='BR');
+    cert=(br?.release_dates||[]).map(x=>x.certification).find(Boolean)||'';
+  }else{
+    const br=(d.content_ratings?.results||[]).find(x=>x.iso_3166_1==='BR');
+    cert=br?.rating||'';
+  }
+  const rating=({'L':'L','G':'L','10':'10','12':'12','14':'14','16':'16','18':'18','PG':'10','PG-13':'12','R':'16','NC-17':'18','TV-Y':'L','TV-Y7':'10','TV-G':'L','TV-PG':'10','TV-14':'14','TV-MA':'18'})[String(cert).toUpperCase()]||'L';
+  const cast=(credits.cast||[]).map(c=>c.name||c.original_name).filter(Boolean).slice(0,8).join(', ');
+  return normalizeTMDB(d,kind,{
+    rating,
+    dur:kind==='movie'&&d.runtime?d.runtime+' min':kind==='tv'&&d.episode_run_time?.[0]?d.episode_run_time[0]+' min':'',
+    cast:cast||'—'
+  });
+}
+
+/* ============================================================
+   TMDB — BUSCA INDIVIDUAL
+   ============================================================ */
+function renderTMDBResults(results){
+  $('#tmdbResults').innerHTML=results.map(x=>{
+    const k=x.media_type||(x.name||x.first_air_date?'tv':'movie');
+    return `<article class="item">
+      <img loading="lazy" src="${esc(tmdbImage(x.poster_path))}" onerror="this.style.opacity=0">
+      <div class="itembody">
+        <b>${esc(x.title||x.name||'Sem título')}</b>
+        <small>${esc((x.release_date||x.first_air_date||'').slice(0,4)||'Ano desconhecido')} · ${k==='tv'?'Série':'Filme'} · ID ${x.id}</small>
+        <button data-import="${k}:${x.id}" style="width:100%"><i data-lucide="download"></i> Importar</button>
+      </div>
+    </article>`;
+  }).join('');
+  refreshIcons();
+}
+
+async function importOne(id,kind,button){
+  if(button){button.disabled=true;button.innerHTML='<i data-lucide="loader-2" class="spin"></i> Buscando…';refreshIcons();}
+  try{
+    let item=await tmdbDetails(id,kind);
+    const idx=state.titles.findIndex(t=>String(t.tmdbId)===String(item.tmdbId)||t.id===item.id);
+    if(idx>=0){
+      if(!confirm(`"${item.title}" já existe. Atualizar metadados?`))return;
+      item={...state.titles[idx],...item,src:state.titles[idx].src||item.src};
+      state.titles[idx]=item;
+    }else state.titles.push(item);
+    renderAll();
+    try{await saveCloud();status('#tmdbStatus',`${item.title} importado e sincronizado.`,'ok');toast('Título importado');}
+    catch(e){status('#tmdbStatus',`${item.title} foi preparado nesta sessão, mas não sincronizou: ${e.message}`,'bad');toast('Salvo localmente','err');}
+    goto('catalog');
+  }catch(e){
+    status('#tmdbStatus','Falha na importação: '+e.message,'bad');
+    toast('Falha na importação','err');
+  }finally{
+    if(button){button.disabled=false;button.innerHTML='<i data-lucide="download"></i> Importar';refreshIcons();}
+  }
+}
+
+$('#searchTmdbBtn').onclick=async()=>{
+  const q=$('#tmdbQuery').value.trim();
+  if(!q)return status('#tmdbStatus','Digite o nome de um título.','bad');
+  status('#tmdbStatus','Pesquisando no TMDB…');
+  try{
+    const type=$('#tmdbType').value;
+    const d=await tmdbFetch('/search/'+type,{query:q,include_adult:'false',page:1});
+    state.tmdbResults=(d.results||[]).map(x=>({...x,media_type:x.media_type||(type==='multi'?(x.title?'movie':'tv'):type)}));
+    renderTMDBResults(state.tmdbResults);
+    status('#tmdbStatus',`${state.tmdbResults.length} resultado(s). Escolha Importar para adicionar ao catálogo.`,'ok');
+  }catch(e){status('#tmdbStatus','Erro na pesquisa: '+e.message,'bad');}
+};
+
+$('#importIdBtn').onclick=()=>{
+  const id=$('#tmdbId').value.trim();
+  if(!/^\d+$/.test(id))return status('#tmdbStatus','Informe um ID numérico válido.','bad');
+  importOne(id,$('#idType').value);
+};
+
+$('#tmdbTestBtn').onclick=async()=>{
+  status('#tmdbStatus','Testando TMDB…');
+  try{await tmdbFetch('/configuration');status('#tmdbStatus','TMDB conectada com sucesso.','ok');toast('TMDB OK');}
+  catch(e){status('#tmdbStatus','Falha no TMDB: '+e.message,'bad');toast('TMDB falhou','err');}
+};
+
+/* ============================================================
+   IMPORTAÇÃO EM MASSA
+   ============================================================ */
+const massCategoryEl=$('#massCategory'), massTypeEl=$('#massType'),
+      massQuantityEl=$('#massQuantity'), massDuplicatesEl=$('#massDuplicates'),
+      discoverFiltersEl=$('#discoverFilters');
+
+massCategoryEl.onchange=()=>{
+  discoverFiltersEl.style.display=massCategoryEl.value==='discover'?'block':'none';
+};
+
+function buildDiscoverParams(){
+  const p={sort_by:'popularity.desc'};
+  const g=$('#massGenre').value.trim(); if(g)p.with_genres=g;
+  const y1=$('#massYearGte').value.trim(); if(y1)p['primary_release_date.gte']=y1+'-01-01';
+  const y2=$('#massYearLte').value.trim(); if(y2)p['primary_release_date.lte']=y2+'-12-31';
+  const v=$('#massVote').value.trim(); if(v)p['vote_average.gte']=v;
+  return p;
+}
+
+async function fetchMassBatch(category,type,page){
+  if(category.startsWith('trending')){
+    const window=category.split('_')[1];
+    const t=type==='all'?'all':type;
+    return tmdbFetch(`/trending/${t}/${window}`,{page});
+  }
+  const kind=type==='tv'?'tv':'movie';
+  if(category==='popular')return tmdbFetch(`/${kind}/popular`,{page});
+  if(category==='top_rated')return tmdbFetch(`/${kind}/top_rated`,{page});
+  if(category==='now_playing'&&kind==='movie')return tmdbFetch('/movie/now_playing',{page});
+  if(category==='upcoming'&&kind==='movie')return tmdbFetch('/movie/upcoming',{page});
+  if(category==='discover')return tmdbFetch(`/discover/${kind}`,{...buildDiscoverParams(),page});
+  return tmdbFetch(`/${kind}/popular`,{page});
+}
+
+function massLog(msg,cls=''){
+  const log=$('#massLog');
+  const line=document.createElement('div');
+  line.className=cls; line.textContent=msg;
+  log.appendChild(line); log.scrollTop=log.scrollHeight;
+}
+function massProgress(pct,label){
+  $('#massProgressFill').style.width=pct+'%';
+  $('#massProgressPct').textContent=Math.round(pct)+'%';
+  if(label)$('#massProgressLabel').textContent=label;
+}
+
+$('#massStopBtn').onclick=()=>{
+  state.massAbort=true;
+  status('#massStatus','Parando importação…','warn');
+};
+
+$('#massImportBtn').onclick=async()=>{
+  if(state.massImporting)return;
+  const category=massCategoryEl.value;
+  let type=massTypeEl.value;
+  const quantity=Number(massQuantityEl.value);
+  const duplicateMode=massDuplicatesEl.value;
+
+  if(category!=='trending_day'&&category!=='trending_week'){ type=type==='all'?'movie':type; }
+
+  state.massImporting=true; state.massAbort=false;
+  const btn=$('#massImportBtn');
+  btn.disabled=true; btn.innerHTML='<i data-lucide="loader-2" class="spin"></i> Importando…';
+  $('#massStopBtn').disabled=false;
+  refreshIcons();
+  $('#massProgressWrap').classList.add('active');
+  $('#massLog').innerHTML='';
+  massProgress(0,'Preparando…');
+  status('#massStatus','Importação em massa iniciada.','ok');
+
+  let imported=0, skipped=0, errors=0, page=1;
+  const totalPages=Math.min(500,Math.ceil(quantity/20));
+
+  try{
+    while(imported+skipped+errors<quantity && !state.massAbort){
+      massProgress((imported+skipped+errors)/quantity*100,`Página ${page} de ${totalPages}…`);
+      const data=await fetchMassBatch(category,type,page);
+      const results=data.results||[];
+      if(!results.length)break;
+
+      for(const x of results){
+        if(imported+skipped+errors>=quantity||state.massAbort)break;
+        const kind=x.media_type||(x.first_air_date?'tv':type);
+        const id=x.id;
+        try{
+          const item=await tmdbDetails(id,kind);
+          const exists=state.titles.some(t=>String(t.tmdbId)===String(item.tmdbId)||t.id===item.id);
+          if(exists){
+            if(duplicateMode==='skip'){
+              skipped++;
+              massLog(`⏭ ${item.title} (já existe) — pulado`,'skip');
+              continue;
+            }else{
+              const idx=state.titles.findIndex(t=>String(t.tmdbId)===String(item.tmdbId));
+              state.titles[idx]={...state.titles[idx],...item,src:state.titles[idx].src||item.src};
+              imported++;
+              massLog(`🔄 ${item.title} — atualizado`,'ok');
+              continue;
+            }
+          }
+          state.titles.push(item);
+          imported++;
+          massLog(`✅ ${item.title} (${item.year||'—'}) — importado`,'ok');
+        }catch(err){
+          errors++;
+          massLog(`❌ ${x.title||x.name||'ID '+id}: ${err.message}`,'err');
+        }
+        massProgress((imported+skipped+errors)/quantity*100,`Processando… ${imported+skipped+errors}/${quantity}`);
+        await new Promise(r=>setTimeout(r,180));
+      }
+
+      if(page>=data.total_pages)break;
+      page++;
+      if(page>totalPages)break;
+    }
+
+    renderAll();
+    if(imported>0||skipped>0){
+      try{
+        await saveCloud();
+        massLog(`💾 Sincronizado com o Supabase: ${imported} importado(s), ${skipped} pulado(s), ${errors} erro(s).`,'ok');
+        toast(`${imported} título(s) importado(s)`);
+        status('#massStatus',`Importação concluída: ${imported} importado(s), ${skipped} pulado(s), ${errors} erro(s).`,'ok');
+      }catch(e){
+        massLog('⚠ Falha ao sincronizar: '+e.message,'err');
+        status('#massStatus','Importação local concluída, mas não foi possível sincronizar: '+e.message,'bad');
+      }
+    }else{
+      status('#massStatus',`Nenhum título novo importado. ${skipped} já existiam.`,'warn');
+    }
+    massProgress(100,'Concluído');
+  }catch(e){
+    status('#massStatus','Erro na importação em massa: '+e.message,'bad');
+    massLog('❌ '+e.message,'err');
+    toast('Erro na importação em massa','err');
+  }finally{
+    state.massImporting=false;
+    btn.disabled=false; btn.innerHTML='<i data-lucide="download-cloud"></i> Iniciar importação em massa';
+    $('#massStopBtn').disabled=true;
+    refreshIcons();
+  }
+};
+
+/* ============================================================
+   DELEGAÇÃO DE EVENTOS (performance)
+   ============================================================ */
+/* Catálogo */
+$('#catalogList').addEventListener('click', e=>{
+  const ed=e.target.closest('[data-edit]');
+  if(ed){editTitle(Number(ed.dataset.edit));return;}
+  const del=e.target.closest('[data-delete]');
+  if(del){deleteTitle(Number(del.dataset.delete));return;}
+});
+/* Badges (lista de títulos) */
+$('#badgeList').addEventListener('click', e=>{
+  const ed=e.target.closest('[data-badge-edit]');
+  if(ed){editTitle(Number(ed.dataset.badgeEdit));return;}
+});
+/* Selos customizados (painel criar) */
+$('#customBadgesList').addEventListener('click', e=>{
+  const btn=e.target.closest('[data-delete-cb]');
+  if(btn){deleteCustomBadge(btn.dataset.deleteCb);return;}
+});
+/* Tabs */
+$('#tabsList').addEventListener('click', async e=>{
+  const btn=e.target.closest('[data-tab-delete]');
+  if(!btn)return;
+  const i=Number(btn.dataset.tabDelete);
+  const ordinary=state.tabs.filter(x=>x&&x.id!==MAINT_ID&&x.id!==PLAYERS_ID&&x.id!==BADGES_ID);
+  const tab=ordinary[i];
+  if(!tab||!confirm(`Excluir a aba “${tab.name}”? Os títulos não serão apagados.`))return;
+  state.tabs=state.tabs.filter(x=>x.id!==tab.id);
+  state.titles=state.titles.map(t=>t.tabId===tab.id?{...t,tabId:''}:t);
+  refreshTabSelect(); renderAll();
+  try{await saveCloud();status('#tabsStatus','Aba excluída e catálogo sincronizado.','ok');toast('Aba excluída');}
+  catch(err){status('#tabsStatus','Falha ao sincronizar exclusão: '+err.message,'bad');toast('Erro ao excluir aba','err');}
+});
+/* Resultados TMDB */
+$('#tmdbResults').addEventListener('click', async e=>{
+  const btn=e.target.closest('[data-import]');
+  if(!btn)return;
+  const [k,id]=btn.dataset.import.split(':');
+  await importOne(id,k,btn);
+});
+
+/* ============================================================
+   EVENTOS GERAIS
+   ============================================================ */
+/* Busca com debounce (lisinha) */
+$('#catalogSearch').addEventListener('input', debounce(renderCatalog, 180));
+$('#catalogFilter').addEventListener('change', renderCatalog);
+$('#badgeSearch').addEventListener('input', debounce(renderBadges, 180));
+$('#badgeFilter').addEventListener('change', renderBadges);
+
+$('#connectBtn').onclick=connect;
+$('#refreshBtn').onclick=()=>connect();
+$('#createTabBtn').onclick=createTab;
+$('#refreshTabsBtn').onclick=renderTabs;
+$('#savePlayersBtn').onclick=()=>saveSpecialConfig('players');
+$('#resetPlayersBtn').onclick=()=>{
+  if(!confirm('Restaurar os links padrão de players?'))return;
+  playerCfg={...DEFAULT_PLAYERS}; loadPlayerFields(); saveSpecialConfig('players');
+};
+$('#maintenanceToggleBtn').onclick=async()=>{
+  maintenanceOn=!maintenanceOn;
+  maintenanceMsg=$('#maintenanceMessage').value.trim();
+  await saveSpecialConfig('maintenance');
+};
+$('#saveMaintenanceMsgBtn').onclick=()=>saveSpecialConfig('maintenance');
+$('#loadCatalogBtn').onclick=connect;
+
+/* Criar selo */
+$('#createBadgeBtn').onclick=createBadge;
+$('#newBadgeName').addEventListener('keydown', e=>{
+  if(e.key==='Enter'){e.preventDefault();createBadge();}
+});
+
+$('#showSbKeyBtn').onclick=()=>{
+  const i=$('#sbKey');
+  i.type=i.type==='password'?'text':'password';
+  $('#showSbKeyBtn').innerHTML=i.type==='password'?'<i data-lucide="eye"></i> Mostrar chave':'<i data-lucide="eye-off"></i> Ocultar chave';
+  refreshIcons();
+};
+
+$('#saveConfigBtn').onclick=()=>{
+  checkConfig();
+  if($('#persistConfig').checked){
+    try{
+      localStorage.setItem('kiraflix_admin_config',JSON.stringify({sbUrl,sbKey,tmdbToken,tmdbKey}));
+      status('#sbStatus','Configurações salvas neste navegador. Ao reabrir o painel, os campos serão preenchidos automaticamente.','ok');
+      toast('Configurações salvas');
+    }catch(e){status('#sbStatus','Não foi possível salvar no navegador. Confira as permissões/armazenamento.','bad');}
+  }else status('#sbStatus','Configurações aplicadas apenas nesta sessão.','ok');
+};
+
+$('#clearTmdbBtn').onclick=()=>{
+  $('#tmdbToken').value=''; $('#tmdbKey').value=''; tmdbToken=''; tmdbKey='';
+  try{
+    const c=JSON.parse(localStorage.getItem('kiraflix_admin_config')||'{}');
+    delete c.tmdbToken; delete c.tmdbKey;
+    localStorage.setItem('kiraflix_admin_config',JSON.stringify(c));
+  }catch(e){}
+  status('#sbStatus','Credenciais TMDB removidas do formulário e da configuração local.');
+  toast('Credenciais TMDB removidas');
+};
+
+$('#forgetConfigBtn').onclick=()=>{
+  try{localStorage.removeItem('kiraflix_admin_config')}catch(e){}
+  $('#sbKey').value=''; $('#adminPassword').value='';
+  $('#tmdbToken').value=''; $('#tmdbKey').value='';
+  sbKey=''; adminPassword=''; tmdbToken=''; tmdbKey='';
+  state.adminOk=false; state.connected=false;
+  $('#connectionPill').innerHTML='<i data-lucide="wifi-off"></i> Não conectado';
+  $('#connectionPill').className='pill';
+  status('#sbStatus','Campos de credenciais limpos.');
+  refreshIcons();
+};
+
+$('#exportBtn').onclick=()=>{
+  const blob=new Blob([JSON.stringify({titles:state.titles,tabs:state.tabs},null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='kiraflix-catalog-backup.json';
+  a.click(); URL.revokeObjectURL(a.href);
+  toast('Backup exportado');
+};
+
+/* ============================================================
+   INICIALIZAÇÃO
+   ============================================================ */
+try{
+  const c=JSON.parse(localStorage.getItem('kiraflix_admin_config')||'null');
+  if(c){
+    $('#sbUrl').value=c.sbUrl||sbUrl;
+    $('#sbKey').value=c.sbKey||'';
+    $('#tmdbToken').value=c.tmdbToken||'';
+    $('#tmdbKey').value=c.tmdbKey||'';
+    tmdbToken=c.tmdbToken||''; tmdbKey=c.tmdbKey||'';
+    $('#persistConfig').checked=true;
+  }
+}catch(e){}
+
+refreshStatusDropdown();
+refreshBadgeFilter();
+renderAll();
+goto('home');
+refreshIcons();
 </script>
 </body>
 </html>
