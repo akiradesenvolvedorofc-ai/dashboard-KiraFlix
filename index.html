@@ -92,11 +92,14 @@ label i{width:13px;height:13px;color:var(--muted)}
 .top h1{font-size:19px;font-weight:800;letter-spacing:-.2px;display:flex;align-items:center;gap:9px}
 .top h1 i{width:19px;height:19px;color:var(--red-soft)}
 .hint{font-size:11.5px;color:var(--muted);margin-top:1px}
-.topright{display:flex;gap:9px;align-items:center}
-.pill{font-size:11px;font-weight:700;background:rgba(139,92,246,.13);border:1px solid rgba(139,92,246,.25);border-radius:99px;padding:5px 11px;color:#cbb9ff;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.topright{display:flex;gap:9px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.pill{font-size:11px;font-weight:700;background:rgba(139,92,246,.13);border:1px solid rgba(139,92,246,.25);border-radius:99px;padding:5px 11px;color:#cbb9ff;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;transition:all .3s ease}
 .pill i{width:11px;height:11px}
 .pill.connected{background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.28);color:#86efac}
 .pill.error{background:rgba(229,9,20,.12);border-color:rgba(229,9,20,.28);color:#fda4af}
+.pill.syncing{background:rgba(139,92,246,.15);border-color:rgba(139,92,246,.35);color:#cbb9ff}
+.pill.syncing i{animation:spin 1s linear infinite}
+.pill.pending{background:rgba(245,197,24,.12);border-color:rgba(245,197,24,.28);color:#fcd34d}
 .content{padding:26px 28px 60px;max-width:1560px;margin:auto;animation:fadeUp .4s ease both}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:18px}
@@ -208,6 +211,12 @@ label i{width:13px;height:13px;color:var(--muted)}
 @keyframes spin{to{transform:rotate(360deg)}}
 .banner-warn{padding:12px 14px;border-radius:11px;background:rgba(245,197,24,.08);border:1px solid rgba(245,197,24,.28);color:#fcd34d;font-size:12px;line-height:1.6;margin-bottom:14px;display:flex;gap:10px;align-items:flex-start}
 .banner-warn i{width:16px;height:16px;flex-shrink:0;margin-top:1px}
+.banner-info{padding:12px 14px;border-radius:11px;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.28);color:#c4b5fd;font-size:12px;line-height:1.6;margin-bottom:14px;display:flex;gap:10px;align-items:flex-start}
+.banner-info i{width:16px;height:16px;flex-shrink:0;margin-top:1px}
+.sync-indicator{position:fixed;bottom:22px;left:22px;z-index:9998;padding:10px 14px;border-radius:11px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:8px;backdrop-filter:blur(16px);border:1px solid var(--line-strong);background:rgba(20,20,32,.9);color:#a9a9c2;transition:all .3s ease;max-width:280px}
+.sync-indicator.pending{background:rgba(45,42,20,.92);border-color:rgba(245,197,24,.35);color:#fcd34d}
+.sync-indicator.error{background:rgba(45,20,25,.92);border-color:rgba(229,9,20,.4);color:#fecdd3}
+.sync-indicator.ok{background:rgba(20,45,30,.92);border-color:rgba(34,197,94,.35);color:#bbf7d0}
 @media(max-width:980px){
   .app{grid-template-columns:1fr}
   .side{display:none}
@@ -220,6 +229,7 @@ label i{width:13px;height:13px;color:var(--muted)}
   .listrow{grid-template-columns:42px minmax(100px,1fr) 70px}
   .listrow .rowactions{grid-column:2/-1;justify-content:flex-start}
   .topright .hide-mobile{display:none}
+  .sync-indicator{bottom:12px;left:12px;right:12px;max-width:none}
 }
 @media(max-width:460px){
   .cards{gap:9px}
@@ -267,6 +277,7 @@ label i{width:13px;height:13px;color:var(--muted)}
   </div>
   <div class="topright">
     <span class="pill" id="connectionPill"><i data-lucide="wifi-off"></i> Não conectado</span>
+    <span class="pill" id="syncPill" style="display:none"><i data-lucide="cloud"></i> <span>Sincronizado</span></span>
     <button class="secondary hide-mobile" id="refreshBtn"><i data-lucide="refresh-cw"></i> Atualizar</button>
   </div>
  </header>
@@ -377,7 +388,6 @@ label i{width:13px;height:13px;color:var(--muted)}
     </div>
     <div class="panel" style="margin-top:16px">
       <h2><i data-lucide="search"></i> Pesquisar filmes, séries e animes</h2>
-      <p>O TMDB fornece metadados, imagens, elenco e informações de episódios — não os arquivos de vídeo.</p>
       <div class="two">
         <div class="field"><label><i data-lucide="search"></i> Termo de pesquisa</label><input id="tmdbQuery" placeholder="Ex.: Interestelar, Naruto" autocomplete="off"></div>
         <div class="field"><label><i data-lucide="filter"></i> Tipo</label><select id="tmdbType"><option value="multi">Filmes e séries</option><option value="movie">Filmes</option><option value="tv">Séries e animes</option></select></div>
@@ -453,13 +463,13 @@ label i{width:13px;height:13px;color:var(--muted)}
   <section data-page="badges" class="hidden">
    <div class="panel" style="margin-bottom:16px">
      <h2><i data-lucide="plus-circle"></i> Criar novo selo</h2>
-     <p>Crie selos personalizados com nome e cor. Eles aparecem no dropdown de status em <b>Adicionar / editar</b>.</p>
+     <p>Crie selos personalizados com nome e cor. Ao aplicar em um título, ele é convertido em <code>status: personalizado</code> para que o site KiraFlix real exiba corretamente.</p>
      <div class="two">
        <div class="field"><label><i data-lucide="type"></i> Nome do selo *</label><input id="newBadgeName" maxlength="18" placeholder="Ex.: Exclusivo, Top 10, Novo" autocomplete="off"></div>
        <div class="field"><label><i data-lucide="palette"></i> Cor do selo</label><input id="newBadgeColor" type="color" value="#8b5cf6" style="height:43px;padding:4px"></div>
      </div>
      <div class="actions"><button id="createBadgeBtn"><i data-lucide="plus"></i> Criar selo</button></div>
-     <div id="createBadgeStatus" class="status">Os selos personalizados ficam salvos junto ao catálogo.</div>
+     <div id="createBadgeStatus" class="status">Os selos personalizados ficam salvos no registro __badges__ do catálogo.</div>
      <div id="customBadgesList" class="results" style="margin-top:12px"></div>
    </div>
    <div class="panel">
@@ -502,9 +512,9 @@ label i{width:13px;height:13px;color:var(--muted)}
   <section data-page="themes" class="hidden">
    <div class="panel">
      <h2><i data-lucide="sparkles"></i> Temas Prontos para o Site</h2>
-     <p>Escolha um tema pré-configurado e aplique instantaneamente ao site KiraFlix. As cores são enviadas via GitHub — o site lê de lá.</p>
+     <p>Escolha um tema pré-configurado e aplique instantaneamente. As cores são enviadas via GitHub — o site lê de lá.</p>
      <div id="themesGrid" class="themes-grid"></div>
-     <div id="themesStatus" class="status">Selecione um tema para aplicar. O GitHub precisa estar conectado para que as mudanças cheguem ao site.</div>
+     <div id="themesStatus" class="status">Selecione um tema para aplicar. O GitHub precisa estar conectado.</div>
      <div class="panel" style="margin-top:16px;background:rgba(255,255,255,.02)">
        <h2><i data-lucide="eye"></i> Pré-visualização do site KiraFlix</h2>
        <div class="site-preview" id="sitePreviewThemes">
@@ -550,40 +560,36 @@ label i{width:13px;height:13px;color:var(--muted)}
 
    <div class="panel">
      <h2><i data-lucide="database"></i> Supabase do KiraFlix</h2>
-     <p>Use apenas a chave pública publishable/anon. Nunca coloque <b style="color:#fda4af">service_role</b> no navegador.</p>
+     <div class="banner-info">
+       <i data-lucide="info"></i>
+       <div>As credenciais são salvas automaticamente neste navegador. Ao recarregar a página, a conexão é restaurada automaticamente.</div>
+     </div>
      <div class="field"><label><i data-lucide="globe"></i> URL do projeto</label><input id="sbUrl" value="https://ahtuhrzizlwcvrgbzivx.supabase.co"></div>
      <div class="field"><label><i data-lucide="key-round"></i> Chave pública (publishable / anon)</label><input id="sbKey" type="password" autocomplete="off" placeholder="sb_publishable_… ou chave anon"></div>
      <div class="field"><label><i data-lucide="lock"></i> Senha administrativa do KiraFlix</label><input id="adminPassword" type="password" autocomplete="off" placeholder="Senha validada pela função do KiraFlix"></div>
-     <div class="checkline" style="margin:10px 0 14px"><input type="checkbox" id="saveAdminPassword"><label for="saveAdminPassword">Lembrar senha neste navegador (conectar automaticamente)</label></div>
      <div class="actions">
-       <button id="connectBtn"><i data-lucide="plug"></i> Conectar e carregar catálogo</button>
+       <button id="connectBtn"><i data-lucide="plug"></i> Conectar agora</button>
        <button class="secondary" id="showSbKeyBtn"><i data-lucide="eye"></i> Mostrar chave</button>
-       <button class="secondary" id="forgetConfigBtn"><i data-lucide="trash-2"></i> Limpar configuração local</button>
+       <button class="secondary" id="forgetConfigBtn"><i data-lucide="trash-2"></i> Limpar tudo</button>
      </div>
      <div id="sbStatus" class="status">A manutenção do Supabase pode impedir a conexão temporariamente.</div>
    </div>
 
    <div class="panel" style="margin-top:16px">
      <h2><i data-lucide="clapperboard"></i> TMDB</h2>
-     <p>Você pode usar o token de leitura ou a chave API v3.</p>
      <div class="field"><label><i data-lucide="key-round"></i> Token de leitura (Bearer)</label><textarea id="tmdbToken" rows="3" autocomplete="off" placeholder="Cole o token de leitura aqui"></textarea></div>
      <div class="field"><label><i data-lucide="key"></i> Chave API v3 (alternativa)</label><input id="tmdbKey" type="password" autocomplete="off" placeholder="Chave API v3"></div>
-     <div class="checkline" style="margin:10px 0 14px"><input id="persistConfig" type="checkbox" checked><label for="persistConfig">Salvar URL/chave pública e credenciais TMDB neste navegador</label></div>
      <div class="actions">
        <button id="saveConfigBtn"><i data-lucide="save"></i> Salvar configurações</button>
        <button class="secondary" id="clearTmdbBtn"><i data-lucide="eraser"></i> Limpar credenciais TMDB</button>
      </div>
    </div>
 
-   <!-- IDENTIDADE DO SITE -->
    <div class="panel" style="margin-top:16px">
      <h2><i data-lucide="palette"></i> Identidade do Site KiraFlix</h2>
      <div class="banner-warn">
        <i data-lucide="alert-triangle"></i>
-       <div>
-         <b>Estas configurações alteram o SITE KiraFlix (visitantes), não este painel.</b><br>
-         Elas são enviadas via GitHub e o site as lê do repositório. <b>Conecte o GitHub abaixo para que tenham efeito.</b>
-       </div>
+       <div><b>Estas configurações alteram o SITE KiraFlix (visitantes), não este painel.</b><br>Elas são enviadas via GitHub e o site as lê do repositório. <b>Conecte o GitHub abaixo.</b></div>
      </div>
      <div class="site-preview" id="sitePreview">
        <span class="sp-label">PREVIEW DO SITE</span>
@@ -610,14 +616,11 @@ label i{width:13px;height:13px;color:var(--muted)}
      <div id="siteSettingsStatus" class="status">Configure e salve. As mudanças chegam ao site via GitHub.</div>
    </div>
 
-   <!-- PERFIS DO SITE -->
    <div class="panel" style="margin-top:16px">
      <h2><i data-lucide="users"></i> Sistema de Perfis do Site KiraFlix</h2>
-     <div class="banner-warn">
+     <div class="banner-info">
        <i data-lucide="info"></i>
-       <div>
-         Configura como os <b>visitantes do site KiraFlix</b> podem criar conta, fazer login e personalizar seus perfis. Não afeta este painel administrativo.
-       </div>
+       <div>Configura como os <b>visitantes do site KiraFlix</b> podem criar conta, fazer login e personalizar seus perfis. Não afeta este painel administrativo.</div>
      </div>
      <div class="checkline" style="margin:9px 0"><input type="checkbox" id="cfgProfilesEnabled" checked><label for="cfgProfilesEnabled">Ativar sistema de perfis no site</label></div>
      <div class="checkline" style="margin:9px 0"><input type="checkbox" id="cfgAllowRegister" checked><label for="cfgAllowRegister">Permitir cadastro de novos usuários</label></div>
@@ -628,7 +631,7 @@ label i{width:13px;height:13px;color:var(--muted)}
        <div class="field"><label><i data-lucide="shield"></i> Nível padrão do novo usuário</label><select id="cfgDefaultRole"><option value="user">Usuário comum</option><option value="vip">VIP</option><option value="admin">Administrador</option></select></div>
        <div class="field"><label><i data-lucide="layers"></i> Máximo de perfis por conta</label><input id="cfgMaxProfiles" type="number" min="1" max="10" value="5"></div>
      </div>
-     <div class="field"><label><i data-lucide="key-round"></i> Provedores OAuth (opcional — client IDs)</label>
+     <div class="field" style="margin-top:4px"><label><i data-lucide="key-round"></i> Provedores OAuth (opcional — client IDs)</label>
        <input id="cfgOAuthGoogle" placeholder="Google Client ID" autocomplete="off" style="margin-bottom:8px">
        <input id="cfgOAuthGithub" placeholder="GitHub Client ID" autocomplete="off" style="margin-bottom:8px">
        <input id="cfgOAuthDiscord" placeholder="Discord Client ID" autocomplete="off">
@@ -637,7 +640,6 @@ label i{width:13px;height:13px;color:var(--muted)}
      <div id="profilesStatus" class="status">Configure as regras e clique em Salvar.</div>
    </div>
 
-   <!-- GITHUB -->
    <div class="panel" style="margin-top:16px">
      <h2><i data-lucide="github"></i> Integração com GitHub</h2>
      <p>Conecte um repositório para sincronizar as configurações do site. O painel envia <code>kira-settings.json</code> ao repo, e o site o consome de <code>raw.githubusercontent.com</code>.</p>
@@ -650,7 +652,6 @@ label i{width:13px;height:13px;color:var(--muted)}
        <div class="field"><label><i data-lucide="file-json"></i> Caminho do arquivo</label><input id="ghPath" placeholder="kira-settings.json" value="kira-settings.json" autocomplete="off"></div>
      </div>
      <div class="field"><label><i data-lucide="key-round"></i> Token de acesso pessoal (PAT)</label><input id="ghToken" type="password" autocomplete="off" placeholder="ghp_… (escopo repo)"></div>
-     <div class="checkline" style="margin:10px 0 14px"><input type="checkbox" id="ghPersistToken" checked><label for="ghPersistToken">Salvar token neste navegador</label></div>
      <div class="actions">
        <button id="ghTestBtn"><i data-lucide="plug-zap"></i> Testar conexão</button>
        <button class="secondary" id="ghPushBtn"><i data-lucide="upload-cloud"></i> Enviar configurações</button>
@@ -658,7 +659,7 @@ label i{width:13px;height:13px;color:var(--muted)}
        <button class="secondary" id="ghClearBtn"><i data-lucide="trash-2"></i> Limpar GitHub</button>
      </div>
      <div id="ghStatus" class="status">Preencha as credenciais do GitHub para habilitar.</div>
-     <div class="hint"><i data-lucide="info" style="width:12px;height:12px;vertical-align:-2px"></i> O token precisa de escopo <code>repo</code>. Crie em <code>github.com/settings/tokens</code>.</div>
+     <div class="hint"><i data-lucide="info" style="width:12px;height:12px;vertical-align:-2px"></i> O token precisa de escopo <code>repo</code>. Crie em <code>github.com/settings/tokens</code>. <b>Salvo automaticamente neste navegador.</b></div>
    </div>
 
   </section>
@@ -666,6 +667,8 @@ label i{width:13px;height:13px;color:var(--muted)}
  </div>
 </main>
 </div>
+
+<div class="sync-indicator" id="syncIndicator" style="display:none"></div>
 
 <script>
 /* ============================================================
@@ -677,7 +680,6 @@ const safeUrl=s=>{try{const u=new URL(s);return ['http:','https:'].includes(u.pr
 function debounce(fn, wait){let t;return function(...a){clearTimeout(t);t=setTimeout(()=>fn.apply(this,a),wait);}}
 function safeRender(name, fn){try{fn();}catch(e){console.error(`[${name}]`, e);}}
 
-/* RAF-debounced icon refresh — evita travas ao renderizar muitos itens */
 let iconRaf=null;
 function refreshIcons(){
   if(iconRaf) return;
@@ -693,16 +695,38 @@ function status(el,msg,type=''){
 }
 function toast(msg,type='ok'){
   const t=document.createElement('div');
-  t.style.cssText=`position:fixed;bottom:22px;right:22px;z-index:9999;padding:13px 18px;border-radius:12px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:9px;box-shadow:0 18px 50px -12px rgba(0,0,0,.8);animation:fadeUp .3s ease both;max-width:340px;backdrop-filter:blur(16px);border:1px solid ${type==='ok'?'rgba(34,197,94,.35)':'rgba(229,9,20,.4)'};background:${type==='ok'?'rgba(20,45,30,.92)':'rgba(45,20,25,.92)'};color:${type==='ok'?'#bbf7d0':'#fecdd3'}`;
-  t.innerHTML=`<i data-lucide="${type==='ok'?'check-circle-2':'alert-circle'}" style="width:16px;height:16px"></i><span>${esc(msg)}</span>`;
+  t.style.cssText=`position:fixed;bottom:22px;right:22px;z-index:9999;padding:13px 18px;border-radius:12px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:9px;box-shadow:0 18px 50px -12px rgba(0,0,0,.8);animation:fadeUp .3s ease both;max-width:340px;backdrop-filter:blur(16px);border:1px solid ${type==='ok'?'rgba(34,197,94,.35)':type==='warn'?'rgba(245,197,24,.35)':'rgba(229,9,20,.4)'};background:${type==='ok'?'rgba(20,45,30,.92)':type==='warn'?'rgba(45,42,20,.92)':'rgba(45,20,25,.92)'};color:${type==='ok'?'#bbf7d0':type==='warn'?'#fcd34d':'#fecdd3'}`;
+  const icon=type==='ok'?'check-circle-2':type==='warn'?'alert-triangle':'alert-circle';
+  t.innerHTML=`<i data-lucide="${icon}" style="width:16px;height:16px"></i><span>${esc(msg)}</span>`;
   document.body.appendChild(t); refreshIcons();
-  setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity .3s';setTimeout(()=>t.remove(),320)},3200);
+  setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity .3s';setTimeout(()=>t.remove(),320)},3800);
+}
+
+/* Indicador de sincronização persistente */
+function setSyncState(stateName,msg){
+  const el=$('#syncIndicator');
+  if(!el) return;
+  if(stateName==='hidden'){el.style.display='none';return;}
+  el.style.display='flex';
+  el.className='sync-indicator '+stateName;
+  const icon=stateName==='ok'?'check-circle-2':stateName==='pending'?'clock':stateName==='error'?'alert-circle':'loader-2';
+  el.innerHTML=`<i data-lucide="${icon}" style="width:14px;height:14px;${stateName==='syncing'?'animation:spin 1s linear infinite':''}"></i><span>${esc(msg)}</span>`;
+  refreshIcons();
+}
+function setHeaderSync(stateName,label){
+  const el=$('#syncPill');
+  if(!el) return;
+  el.style.display='inline-flex';
+  el.className='pill '+(stateName==='ok'?'connected':stateName==='syncing'?'syncing':stateName==='pending'?'pending':'error');
+  const icon=stateName==='ok'?'cloud-check':stateName==='syncing'?'refresh-cw':stateName==='pending'?'cloud-off':'alert-triangle';
+  el.innerHTML=`<i data-lucide="${icon}"></i> ${esc(label)}`;
+  refreshIcons();
 }
 
 /* ============================================================
    ESTADO
    ============================================================ */
-const state={titles:[],tabs:[],rawData:null,connected:false,adminOk:false,tmdbResults:[],syncTime:null,massImporting:false,massAbort:false};
+const state={titles:[],tabs:[],rawData:null,connected:false,adminOk:false,tmdbResults:[],syncTime:null,massImporting:false,massAbort:false,hasUnsavedChanges:false,syncPending:false};
 let sbUrl='https://ahtuhrzizlwcvrgbzivx.supabase.co', sbKey='', adminPassword='', tmdbToken='', tmdbKey='';
 
 const MAINT_ID='__maintenance__', PLAYERS_ID='__players__', BADGES_ID='__badges__', SETTINGS_ID='__settings__';
@@ -719,13 +743,12 @@ const DEFAULT_SETTINGS={
 let siteSettings=JSON.parse(JSON.stringify(DEFAULT_SETTINGS));
 let githubConfig={user:'',repo:'',branch:'main',path:'kira-settings.json',token:''};
 
-/* Paginação para evitar travas */
 let catalogLimit=60, badgeLimit=60;
 
 function isOrdinaryTab(x){ return x && x.id!==MAINT_ID && x.id!==PLAYERS_ID && x.id!==BADGES_ID && x.id!==SETTINGS_ID; }
 
 /* ============================================================
-   NAVEGAÇÃO — com RAF para não travar
+   NAVEGAÇÃO
    ============================================================ */
 const pageMeta={
   home:{title:'Visão geral',icon:'layout-dashboard'},
@@ -740,15 +763,12 @@ const pageMeta={
   settings:{title:'Configurações',icon:'settings'}
 };
 function goto(view){
-  /* 1) Troca visual PRIMEIRO — sempre responde instantaneamente */
   $$('[data-page]').forEach(x=>x.classList.toggle('hidden',x.dataset.page!==view));
   $$('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.view===view));
   const m=pageMeta[view]||pageMeta.home;
   $('#pageTitle').innerHTML=`<i data-lucide="${m.icon}"></i> ${m.title}`;
   $('#sidebar').classList.remove('open');
   window.scrollTo({top:0,behavior:'instant'});
-
-  /* 2) Render deferido no próximo frame — não bloqueia o clique */
   requestAnimationFrame(()=>{
     safeRender('goto:'+view, ()=>{
       if(view==='catalog')renderCatalog();
@@ -778,19 +798,35 @@ const badgeInfo={
   manutencao:['Manutenção','#ff9800','#000'], personalizado:['Personalizado','#e50914','#fff'],
   nenhum:['Sem selo','#30303e','#ddd']
 };
+
+/* Resolve como o selo aparece visualmente (considera customBadgeId e personalizado) */
 function getBadgeMeta(status, title){
-  if(status==='personalizado' && title) return {label:title.badgeText||'Personalizado',bg:title.badgeColor||'#e50914',fg:'#fff'};
   if(!status || status==='nenhum') return {label:'Sem selo',bg:'#30303e',fg:'#ddd'};
+
+  /* Selo customizado (novo formato) */
+  if(title && title.customBadgeId){
+    const cb=customBadges.find(b=>b.id===title.customBadgeId);
+    if(cb) return {label:cb.name,bg:cb.color,fg:'#fff'};
+  }
+
+  /* Selo legacy `cb:xxx` (compatibilidade) */
   if(status.startsWith('cb:')){
     const id=status.slice(3);
     const cb=customBadges.find(b=>b.id===id);
     if(cb) return {label:cb.name,bg:cb.color,fg:'#fff'};
     return {label:'Selo removido',bg:'#30303e',fg:'#ddd'};
   }
+
+  /* Personalizado com texto/cor livres */
+  if(status==='personalizado' && title) {
+    return {label:title.badgeText||'Personalizado',bg:title.badgeColor||'#e50914',fg:'#fff'};
+  }
+
   const b=badgeInfo[status];
   if(b) return {label:b[0],bg:b[1],fg:b[2]};
   return {label:status,bg:'#30303e',fg:'#ddd'};
 }
+
 function refreshStatusDropdown(){
   const sel=$('#fStatus'); if(!sel) return;
   const cur=sel.value;
@@ -825,90 +861,192 @@ function refreshBadgeFilter(){
 }
 
 /* ============================================================
-   SUPABASE
+   SUPABASE — conexão robusta com persistência
    ============================================================ */
-function checkConfig(){
-  sbUrl=$('#sbUrl').value.trim().replace(/\/+$/,'');
-  sbKey=$('#sbKey').value.trim();
-  adminPassword=$('#adminPassword').value;
-  tmdbToken=$('#tmdbToken').value.trim();
-  tmdbKey=$('#tmdbKey').value.trim();
+function persistAllCredentials(){
+  /* SEMPRE salva — não depende de checkbox */
   try{
-    if($('#saveAdminPassword')?.checked && adminPassword){
-      localStorage.setItem('kiraflix_admin_pw', btoa(adminPassword));
-    } else if(!$('#saveAdminPassword')?.checked){
-      localStorage.removeItem('kiraflix_admin_pw');
-    }
-  }catch(e){}
-  if($('#persistConfig')?.checked){
-    try{localStorage.setItem('kiraflix_admin_config',JSON.stringify({sbUrl,sbKey,tmdbToken,tmdbKey}))}catch(e){}
-  }
+    localStorage.setItem('kiraflix_admin_config', JSON.stringify({
+      sbUrl:($('#sbUrl')?.value||'').trim().replace(/\/+$/,''),
+      sbKey:($('#sbKey')?.value||'').trim(),
+      adminPassword:($('#adminPassword')?.value||''),
+      tmdbToken:($('#tmdbToken')?.value||'').trim(),
+      tmdbKey:($('#tmdbKey')?.value||'').trim()
+    }));
+  }catch(e){console.warn('persist:',e);}
+
   githubConfig={
-    user:$('#ghUser')?.value.trim()||'',
-    repo:$('#ghRepo')?.value.trim()||'',
-    branch:$('#ghBranch')?.value.trim()||'main',
-    path:$('#ghPath')?.value.trim()||'kira-settings.json',
-    token:$('#ghToken')?.value.trim()||''
+    user:($('#ghUser')?.value||'').trim(),
+    repo:($('#ghRepo')?.value||'').trim(),
+    branch:($('#ghBranch')?.value||'main').trim()||'main',
+    path:($('#ghPath')?.value||'kira-settings.json').trim()||'kira-settings.json',
+    token:($('#ghToken')?.value||'').trim()
   };
-  try{
-    if($('#ghPersistToken')?.checked && githubConfig.token){
-      localStorage.setItem('kiraflix_github_cfg', JSON.stringify({...githubConfig}));
-    }else{
-      localStorage.removeItem('kiraflix_github_cfg');
-    }
-  }catch(e){}
+  try{localStorage.setItem('kiraflix_github_cfg',JSON.stringify(githubConfig));}catch(e){}
 }
+
+function checkConfig(){
+  sbUrl=($('#sbUrl')?.value||'').trim().replace(/\/+$/,'');
+  sbKey=($('#sbKey')?.value||'').trim();
+  adminPassword=($('#adminPassword')?.value||'');
+  tmdbToken=($('#tmdbToken')?.value||'').trim();
+  tmdbKey=($('#tmdbKey')?.value||'').trim();
+  persistAllCredentials();
+}
+
 function sbHeaders(){return {'apikey':sbKey,'Authorization':'Bearer '+sbKey,'Content-Type':'application/json'};}
-async function rpc(name,body){
+
+async function rpc(name,body,timeoutMs=45000){
   if(!sbKey)throw Error('Informe a chave pública do Supabase.');
-  const r=await fetch(sbUrl+'/rest/v1/rpc/'+name,{method:'POST',headers:sbHeaders(),body:JSON.stringify(body)});
-  const j=await r.json().catch(()=>null);
-  if(!r.ok)throw Error(j?.message||j?.details||`RPC ${name}: HTTP ${r.status}`);
-  return j;
+  const ctrl=new AbortController();
+  const to=setTimeout(()=>ctrl.abort(),timeoutMs);
+  try{
+    const r=await fetch(sbUrl+'/rest/v1/rpc/'+name,{
+      method:'POST',
+      headers:sbHeaders(),
+      body:JSON.stringify(body),
+      signal:ctrl.signal,
+      cache:'no-store'
+    });
+    clearTimeout(to);
+    const j=await r.json().catch(()=>null);
+    if(!r.ok)throw Error(j?.message||j?.details||`RPC ${name}: HTTP ${r.status}`);
+    return j;
+  }catch(e){
+    clearTimeout(to);
+    if(e.name==='AbortError')throw Error('Timeout na operação (45s). O catálogo pode estar grande demais.');
+    throw e;
+  }
 }
+
 async function connect(){
   checkConfig();
-  if(!sbUrl||!sbKey||!adminPassword){status('#sbStatus','Preencha URL, chave pública e senha administrativa.','bad');return;}
-  status('#sbStatus','Verificando permissão administrativa e carregando catálogo…');
+  if(!sbUrl||!sbKey||!adminPassword){
+    status('#sbStatus','Preencha URL, chave pública e senha administrativa.','bad');
+    return false;
+  }
+  status('#sbStatus','Verificando permissão administrativa e carregando catálogo…','warn');
   try{
-    const ok=await rpc('verify_kira_admin',{p_password:adminPassword});
+    const ok=await rpc('verify_kira_admin',{p_password:adminPassword},15000);
     if(ok!==true)throw Error('A função administrativa não confirmou a senha.');
     state.adminOk=true;
-    const r=await fetch(sbUrl+'/rest/v1/kira_catalog?id=eq.main&select=data',{headers:sbHeaders()});
+    const r=await fetch(sbUrl+'/rest/v1/kira_catalog?id=eq.main&select=data',{headers:sbHeaders(),cache:'no-store'});
     const j=await r.json().catch(()=>[]);
     if(!r.ok)throw Error(j?.message||`Leitura: HTTP ${r.status}`);
     state.rawData=j?.[0]?.data||{titles:[],tabs:[]};
-    /* Filtra entradas inválidas que possam travar a renderização */
     state.titles=Array.isArray(state.rawData.titles) ? state.rawData.titles.filter(t=>t&&typeof t==='object') : [];
     state.tabs=Array.isArray(state.rawData.tabs) ? state.rawData.tabs.filter(t=>t&&typeof t==='object') : [];
     readSpecialTabs(); refreshTabSelect();
-    state.connected=true; state.syncTime=new Date();
+    state.connected=true; state.syncTime=new Date(); state.syncPending=false;
     $('#connectionPill').innerHTML='<i data-lucide="wifi"></i> Supabase conectado';
     $('#connectionPill').className='pill connected';
-    status('#sbStatus',`Conectado. ${state.titles.length} título(s) carregado(s).`,'ok');
+    setHeaderSync('ok','Sincronizado');
+    setSyncState('hidden');
+    status('#sbStatus',`✅ Conectado. ${state.titles.length} título(s) carregado(s).`,'ok');
     status('#catalogStatus',`Catálogo carregado: ${state.titles.length} título(s).`,'ok');
-    status('#homeStatus','Catálogo carregado. As alterações podem ser sincronizadas.','ok');
+    status('#homeStatus','Catálogo carregado. As alterações são sincronizadas automaticamente.','ok');
     safeRender('renderAfterConnect', ()=>{renderAll();});
     refreshIcons();
+    return true;
   }catch(e){
     state.connected=false; state.adminOk=false;
     $('#connectionPill').innerHTML='<i data-lucide="wifi-off"></i> Sem conexão';
     $('#connectionPill').className='pill error';
-    status('#sbStatus','Não foi possível conectar: '+e.message+'\nSe o Supabase está em manutenção, tente novamente quando voltar.','bad');
-    status('#homeStatus','Conexão indisponível. Você ainda pode preparar títulos localmente.','bad');
+    setHeaderSync('error','Erro');
+    status('#sbStatus','Não foi possível conectar: '+e.message,'bad');
+    status('#homeStatus','Conexão indisponível. Tente novamente.','bad');
+    return false;
   }
 }
-async function saveCloud(){
-  checkConfig();
+
+/* ---------- SAVE CLOUD ROBUSTO — limpa payload, retry, timeout ---------- */
+function cleanTitle(t){
+  const out={};
+  for(const [k,v] of Object.entries(t)){
+    if(v===undefined||v===null) continue;
+    if(typeof v==='string' && v==='') {
+      /* mantém vazios só em campos importantes */
+      if(['title','kind','id'].includes(k)) out[k]=v;
+      continue;
+    }
+    out[k]=v;
+  }
+  return out;
+}
+
+async function saveCloudInner(){
   if(!state.adminOk)throw Error('Conecte e valide a senha administrativa primeiro.');
   const tabs=buildTabsForSave();
-  await rpc('save_kira_catalog',{p_titles:state.titles,p_tabs:tabs,p_password:adminPassword});
+  const payload={
+    p_titles:state.titles.map(cleanTitle),
+    p_tabs:tabs,
+    p_password:adminPassword
+  };
+  const result=await rpc('save_kira_catalog',payload,60000);
   state.tabs=tabs;
   state.rawData={...(state.rawData||{}),titles:state.titles,tabs};
-  state.syncTime=new Date();
-  status('#catalogStatus','Catálogo sincronizado com sucesso.','ok');
-  safeRender('renderAfterSave', ()=>{renderAll();});
-  refreshIcons();
+  state.syncTime=new Date(); state.syncPending=false; state.hasUnsavedChanges=false;
+  setHeaderSync('ok','Sincronizado');
+  setSyncState('hidden');
+  status('#catalogStatus','✅ Catálogo sincronizado com sucesso.','ok');
+  return result;
+}
+
+let syncRetryTimer=null;
+async function saveCloud(opts={}){
+  const silent=!!opts.silent;
+  checkConfig();
+  if(!state.adminOk){
+    state.hasUnsavedChanges=true; state.syncPending=true;
+    setHeaderSync('pending','Pendente');
+    setSyncState('pending','Alterações pendentes — conecte o Supabase');
+    throw Error('Conecte e valide a senha administrativa primeiro.');
+  }
+
+  setHeaderSync('syncing','Sincronizando…');
+  setSyncState('syncing','Sincronizando com o Supabase…');
+  if(syncRetryTimer){clearTimeout(syncRetryTimer);syncRetryTimer=null;}
+
+  const MAX_TRIES=3;
+  let lastErr=null;
+  for(let attempt=1; attempt<=MAX_TRIES; attempt++){
+    try{
+      await saveCloudInner();
+      if(!silent)toast('Sincronizado','ok');
+      safeRender('renderAfterSave',()=>renderAll());
+      return;
+    }catch(e){
+      lastErr=e;
+      console.warn(`[save] tentativa ${attempt}/${MAX_TRIES}:`, e.message);
+      const isTimeout=/timeout|timed out|timeout/i.test(e.message||'');
+      if(attempt<MAX_TRIES){
+        setHeaderSync('syncing',`Tentativa ${attempt+1}/${MAX_TRIES}…`);
+        setSyncState('pending',`Erro na tentativa ${attempt}. Tentando novamente…`);
+        await new Promise(r=>setTimeout(r, 1200*attempt));
+        continue;
+      }
+      /* Falhou todas as tentativas */
+      state.hasUnsavedChanges=true; state.syncPending=true;
+      setHeaderSync('pending','Pendente');
+      setSyncState('error',
+        isTimeout
+          ? 'Timeout no Supabase — catálogo muito grande. Alterações salvas localmente. Retentativa em 30s.'
+          : 'Erro de conexão — alterações salvas localmente. Retentativa em 30s.'
+      );
+      status('#catalogStatus','⚠ Falha ao sincronizar: '+e.message+'\nAs alterações permanecem neste navegador. Tentaremos novamente em 30s.','bad');
+      /* agenda retry em 30s */
+      if(!syncRetryTimer){
+        syncRetryTimer=setTimeout(async ()=>{
+          syncRetryTimer=null;
+          if(state.adminOk && state.hasUnsavedChanges){
+            try{ await saveCloud({silent:true}); }catch(_){}
+          }
+        }, 30000);
+      }
+      throw e;
+    }
+  }
+  throw lastErr;
 }
 
 /* ============================================================
@@ -1020,13 +1158,14 @@ function renderCustomBadges(){
     wrap.innerHTML='<div class="empty" style="padding:18px"><i data-lucide="award"></i>Nenhum selo personalizado criado ainda.</div>';
     refreshIcons(); return;
   }
-  wrap.innerHTML=customBadges.map(b=>`
-    <div class="cb-item">
+  wrap.innerHTML=customBadges.map(b=>{
+    const count=state.titles.filter(t=>t.customBadgeId===b.id||t.status==='cb:'+b.id).length;
+    return `<div class="cb-item">
       <div class="cb-preview"><span class="badge-chip" style="background:${esc(b.color)};color:#fff">${esc((b.name||'').toUpperCase())}</span></div>
-      <div class="cb-info"><b>${esc(b.name)}</b><small>${state.titles.filter(t=>t.status==='cb:'+b.id).length} título(s) usando</small></div>
-      <button class="danger" data-delete-cb="${esc(b.id)}"><i data-lucide="trash-2"></i></button>
-    </div>
-  `).join('');
+      <div class="cb-info"><b>${esc(b.name)}</b><small>${count} título(s) usando</small></div>
+      <button class="danger" data-delete-cb="${esc(b.id)}" title="Excluir selo"><i data-lucide="trash-2"></i></button>
+    </div>`;
+  }).join('');
   refreshIcons();
 }
 function renderBadges(){
@@ -1047,7 +1186,12 @@ function renderBadges(){
   const q=($('#badgeSearch')?.value||'').toLowerCase().trim();
   const f=$('#badgeFilter')?.value||'';
   const arr=state.titles.map((t,i)=>({t,i})).filter(({t})=>{
-    const matchBadge=(!f)||(f==='nenhum'?(!t.status||t.status==='nenhum'):t.status===f);
+    let matchBadge=true;
+    if(f){
+      if(f==='nenhum') matchBadge=!t.status||t.status==='nenhum';
+      else if(f.startsWith('cb:')) matchBadge=t.customBadgeId===f.slice(3)||t.status===f;
+      else matchBadge=t.status===f;
+    }
     const matchQ=(!q)||String(t.title||'').toLowerCase().includes(q);
     return matchBadge && matchQ;
   });
@@ -1102,7 +1246,7 @@ async function createTab(){
   const item={id:'tab'+Date.now(),name,icon:$('#tabIcon').value,after:$('#tabAfter').value||'list'};
   state.tabs.push(item); refreshTabSelect(); renderTabs();
   try{await saveCloud();$('#tabName').value='';status('#tabsStatus','Aba criada e sincronizada.','ok');toast('Aba criada');}
-  catch(e){state.tabs=state.tabs.filter(x=>x.id!==item.id);renderTabs();status('#tabsStatus','Não foi possível salvar: '+e.message,'bad');toast('Erro','err');}
+  catch(e){status('#tabsStatus','Criada localmente. Falha ao sincronizar: '+e.message,'warn');toast('Criada (pendente)','warn');}
 }
 function loadPlayerFields(){
   readSpecialTabs();
@@ -1143,8 +1287,57 @@ async function saveSpecialConfig(kind){
 }
 
 /* ============================================================
-   SELOS CUSTOM
+   SELOS CUSTOM — conversão correta para o site real
    ============================================================ */
+
+/* Converte status ao salvar: 'cb:xxx' → 'personalizado' + customBadgeId + badgeText/badgeColor */
+function convertTitleForSave(t){
+  const out={...t};
+  if(out.status && out.status.startsWith('cb:')){
+    const id=out.status.slice(3);
+    const cb=customBadges.find(b=>b.id===id);
+    if(cb){
+      out.status='personalizado';
+      out.customBadgeId=cb.id;
+      out.badgeText=cb.name;
+      out.badgeColor=cb.color;
+    }else{
+      out.status='nenhum';
+      delete out.customBadgeId;
+    }
+  }
+  /* Se já tem customBadgeId, garante consistência */
+  if(out.customBadgeId){
+    const cb=customBadges.find(b=>b.id===out.customBadgeId);
+    if(cb){
+      out.status='personalizado';
+      out.badgeText=cb.name;
+      out.badgeColor=cb.color;
+    }else{
+      delete out.customBadgeId;
+      if(out.status==='personalizado') out.status='nenhum';
+    }
+  }
+  return out;
+}
+
+/* Sobrescreve saveCloud para converter antes de enviar */
+const _origSaveCloudInner=saveCloudInner;
+saveCloudInner=async function(){
+  if(!state.adminOk)throw Error('Conecte e valide a senha administrativa primeiro.');
+  const tabs=buildTabsForSave();
+  const convertedTitles=state.titles.map(t=>convertTitleForSave(cleanTitle(t)));
+  const payload={p_titles:convertedTitles,p_tabs:tabs,p_password:adminPassword};
+  const result=await rpc('save_kira_catalog',payload,60000);
+  state.tabs=tabs;
+  state.rawData={...(state.rawData||{}),titles:state.titles,tabs};
+  state.syncTime=new Date(); state.syncPending=false; state.hasUnsavedChanges=false;
+  setHeaderSync('ok','Sincronizado');
+  setSyncState('hidden');
+  status('#catalogStatus','✅ Catálogo sincronizado com sucesso.','ok');
+  return result;
+};
+
 async function createBadge(){
   const name=$('#newBadgeName').value.trim();
   const color=$('#newBadgeColor').value||'#8b5cf6';
@@ -1156,19 +1349,44 @@ async function createBadge(){
   refreshStatusDropdown(); refreshBadgeFilter(); renderCustomBadges(); renderBadges();
   $('#newBadgeName').value='';
   status('#createBadgeStatus',`Selo "${item.name}" criado.`,'ok');
-  try{await saveCloud();toast('Selo criado');}
-  catch(e){status('#createBadgeStatus',`Criado localmente. Não sincronizou: ${e.message}`,'warn');toast('Criado (sem sync)','err');}
+  try{await saveCloud({silent:true});toast('Selo criado');}
+  catch(e){status('#createBadgeStatus',`Criado localmente. Pendente de sincronização: ${e.message}`,'warn');toast('Criado (pendente)','warn');}
 }
+
 async function deleteCustomBadge(id){
   const cb=customBadges.find(b=>b.id===id); if(!cb) return;
-  const affected=state.titles.filter(t=>t.status==='cb:'+id).length;
-  const msg=affected>0?`Excluir "${cb.name}"? ${affected} título(s) ficarão sem selo.`:`Excluir "${cb.name}"?`;
+  const affected=state.titles.filter(t=>t.customBadgeId===id||t.status==='cb:'+id).length;
+  const msg=affected>0?`Excluir "${cb.name}"? ${affected} título(s) usando este selo ficarão sem selo.`:`Excluir "${cb.name}"?`;
   if(!confirm(msg)) return;
+
+  /* 1) Remoção LOCAL imediata — nunca bloqueia */
   customBadges=customBadges.filter(b=>b.id!==id);
-  if(affected>0) state.titles=state.titles.map(t=>t.status==='cb:'+id?{...t,status:'nenhum'}:t);
+  state.titles=state.titles.map(t=>{
+    if(t.customBadgeId===id || t.status==='cb:'+id){
+      const copy={...t};
+      delete copy.customBadgeId;
+      copy.status='nenhum';
+      delete copy.badgeText;
+      delete copy.badgeColor;
+      return copy;
+    }
+    return t;
+  });
   refreshStatusDropdown(); refreshBadgeFilter(); renderCustomBadges(); renderBadges(); renderHome();
-  try{await saveCloud();toast('Selo excluído');}
-  catch(e){status('#createBadgeStatus',`Excluído localmente. ${e.message}`,'warn');toast('Excluído (sem sync)','err');}
+
+  /* 2) Tenta sincronizar em background */
+  status('#createBadgeStatus',`Selo "${cb.name}" removido. Sincronizando com Supabase…`,'warn');
+  try{
+    await saveCloud({silent:true});
+    status('#createBadgeStatus',`✅ Selo "${cb.name}" excluído e sincronizado.`,'ok');
+    toast('Selo excluído');
+  }catch(e){
+    /* Mantém removido localmente — o retry automático de saveCloud cuidará */
+    status('#createBadgeStatus',
+      `⚠ Selo "${cb.name}" removido localmente, mas o Supabase não confirmou ainda.\n\nO painel tentará novamente automaticamente em 30s. Se o erro for "statement timeout", o catálogo pode estar muito grande para a função save_kira_catalog atual.`,
+      'bad');
+    toast('Removido localmente','warn');
+  }
 }
 
 /* ============================================================
@@ -1205,8 +1423,14 @@ function editTitle(i){
   refreshTabSelect(); $('#fTabId').value=t.tabId||'';
   $('#fBadgeText').value=t.badgeText||'';
   $('#fBadgeColor').value=/^#[0-9a-f]{6}$/i.test(t.badgeColor||'')?t.badgeColor:'#E50914';
+
+  /* Status — resolve a partir de customBadgeId (novo) ou status legacy */
   let statusVal=t.status||'novo';
-  if(statusVal.startsWith('cb:')){
+  if(t.customBadgeId){
+    const cb=customBadges.find(b=>b.id===t.customBadgeId);
+    if(cb) statusVal='cb:'+cb.id;
+    else statusVal='nenhum';
+  }else if(statusVal.startsWith('cb:')){
     const id=statusVal.slice(3);
     if(!customBadges.some(b=>b.id===id)) statusVal='nenhum';
   }
@@ -1217,7 +1441,8 @@ function editTitle(i){
   refreshIcons();
 }
 function formToTitle(old={}){
-  return {
+  const statusRaw=$('#fStatus').value;
+  const out={
     ...old, id:old.id||('manual-'+Date.now()), custom:1,
     title:$('#fTitle').value.trim(), desc:$('#fDesc').value.trim(),
     kind:$('#fKind').value, genre:$('#fGenre').value.trim()||'Geral',
@@ -1225,11 +1450,20 @@ function formToTitle(old={}){
     poster:safeUrl($('#fPoster').value), backdrop:safeUrl($('#fBackdrop').value),
     vote:Number($('#fVote').value)||0, match:old.match||90,
     rating:$('#fRating').value, cast:$('#fCast').value.trim()||'—',
-    status:$('#fStatus').value, src:safeUrl($('#fSrc').value),
+    status:statusRaw, src:safeUrl($('#fSrc').value),
     type:$('#fPlayerType').value, tabId:$('#fTabId').value.trim(),
     badgeText:$('#fBadgeText').value.trim(), badgeColor:$('#fBadgeColor').value||'#E50914',
     added:old.added||Date.now(), colors:old.colors||['#E50914','#0a0a0f']
   };
+  /* Se for selo custom, guarda customBadgeId */
+  if(statusRaw.startsWith('cb:')){
+    out.customBadgeId=statusRaw.slice(3);
+    const cb=customBadges.find(b=>b.id===out.customBadgeId);
+    if(cb){out.badgeText=cb.name;out.badgeColor=cb.color;}
+  }else{
+    delete out.customBadgeId;
+  }
+  return out;
 }
 $('#titleForm').onsubmit=async e=>{
   e.preventDefault();
@@ -1238,10 +1472,10 @@ $('#titleForm').onsubmit=async e=>{
   const item=formToTitle(old);
   if(!item.title){status('#formStatus','Informe o título.','bad');return;}
   if(idx!=='')state.titles[Number(idx)]=item; else state.titles.push(item);
-  status('#formStatus','Preparado. Tentando sincronizar…');
+  status('#formStatus','Preparado. Sincronizando…');
   renderAll();
-  try{await saveCloud();status('#formStatus','Salvo e sincronizado.','ok');toast('Título salvo');}
-  catch(err){status('#formStatus','Salvo apenas nesta sessão: '+err.message,'bad');toast('Salvo localmente','err');}
+  try{await saveCloud();status('#formStatus','✅ Salvo e sincronizado.','ok');toast('Título salvo');}
+  catch(err){status('#formStatus','⚠ Salvo localmente. Falha ao sincronizar: '+err.message,'warn');toast('Salvo (pendente)','warn');}
 };
 $('#clearFormBtn').onclick=emptyForm;
 async function deleteTitle(i){
@@ -1335,7 +1569,7 @@ async function importOne(id,kind,button){
     }else state.titles.push(item);
     renderAll();
     try{await saveCloud();status('#tmdbStatus',`${item.title} importado.`,'ok');toast('Importado');}
-    catch(e){status('#tmdbStatus',`${item.title} preparado (sem sync): ${e.message}`,'bad');toast('Local','err');}
+    catch(e){status('#tmdbStatus',`${item.title} preparado (pendente): ${e.message}`,'warn');toast('Preparado (pendente)','warn');}
     goto('catalog');
   }catch(e){
     status('#tmdbStatus','Falha: '+e.message,'bad');toast('Falha','err');
@@ -1464,7 +1698,7 @@ $('#massImportBtn').onclick=async()=>{
         status('#massStatus',`Concluído: ${imported} ok, ${skipped} pulado(s), ${errors} erro(s).`,'ok');
       }catch(e){
         massLog('⚠ Falha ao sincronizar: '+e.message,'err');
-        status('#massStatus','Local OK, sem sync: '+e.message,'bad');
+        status('#massStatus','Local OK, pendente de sync: '+e.message,'warn');
       }
     }else status('#massStatus',`Nenhum novo. ${skipped} já existiam.`,'warn');
     massProgress(100,'Concluído');
@@ -1479,7 +1713,7 @@ $('#massImportBtn').onclick=async()=>{
 };
 
 /* ============================================================
-   TEMAS PRONTOS
+   TEMAS
    ============================================================ */
 const PRESET_THEMES=[
   {id:'kiraflix', name:'KiraFlix Clássico', primary:'#e50914', secondary:'#8b5cf6'},
@@ -1499,7 +1733,6 @@ const PRESET_THEMES=[
   {id:'mint', name:'Mint', primary:'#10b981', secondary:'#06b6d4'},
   {id:'gold', name:'Gold', primary:'#f59e0b', secondary:'#fbbf24'}
 ];
-
 function renderThemes(){
   const grid=$('#themesGrid'); if(!grid) return;
   const cur=siteSettings.colors||{};
@@ -1512,10 +1745,7 @@ function renderThemes(){
         <span class="theme-preview-label">${esc(t.name)}</span>
       </div>
       <div class="theme-info">
-        <div>
-          <b>${esc(t.name)}</b>
-          <small>${applied?'Tema atual do site':'Clique para aplicar'}</small>
-        </div>
+        <div><b>${esc(t.name)}</b><small>${applied?'Tema atual do site':'Clique para aplicar'}</small></div>
         <div class="theme-colors">
           <span class="theme-dot" style="background:${esc(t.primary)}"></span>
           <span class="theme-dot" style="background:${esc(t.secondary)}"></span>
@@ -1533,43 +1763,24 @@ function updateThemesPreview(){
   const primary=siteSettings.colors?.primary||'#e50914';
   const secondary=siteSettings.colors?.secondary||'#8b5cf6';
   sp.style.background=`linear-gradient(135deg, ${primary}, ${secondary})`;
-  const logo=$('#spLogoThemes');
-  if(logo) logo.textContent=name;
-  const sl=$('#spSloganThemes');
-  if(sl) sl.textContent=slogan;
+  const logo=$('#spLogoThemes'); if(logo) logo.textContent=name;
+  const sl=$('#spSloganThemes'); if(sl) sl.textContent=slogan;
 }
 async function applyTheme(theme){
   siteSettings.colors.primary=theme.primary;
   siteSettings.colors.secondary=theme.secondary;
-  /* Sincroniza color pickers da aba Configurações */
   if($('#cfgPrimaryColor')) $('#cfgPrimaryColor').value=theme.primary;
   if($('#cfgSecondaryColor')) $('#cfgSecondaryColor').value=theme.secondary;
-  updateThemesPreview();
-  updateSitePreview();
-
+  updateThemesPreview(); updateSitePreview();
   const ghReady=githubConfig.token&&githubConfig.user&&githubConfig.repo;
   status('#themesStatus',
-    ghReady
-      ? `Aplicando tema "${theme.name}" no site via GitHub…`
-      : `Tema "${theme.name}" selecionado. Para chegar ao site é preciso conectar o GitHub em Configurações.`,
-    ghReady?'warn':'warn'
-  );
-
+    ghReady?`Aplicando tema "${theme.name}" via GitHub…`:`Tema "${theme.name}" selecionado. Conecte o GitHub para enviar ao site.`,
+    'warn');
   if(ghReady){
-    try{
-      await pushToGitHub();
-      status('#themesStatus',`✅ Tema "${theme.name}" aplicado no site KiraFlix!`, 'ok');
-      toast('Tema aplicado');
-    }catch(e){
-      status('#themesStatus',`Tema selecionado, mas falha ao enviar: ${e.message}`, 'bad');
-      toast('Erro ao enviar','err');
-    }
+    try{await pushToGitHub();status('#themesStatus',`✅ Tema "${theme.name}" aplicado no site!`,'ok');toast('Tema aplicado');}
+    catch(e){status('#themesStatus',`Tema salvo, mas falha ao enviar: ${e.message}`,'bad');toast('Erro ao enviar','err');}
   }
-  /* Salva localmente no Supabase (para persistir no painel) */
-  try{
-    await saveCloud();
-    renderThemes();
-  }catch(e){ /* ignora erro de sync */ }
+  try{await saveCloud({silent:true});renderThemes();}catch(e){}
 }
 
 /* ============================================================
@@ -1642,52 +1853,43 @@ function readProfileFields(){
   siteSettings.profiles.oauth.github=$('#cfgOAuthGithub').value.trim();
   siteSettings.profiles.oauth.discord=$('#cfgOAuthDiscord').value.trim();
 }
-
 $('#saveSiteSettingsBtn').onclick=async()=>{
   readSiteSettingsFields();
   const ghReady=githubConfig.token&&githubConfig.user&&githubConfig.repo;
   if(!ghReady){
-    status('#siteSettingsStatus',
-      '⚠ Salvo apenas localmente. Para que as alterações cheguem ao site KiraFlix, conecte o GitHub na seção abaixo e clique em "Enviar configurações".',
-      'warn');
-    try{await saveCloud();}catch(e){}
-    toast('Salvo local (sem GitHub)','err');
+    status('#siteSettingsStatus','⚠ Salvo apenas localmente. Conecte o GitHub para enviar ao site.','warn');
+    try{await saveCloud({silent:true});}catch(e){}
+    toast('Salvo local (sem GitHub)','warn');
     return;
   }
   status('#siteSettingsStatus','Salvando e enviando ao site via GitHub…');
   try{
-    await saveCloud();
+    await saveCloud({silent:true});
     await pushToGitHub();
     status('#siteSettingsStatus','✅ Identidade salva e enviada ao site KiraFlix!','ok');
     toast('Enviado ao site');
-  }catch(e){
-    status('#siteSettingsStatus','Erro: '+e.message,'bad');
-    toast('Erro','err');
-  }
+  }catch(e){status('#siteSettingsStatus','Erro: '+e.message,'bad');toast('Erro','err');}
 };
 $('#saveProfilesBtn').onclick=async()=>{
   readProfileFields();
   const ghReady=githubConfig.token&&githubConfig.user&&githubConfig.repo;
   if(!ghReady){
     status('#profilesStatus','⚠ Salvo localmente. Conecte o GitHub para enviar ao site.','warn');
-    try{await saveCloud();}catch(e){}
-    toast('Salvo local (sem GitHub)','err');
+    try{await saveCloud({silent:true});}catch(e){}
+    toast('Salvo local (sem GitHub)','warn');
     return;
   }
   status('#profilesStatus','Salvando e enviando ao site…');
   try{
-    await saveCloud();
+    await saveCloud({silent:true});
     await pushToGitHub();
-    status('#profilesStatus','✅ Perfis salvos e enviados ao site KiraFlix!','ok');
+    status('#profilesStatus','✅ Perfis salvos e enviados ao site!','ok');
     toast('Perfis enviados');
-  }catch(e){
-    status('#profilesStatus','Erro: '+e.message,'bad');
-    toast('Erro','err');
-  }
+  }catch(e){status('#profilesStatus','Erro: '+e.message,'bad');toast('Erro','err');}
 };
 
 /* ============================================================
-   GITHUB — Robusto
+   GITHUB
    ============================================================ */
 function ghHeaders(token){
   return {
@@ -1700,9 +1902,8 @@ async function testGitHub(){
   checkConfig();
   const {token,user,repo}=githubConfig;
   if(!token){
-    status('#ghStatus','Informe o token do GitHub (PAT).\n\nCrie em: github.com/settings/tokens → Generate new token (classic) → marque o escopo "repo"','bad');
-    $('#ghToken').focus();
-    return;
+    status('#ghStatus','Informe o token do GitHub (PAT).\n\nCrie em: github.com/settings/tokens → Generate new token (classic) → escopo "repo"','bad');
+    $('#ghToken').focus();return;
   }
   status('#ghStatus','Verificando token…','warn');
   try{
@@ -1713,37 +1914,26 @@ async function testGitHub(){
     }
     const u=await r.json();
     let msg=`✅ Token válido! Conectado como @${u.login}`;
-
     if(user&&repo){
-      status('#ghStatus',`Token OK. Verificando repositório ${user}/${repo}…`,'warn');
+      status('#ghStatus',`Token OK. Verificando repositório…`,'warn');
       const rr=await fetch(`https://api.github.com/repos/${user}/${repo}`,{headers:ghHeaders(token),cache:'no-store'});
       if(rr.ok){
         const rj=await rr.json();
-        msg+=`\n\n✅ Repositório acessível: ${rj.full_name}`;
-        msg+=`\n🔒 Tipo: ${rj.private?'Privado':'Público'}`;
-        msg+=`\n✍️ Permissão de escrita: ${rj.permissions?.push?'SIM ✅':'NÃO ❌ (o envio vai falhar)'}`;
-        if(!rj.permissions?.push){
-          msg+=`\n\n⚠ O token não tem permissão de escrita neste repositório. Gere um novo PAT com escopo "repo" ou dê permissão ao token fine-grained.`;
-        }
+        msg+=`\n\n✅ Repositório: ${rj.full_name}`;
+        msg+=`\n🔒 ${rj.private?'Privado':'Público'}`;
+        msg+=`\n✍️ Permissão de escrita: ${rj.permissions?.push?'SIM ✅':'NÃO ❌'}`;
+        if(!rj.permissions?.push) msg+=`\n\n⚠ Gere um novo PAT com escopo "repo".`;
       }else{
         const err=await rr.json().catch(()=>({message:`HTTP ${rr.status}`}));
-        msg+=`\n\n⚠ Repositório inacessível (${rr.status}): ${err.message||'verifique nome e permissões'}`;
+        msg+=`\n\n⚠ Repositório inacessível (${rr.status}): ${err.message||'verifique nome'}`;
       }
-    }else{
-      msg+=`\n\n⚠ Preencha usuário e repositório para testar o envio`;
-    }
+    }else msg+=`\n\n⚠ Preencha usuário e repositório.`;
     status('#ghStatus',msg,'ok');
     toast('GitHub conectado');
   }catch(e){
     status('#ghStatus',
-      `❌ Não foi possível conectar ao GitHub.\n\n`+
-      `Erro: ${e.message}\n\n`+
-      `Verifique:\n`+
-      `• Token criado em github.com/settings/tokens\n`+
-      `• Escopo "repo" marcado (necessário para repos privados)\n`+
-      `• Sem espaços ou quebras de linha no token\n`+
-      `• Conexão com internet ativa\n`+
-      `• Se for fine-grained token, o repositório está autorizado`,
+      `❌ Falha ao conectar.\n\nErro: ${e.message}\n\n`+
+      `Verifique:\n• Token em github.com/settings/tokens\n• Escopo "repo" marcado\n• Sem espaços no token\n• Internet ativa`,
       'bad');
     toast('Falha no GitHub','err');
   }
@@ -1751,26 +1941,19 @@ async function testGitHub(){
 async function pushToGitHub(){
   checkConfig();
   const {user,repo,branch,path,token}=githubConfig;
-  if(!token||!user||!repo){
-    throw Error('Preencha usuário, repositório e token do GitHub.');
-  }
+  if(!token||!user||!repo)throw Error('Preencha usuário, repositório e token do GitHub.');
   const payload={
-    siteName:siteSettings.siteName,
-    slogan:siteSettings.slogan,
-    colors:siteSettings.colors,
-    logoUrl:siteSettings.logoUrl,
-    faviconUrl:siteSettings.faviconUrl,
-    bannerUrl:siteSettings.bannerUrl,
-    profiles:siteSettings.profiles,
-    updatedAt:new Date().toISOString()
+    siteName:siteSettings.siteName, slogan:siteSettings.slogan,
+    colors:siteSettings.colors, logoUrl:siteSettings.logoUrl,
+    faviconUrl:siteSettings.faviconUrl, bannerUrl:siteSettings.bannerUrl,
+    profiles:siteSettings.profiles, updatedAt:new Date().toISOString()
   };
   const jsonStr=JSON.stringify(payload,null,2);
   const content=btoa(unescape(encodeURIComponent(jsonStr)));
   const apiUrl=`https://api.github.com/repos/${user}/${repo}/contents/${encodeURIComponent(path)}`;
   const headers={...ghHeaders(token),'Content-Type':'application/json'};
-
   try{
-    status('#ghStatus','Enviando configurações para o GitHub…','warn');
+    status('#ghStatus','Enviando para o GitHub…','warn');
     let sha=null;
     const getR=await fetch(`${apiUrl}?ref=${encodeURIComponent(branch)}`,{headers:ghHeaders(token),cache:'no-store'});
     if(getR.ok){const j=await getR.json(); sha=j.sha;}
@@ -1785,18 +1968,11 @@ async function pushToGitHub(){
     if(!putR.ok)throw new Error(pj.message||`HTTP ${putR.status}`);
     const rawUrl=`https://raw.githubusercontent.com/${user}/${repo}/${branch}/${path}`;
     status('#ghStatus',
-      `✅ Configurações enviadas com sucesso!\n\n`+
-      `📦 Repo: ${user}/${repo}\n`+
-      `🌿 Branch: ${branch}\n`+
-      `📄 Arquivo: ${path}\n\n`+
-      `🔗 O site lê de:\n${rawUrl}`,
+      `✅ Enviado!\n\n📦 ${user}/${repo}\n🌿 ${branch}\n📄 ${path}\n\n🔗 O site lê de:\n${rawUrl}`,
       'ok');
     toast('Enviado ao GitHub');
     return rawUrl;
-  }catch(e){
-    status('#ghStatus','Erro ao enviar: '+e.message,'bad');
-    throw e;
-  }
+  }catch(e){status('#ghStatus','Erro ao enviar: '+e.message,'bad');throw e;}
 }
 async function pullFromGitHub(){
   checkConfig();
@@ -1829,18 +2005,13 @@ async function pullFromGitHub(){
     if(parsed.logoUrl!==undefined)siteSettings.logoUrl=parsed.logoUrl;
     if(parsed.faviconUrl!==undefined)siteSettings.faviconUrl=parsed.faviconUrl;
     if(parsed.bannerUrl!==undefined)siteSettings.bannerUrl=parsed.bannerUrl;
-    if(parsed.profiles){
-      siteSettings.profiles={...siteSettings.profiles,...parsed.profiles,oauth:{...siteSettings.profiles.oauth,...(parsed.profiles.oauth||{})}};
-    }
+    if(parsed.profiles)siteSettings.profiles={...siteSettings.profiles,...parsed.profiles,oauth:{...siteSettings.profiles.oauth,...(parsed.profiles.oauth||{})}};
     loadAllSettingsFields();
     renderThemes();
-    try{await saveCloud();status('#ghStatus','✅ Configurações importadas do GitHub!','ok');}
-    catch(e){status('#ghStatus','Importadas do GitHub (sessão): '+e.message,'warn');}
+    try{await saveCloud({silent:true});status('#ghStatus','✅ Importadas do GitHub!','ok');}
+    catch(e){status('#ghStatus','Importadas (sessão): '+e.message,'warn');}
     toast('Importadas');
-  }catch(e){
-    status('#ghStatus','Erro: '+e.message,'bad');
-    toast('Erro','err');
-  }
+  }catch(e){status('#ghStatus','Erro: '+e.message,'bad');toast('Erro','err');}
 }
 $('#ghTestBtn').onclick=testGitHub;
 $('#ghPushBtn').onclick=async()=>{try{await pushToGitHub();}catch(e){}};
@@ -1855,17 +2026,15 @@ $('#ghClearBtn').onclick=()=>{
 };
 
 /* ============================================================
-   DELEGAÇÃO DE EVENTOS
+   DELEGAÇÃO
    ============================================================ */
 $('#catalogList').addEventListener('click', e=>{
-  const more=e.target.closest('#loadMoreCatalog');
-  if(more){catalogLimit+=60;renderCatalog();return;}
+  const more=e.target.closest('#loadMoreCatalog'); if(more){catalogLimit+=60;renderCatalog();return;}
   const ed=e.target.closest('[data-edit]'); if(ed){editTitle(Number(ed.dataset.edit));return;}
   const del=e.target.closest('[data-delete]'); if(del){deleteTitle(Number(del.dataset.delete));return;}
 });
 $('#badgeList').addEventListener('click', e=>{
-  const more=e.target.closest('#loadMoreBadges');
-  if(more){badgeLimit+=60;renderBadges();return;}
+  const more=e.target.closest('#loadMoreBadges'); if(more){badgeLimit+=60;renderBadges();return;}
   const ed=e.target.closest('[data-badge-edit]'); if(ed){editTitle(Number(ed.dataset.badgeEdit));return;}
 });
 $('#customBadgesList').addEventListener('click', e=>{
@@ -1876,7 +2045,7 @@ $('#tabsList').addEventListener('click', async e=>{
   const i=Number(btn.dataset.tabDelete);
   const ordinary=state.tabs.filter(isOrdinaryTab);
   const tab=ordinary[i];
-  if(!tab||!confirm(`Excluir a aba “${tab.name}”?`))return;
+  if(!tab||!confirm(`Excluir a aba "${tab.name}"?`))return;
   state.tabs=state.tabs.filter(x=>x.id!==tab.id);
   state.titles=state.titles.map(t=>t.tabId===tab.id?{...t,tabId:''}:t);
   refreshTabSelect(); renderAll();
@@ -1895,7 +2064,7 @@ $('#themesGrid').addEventListener('click', async e=>{
 });
 
 /* ============================================================
-   EVENTOS GERAIS
+   EVENTOS
    ============================================================ */
 $('#catalogSearch').addEventListener('input', debounce(()=>{catalogLimit=60;renderCatalog();},180));
 $('#catalogFilter').addEventListener('change', ()=>{catalogLimit=60;renderCatalog();});
@@ -1929,20 +2098,12 @@ $('#showSbKeyBtn').onclick=()=>{
 };
 $('#saveConfigBtn').onclick=()=>{
   checkConfig();
-  if($('#persistConfig').checked){
-    try{
-      localStorage.setItem('kiraflix_admin_config',JSON.stringify({sbUrl,sbKey,tmdbToken,tmdbKey}));
-      status('#sbStatus','Configurações salvas.','ok');toast('Salvo');
-    }catch(e){status('#sbStatus','Erro ao salvar.','bad');}
-  }else status('#sbStatus','Aplicado apenas nesta sessão.','ok');
+  status('#sbStatus','✅ Credenciais salvas. Reconexão automática ativada.','ok');
+  toast('Salvo');
 };
 $('#clearTmdbBtn').onclick=()=>{
   $('#tmdbToken').value=''; $('#tmdbKey').value=''; tmdbToken=''; tmdbKey='';
-  try{
-    const c=JSON.parse(localStorage.getItem('kiraflix_admin_config')||'{}');
-    delete c.tmdbToken; delete c.tmdbKey;
-    localStorage.setItem('kiraflix_admin_config',JSON.stringify(c));
-  }catch(e){}
+  persistAllCredentials();
   status('#sbStatus','Credenciais TMDB removidas.');
   toast('TMDB limpo');
 };
@@ -1954,11 +2115,11 @@ $('#forgetConfigBtn').onclick=()=>{
   }catch(e){}
   $('#sbKey').value=''; $('#adminPassword').value='';
   $('#tmdbToken').value=''; $('#tmdbKey').value='';
-  $('#saveAdminPassword').checked=false;
   sbKey=''; adminPassword=''; tmdbToken=''; tmdbKey='';
   state.adminOk=false; state.connected=false;
   $('#connectionPill').innerHTML='<i data-lucide="wifi-off"></i> Não conectado';
   $('#connectionPill').className='pill';
+  setHeaderSync('error','Desconectado');
   status('#sbStatus','Credenciais limpas.');
   refreshIcons();
 };
@@ -1970,43 +2131,65 @@ $('#exportBtn').onclick=()=>{
   toast('Backup exportado');
 };
 
+/* Aviso ao sair com alterações não sincronizadas */
+window.addEventListener('beforeunload', e=>{
+  if(state.hasUnsavedChanges){
+    e.preventDefault();
+    e.returnValue='Você tem alterações não sincronizadas. Sair mesmo assim?';
+    return e.returnValue;
+  }
+});
+
 /* ============================================================
-   INICIALIZAÇÃO
+   INICIALIZAÇÃO — carrega credenciais e AUTO-CONECTA
    ============================================================ */
-try{
-  const c=JSON.parse(localStorage.getItem('kiraflix_admin_config')||'null');
-  if(c){
-    $('#sbUrl').value=c.sbUrl||sbUrl;
-    $('#sbKey').value=c.sbKey||'';
-    $('#tmdbToken').value=c.tmdbToken||'';
-    $('#tmdbKey').value=c.tmdbKey||'';
-    tmdbToken=c.tmdbToken||''; tmdbKey=c.tmdbKey||'';
-    $('#persistConfig').checked=true;
-  }
-}catch(e){}
+(function initCredentials(){
+  try{
+    const c=JSON.parse(localStorage.getItem('kiraflix_admin_config')||'null');
+    if(c){
+      $('#sbUrl').value=c.sbUrl||'https://ahtuhrzizlwcvrgbzivx.supabase.co';
+      $('#sbKey').value=c.sbKey||'';
+      $('#adminPassword').value=c.adminPassword||'';
+      $('#tmdbToken').value=c.tmdbToken||'';
+      $('#tmdbKey').value=c.tmdbKey||'';
+      sbUrl=c.sbUrl||''; sbKey=c.sbKey||''; adminPassword=c.adminPassword||'';
+      tmdbToken=c.tmdbToken||''; tmdbKey=c.tmdbKey||'';
+    }
+    /* Compat: senha antiga separada */
+    if(!adminPassword){
+      const savedPw=localStorage.getItem('kiraflix_admin_pw');
+      if(savedPw){
+        try{
+          const pw=atob(savedPw);
+          $('#adminPassword').value=pw;
+          adminPassword=pw;
+        }catch(_){}
+      }
+    }
+  }catch(e){}
 
-try{
-  const savedPw=localStorage.getItem('kiraflix_admin_pw');
-  if(savedPw){
-    const pw=atob(savedPw);
-    $('#adminPassword').value=pw;
-    adminPassword=pw;
-    $('#saveAdminPassword').checked=true;
-  }
-}catch(e){}
+  try{
+    const gh=JSON.parse(localStorage.getItem('kiraflix_github_cfg')||'null');
+    if(gh){
+      githubConfig={...githubConfig,...gh};
+      $('#ghUser').value=gh.user||'';
+      $('#ghRepo').value=gh.repo||'';
+      $('#ghBranch').value=gh.branch||'main';
+      $('#ghPath').value=gh.path||'kira-settings.json';
+      $('#ghToken').value=gh.token||'';
+    }
+  }catch(e){}
+})();
 
-try{
-  const gh=JSON.parse(localStorage.getItem('kiraflix_github_cfg')||'null');
-  if(gh){
-    githubConfig={...githubConfig,...gh};
-    $('#ghUser').value=gh.user||'';
-    $('#ghRepo').value=gh.repo||'';
-    $('#ghBranch').value=gh.branch||'main';
-    $('#ghPath').value=gh.path||'kira-settings.json';
-    $('#ghToken').value=gh.token||'';
-    $('#ghPersistToken').checked=true;
-  }
-}catch(e){}
+/* Salva credenciais sempre que algum campo mudar */
+['sbUrl','sbKey','adminPassword','tmdbToken','tmdbKey'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) el.addEventListener('change', persistAllCredentials);
+});
+['ghUser','ghRepo','ghBranch','ghPath','ghToken'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) el.addEventListener('change', persistAllCredentials);
+});
 
 refreshStatusDropdown();
 refreshBadgeFilter();
@@ -2015,13 +2198,20 @@ safeRender('initialHome', renderHome);
 goto('home');
 refreshIcons();
 
-/* Auto-conexão suave se tudo estiver salvo */
-setTimeout(()=>{
+/* AUTO-CONECTA imediatamente se credenciais completas */
+setTimeout(async ()=>{
   const url=$('#sbUrl').value.trim();
   const key=$('#sbKey').value.trim();
   const pw=$('#adminPassword').value;
-  if(url&&key&&pw){ connect().catch(()=>{}); }
-}, 500);
+  if(url&&key&&pw){
+    console.log('[auto-connect] tentando restaurar sessão…');
+    await connect().catch(e=>console.warn('[auto-connect]', e.message));
+  }else if(url||key||pw){
+    setHeaderSync('pending','Configure credenciais');
+  }else{
+    setHeaderSync('error','Sem credenciais');
+  }
+}, 300);
 </script>
 </body>
 </html>
