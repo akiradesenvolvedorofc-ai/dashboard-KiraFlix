@@ -234,7 +234,6 @@ label i{width:13px;height:13px;color:var(--muted)}
 .bulk-summary b{color:#fff}
 .bulk-progress{margin-top:12px;display:none}
 .bulk-progress.active{display:block}
-/* AUTO IMPORT SPECIFIC */
 .auto-import-panel{border:1px solid rgba(34,197,94,.28);background:linear-gradient(160deg,rgba(34,197,94,.07),rgba(14,14,23,.9))}
 .auto-import-panel .panel-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
 .auto-import-panel .panel-head .ico{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,rgba(34,197,94,.3),rgba(139,92,246,.2));border:1px solid rgba(34,197,94,.35);display:grid;place-items:center;flex-shrink:0}
@@ -282,7 +281,7 @@ label i{width:13px;height:13px;color:var(--muted)}
   <div class="topright">
     <span class="pill" id="connectionPill"><i data-lucide="wifi-off"></i> Não conectado</span>
     <span class="pill" id="syncPill" style="display:none"><i data-lucide="cloud"></i> <span>Sincronizado</span></span>
-    <span class="pill" id="autoPill" style="display:none"><i data-lucide="timer"></i> Auto-Import</span>
+    <span class="pill" id="autoPill" style="display:none"><i data-lucide="timer"></i> Auto-Import ON</span>
     <button class="secondary hide-mobile" id="refreshBtn"><i data-lucide="refresh-cw"></i> Atualizar</button>
   </div>
  </header>
@@ -295,35 +294,52 @@ label i{width:13px;height:13px;color:var(--muted)}
     <div class="stat"><div class="stat-ico"><i data-lucide="tv"></i></div><span>Séries</span><b id="seriesCount">—</b><small>Séries</small></div>
     <div class="stat"><div class="stat-ico"><i data-lucide="sparkles"></i></div><span>Animes</span><b id="animeCount">—</b><small>Categoria anime</small></div>
     <div class="stat"><div class="stat-ico"><i data-lucide="trophy"></i></div><span>Top 10</span><b id="top10Count">—</b><small>Posições ocupadas</small></div>
+    <div class="stat"><div class="stat-ico"><i data-lucide="layout-list"></i></div><span>Abas</span><b id="tabsCount">—</b><small>Abas personalizadas</small></div>
     <div class="stat"><div class="stat-ico"><i data-lucide="clock"></i></div><span>Última sync</span><b id="syncTime" style="font-size:18px">—</b><small>Horário local</small></div>
    </div>
    <div class="layout">
     <div class="panel">
       <h2><i data-lucide="rocket"></i> Começar rapidamente</h2>
-      <p>Importe do TMDB, ative o auto-import ou cadastre manualmente.</p>
-      <div class="actions"><button data-goto="tmdb"><i data-lucide="download-cloud"></i> Importar do TMDB</button><button data-goto="autoimport"><i data-lucide="timer"></i> Auto-importar</button><button class="secondary" data-goto="manual"><i data-lucide="plus"></i> Manual</button></div>
-      <div class="status" id="homeStatus">Configure a conexão em Configurações.</div>
+      <p>Importe metadados do TMDB, ative o auto-import ou cadastre um título manualmente.</p>
+      <div class="actions">
+        <button data-goto="tmdb"><i data-lucide="download-cloud"></i> Importar do TMDB</button>
+        <button data-goto="autoimport"><i data-lucide="timer"></i> Auto-importar</button>
+        <button class="secondary" data-goto="manual"><i data-lucide="plus"></i> Manual</button>
+        <button class="secondary" data-goto="code"><i data-lucide="code-2"></i> Editor</button>
+      </div>
+      <div class="status" id="homeStatus">Configure a conexão na seção Configurações.</div>
     </div>
     <div class="panel">
       <h2><i data-lucide="trophy"></i> Top 10 atual</h2>
       <div id="homeTop10" style="display:grid;gap:6px"></div>
     </div>
    </div>
-   <div class="panel" style="margin-top:16px">
-     <h2><i data-lucide="zap"></i> Controles rápidos</h2>
-     <div class="actions"><button data-goto="maintenance"><i data-lucide="wrench"></i> Manutenção</button><button class="secondary" data-goto="themes"><i data-lucide="sparkles"></i> Temas</button><button class="secondary" data-goto="catalog"><i data-lucide="trash-2"></i> Excluir em massa</button></div>
-     <div id="maintenanceQuick" class="status">Manutenção não carregada.</div>
+   <div class="layout" style="margin-top:16px">
+    <div class="panel">
+      <h2><i data-lucide="refresh-ccw"></i> Como funciona</h2>
+      <p>Este painel usa a tabela <code>kira_catalog</code> e a função <code>save_kira_catalog</code>. Temas e nome do site são aplicados direto no HTML do site no GitHub.</p>
+      <div class="hint"><i data-lucide="info" style="width:12px;height:12px;vertical-align:-2px"></i> Use o Editor de Código para alterações avançadas.</div>
+    </div>
+    <div class="panel">
+      <h2><i data-lucide="zap"></i> Controles rápidos</h2>
+      <div class="actions">
+        <button data-goto="maintenance"><i data-lucide="wrench"></i> Manutenção</button>
+        <button class="secondary" data-goto="themes"><i data-lucide="sparkles"></i> Temas</button>
+        <button class="secondary" data-goto="catalog"><i data-lucide="trash-2"></i> Excluir em massa</button>
+      </div>
+      <div id="maintenanceQuick" class="status">Manutenção não carregada.</div>
+    </div>
    </div>
    <div class="panel" style="margin-top:16px">
-     <h2><i data-lucide="history"></i> Últimos títulos</h2>
-     <div id="recentList" class="tablewrap"><div class="empty"><i data-lucide="inbox"></i>Carregue o catálogo.</div></div>
+     <h2><i data-lucide="history"></i> Últimos títulos carregados</h2>
+     <div id="recentList" class="tablewrap"><div class="empty"><i data-lucide="inbox"></i>Carregue o catálogo para ver os títulos.</div></div>
    </div>
   </section>
 
   <section data-page="catalog" class="hidden">
    <div class="panel">
      <div class="three">
-       <div class="field"><label><i data-lucide="search"></i> Pesquisar</label><input id="catalogSearch" placeholder="Título, gênero, ID TMDB…" autocomplete="off"></div>
+       <div class="field"><label><i data-lucide="search"></i> Pesquisar no catálogo</label><input id="catalogSearch" placeholder="Título, gênero, ID TMDB…" autocomplete="off"></div>
        <div class="field"><label><i data-lucide="filter"></i> Categoria</label><select id="catalogFilter">
          <option value="">Todos</option>
          <option value="filme">Filmes</option>
@@ -336,55 +352,118 @@ label i{width:13px;height:13px;color:var(--muted)}
          <option value="default">Padrão</option>
          <option value="top10">Top 10 primeiro</option>
          <option value="newest">Mais recentes</option>
-         <option value="az">A → Z</option>
+         <option value="az">A → Z (título)</option>
        </select></div>
      </div>
-     <div class="actions"><button id="loadCatalogBtn"><i data-lucide="cloud-download"></i> Carregar</button><button class="secondary" data-goto="manual"><i data-lucide="plus"></i> Manual</button><button class="secondary" id="exportBtn"><i data-lucide="download"></i> Exportar</button></div>
-     <div id="catalogStatus" class="status">Configure a chave pública.</div>
+     <div class="actions">
+       <button id="loadCatalogBtn"><i data-lucide="cloud-download"></i> Carregar do Supabase</button>
+       <button class="secondary" data-goto="manual"><i data-lucide="plus"></i> Adicionar manualmente</button>
+       <button class="secondary" id="exportBtn"><i data-lucide="download"></i> Exportar JSON</button>
+     </div>
+     <div id="catalogStatus" class="status">Configure a chave pública e desbloqueie a administração para sincronizar.</div>
    </div>
 
    <div class="panel bulk-delete-panel" style="margin-top:16px">
-     <div class="panel-head"><div class="ico"><i data-lucide="trash-2"></i></div><div><h2>Excluir em Massa</h2><p>Reduza o catálogo se o site não carregar.</p></div></div>
-     <div class="banner-danger"><i data-lucide="alert-triangle"></i><div><b>⚠ Atenção:</b> Exclusão é permanente. Backup automático é baixado.</div></div>
-     <div class="two">
-       <div class="field"><label><i data-lucide="filter"></i> Filtrar por tipo</label><select id="bulkType"><option value="">Todos</option><option value="filme">Apenas filmes</option><option value="serie">Apenas séries</option><option value="anime">Apenas animes</option></select></div>
-       <div class="field"><label><i data-lucide="arrow-down-up"></i> Ordem</label><select id="bulkOrder"><option value="oldest">Mais antigos</option><option value="newest">Mais recentes</option><option value="az">A → Z</option><option value="za">Z → A</option><option value="random">Aleatório</option><option value="non-top10">Fora do Top 10</option></select></div>
+     <div class="panel-head">
+       <div class="ico"><i data-lucide="trash-2"></i></div>
+       <div>
+         <h2>Excluir em Massa</h2>
+         <p>Reduza o catálogo com segurança. Ideal para quando o site não carrega por excesso de títulos.</p>
+       </div>
      </div>
-     <div class="field"><label><i data-lucide="hash"></i> Quantidade</label><input type="number" id="bulkQty" min="1" placeholder="Ex.: 500" autocomplete="off"></div>
-     <div class="quick-qty"><span>Rápido:</span>
+     <div class="banner-danger">
+       <i data-lucide="alert-triangle"></i>
+       <div><b>⚠ Atenção:</b> Exclusão em massa é permanente após sincronizar com o Supabase. Um <b>backup automático</b> é baixado antes de excluir (se ativado abaixo).</div>
+     </div>
+     <div class="two">
+       <div class="field"><label><i data-lucide="filter"></i> Filtrar por tipo</label>
+         <select id="bulkType">
+           <option value="">Todos os tipos</option>
+           <option value="filme">Apenas filmes</option>
+           <option value="serie">Apenas séries/animes</option>
+           <option value="anime">Apenas animes</option>
+         </select>
+       </div>
+       <div class="field"><label><i data-lucide="arrow-down-up"></i> Ordem de exclusão</label>
+         <select id="bulkOrder">
+           <option value="oldest">Mais antigos primeiro</option>
+           <option value="newest">Mais recentes primeiro</option>
+           <option value="az">A → Z (título)</option>
+           <option value="za">Z → A (título)</option>
+           <option value="random">Aleatório</option>
+           <option value="non-top10">Fora do Top 10 (protege os top 10)</option>
+         </select>
+       </div>
+     </div>
+     <div class="field"><label><i data-lucide="hash"></i> Quantidade a excluir</label>
+       <input type="number" id="bulkQty" min="1" placeholder="Digite a quantidade exata (ex.: 500)" autocomplete="off">
+     </div>
+     <div class="quick-qty">
+       <span>Rápido:</span>
        <button type="button" class="secondary" data-bulk-qty="30">30</button>
+       <button type="button" class="secondary" data-bulk-qty="50">50</button>
        <button type="button" class="secondary" data-bulk-qty="100">100</button>
+       <button type="button" class="secondary" data-bulk-qty="250">250</button>
        <button type="button" class="secondary" data-bulk-qty="500">500</button>
        <button type="button" class="secondary" data-bulk-qty="1000">1.000</button>
        <button type="button" class="secondary" data-bulk-qty="2000">2.000</button>
        <button type="button" class="secondary" data-bulk-qty="5000">5.000</button>
        <button type="button" class="secondary" data-bulk-qty="all">Tudo</button>
      </div>
-     <div class="checkline" style="margin:10px 0 14px"><input type="checkbox" id="bulkBackup" checked><label for="bulkBackup">Backup automático (recomendado)</label></div>
+     <div class="checkline" style="margin:10px 0 14px"><input type="checkbox" id="bulkBackup" checked><label for="bulkBackup">Baixar backup automático antes de excluir (recomendado)</label></div>
      <div id="bulkPreview"></div>
-     <div class="actions"><button id="bulkDeleteBtn" class="danger"><i data-lucide="trash-2"></i> Excluir em massa</button><button class="secondary" id="bulkBackupBtn"><i data-lucide="download"></i> Backup</button><button class="secondary" id="bulkRestoreBtn"><i data-lucide="upload"></i> Restaurar</button><input type="file" id="bulkRestoreInput" accept=".json" style="display:none"></div>
-     <div class="bulk-progress" id="bulkProgress"><div class="progress-bar"><div class="progress-fill" id="bulkProgressFill"></div></div><div class="progress-meta"><span id="bulkProgressLabel">Preparando…</span><b id="bulkProgressPct">0%</b></div></div>
-     <div id="bulkStatus" class="status">Configure e clique em Excluir.</div>
+     <div class="actions">
+       <button id="bulkDeleteBtn" class="danger"><i data-lucide="trash-2"></i> Excluir em massa</button>
+       <button class="secondary" id="bulkBackupBtn"><i data-lucide="download"></i> Baixar backup agora</button>
+       <button class="secondary" id="bulkRestoreBtn"><i data-lucide="upload"></i> Restaurar de backup</button>
+       <input type="file" id="bulkRestoreInput" accept=".json" style="display:none">
+     </div>
+     <div class="bulk-progress" id="bulkProgress">
+       <div class="progress-bar"><div class="progress-fill" id="bulkProgressFill"></div></div>
+       <div class="progress-meta"><span id="bulkProgressLabel">Preparando…</span><b id="bulkProgressPct">0%</b></div>
+     </div>
+     <div id="bulkStatus" class="status">Configure a quantidade e clique em "Excluir em massa".</div>
    </div>
 
    <div class="panel" style="margin-top:16px">
-     <h2><i data-lucide="library"></i> Títulos <span style="font-weight:400;color:var(--muted);font-size:11.5px;margin-left:6px">(<span id="catalogCount">0</span>)</span></h2>
+     <h2><i data-lucide="library"></i> Títulos no catálogo <span style="font-weight:400;color:var(--muted);font-size:11.5px;margin-left:6px">(<span id="catalogCount">0</span> títulos)</span></h2>
      <div id="catalogList" class="catalog"></div>
    </div>
   </section>
 
   <section data-page="tmdb" class="hidden">
     <div class="panel mass-import">
-      <div class="panel-head"><div class="ico"><i data-lucide="layers"></i></div><div><h2>Importador em Massa do TMDB</h2><p>Escolha a categoria, quantidade e importe em lote.</p></div></div>
+      <div class="panel-head">
+        <div class="ico"><i data-lucide="layers"></i></div>
+        <div><h2>Importador em Massa do TMDB</h2><p>Escolha a categoria, a quantidade exata (até 10.000) e importe em lote com paginação automática.</p></div>
+      </div>
       <div class="mass-grid">
         <div class="field"><label><i data-lucide="list-filter"></i> Categoria</label>
-          <select id="massCategory"><option value="trending_day">🔥 Trending (dia)</option><option value="trending_week" selected>🔥 Trending (semana)</option><option value="popular">⭐ Populares</option><option value="top_rated">🏆 Mais avaliados</option><option value="now_playing">🎬 Em cartaz</option><option value="upcoming">📅 Em breve</option><option value="discover">🎯 Discover</option></select>
+          <select id="massCategory">
+            <option value="trending_day">🔥 Trending (dia)</option>
+            <option value="trending_week" selected>🔥 Trending (semana)</option>
+            <option value="popular">⭐ Populares</option>
+            <option value="top_rated">🏆 Mais avaliados</option>
+            <option value="now_playing">🎬 Em cartaz (filmes)</option>
+            <option value="upcoming">📅 Em breve (filmes)</option>
+            <option value="discover">🎯 Discover (filtros)</option>
+          </select>
         </div>
-        <div class="field"><label><i data-lucide="monitor-play"></i> Tipo</label><select id="massType"><option value="movie">Filmes</option><option value="tv">Séries</option><option value="anime">Animes</option><option value="all">Todos (trending)</option></select></div>
-        <div class="field"><label><i data-lucide="hash"></i> Quantidade</label><input type="number" id="massQuantity" min="1" max="10000" value="100" placeholder="1 a 10.000" autocomplete="off"></div>
-        <div class="field"><label><i data-lucide="shield-alert"></i> Duplicados</label><select id="massDuplicates"><option value="skip" selected>Pular</option><option value="update">Atualizar</option></select></div>
+        <div class="field"><label><i data-lucide="monitor-play"></i> Tipo</label>
+          <select id="massType">
+            <option value="movie">Filmes</option>
+            <option value="tv">Séries / animes</option>
+            <option value="anime">🎌 Animes</option>
+            <option value="all">Todos (trending)</option>
+          </select>
+        </div>
+        <div class="field"><label><i data-lucide="hash"></i> Quantidade (1 a 10.000)</label><input type="number" id="massQuantity" min="1" max="10000" value="100" placeholder="Ex.: 100, 1000, 6000" autocomplete="off"></div>
+        <div class="field"><label><i data-lucide="shield-alert"></i> Duplicados</label>
+          <select id="massDuplicates"><option value="skip" selected>Pular existentes</option><option value="update">Atualizar metadados</option></select>
+        </div>
       </div>
-      <div class="quick-qty"><span>Rápido:</span>
+      <div class="quick-qty">
+        <span>Rápido:</span>
         <button type="button" class="secondary" data-quick-qty="50">50</button>
         <button type="button" class="secondary" data-quick-qty="100">100</button>
         <button type="button" class="secondary" data-quick-qty="500">500</button>
@@ -393,35 +472,41 @@ label i{width:13px;height:13px;color:var(--muted)}
         <button type="button" class="secondary" data-quick-qty="5000">5.000</button>
         <button type="button" class="secondary" data-quick-qty="10000">10.000</button>
       </div>
-      <div class="fast-mode-box"><input type="checkbox" id="massFastMode" checked><label for="massFastMode"><b>⚡ Modo rápido</b> — sem detalhes (20× mais rápido).</label></div>
+      <div class="fast-mode-box"><input type="checkbox" id="massFastMode" checked><label for="massFastMode"><b>⚡ Modo rápido</b> — usa apenas os dados da lista (sem buscar detalhes de cada título, sem elenco nem duração). <b>~20× mais rápido</b>. Recomendado para 500+.</label></div>
       <div id="discoverFilters" style="display:none">
         <div class="mass-grid">
-          <div class="field"><label><i data-lucide="tag"></i> Gênero (ID)</label><input id="massGenre" placeholder="Ex.: 28"></div>
-          <div class="field"><label><i data-lucide="calendar"></i> Ano min</label><input id="massYearGte" type="number"></div>
-          <div class="field"><label><i data-lucide="calendar"></i> Ano max</label><input id="massYearLte" type="number"></div>
-          <div class="field"><label><i data-lucide="star"></i> Nota min</label><input id="massVote" type="number" step="0.1"></div>
+          <div class="field"><label><i data-lucide="tag"></i> Gênero (ID TMDB)</label><input id="massGenre" placeholder="Ex.: 28 (Ação), 16 (Animação)"></div>
+          <div class="field"><label><i data-lucide="calendar"></i> Ano mínimo</label><input id="massYearGte" type="number" min="1900" max="2100" placeholder="Ex.: 2020"></div>
+          <div class="field"><label><i data-lucide="calendar"></i> Ano máximo</label><input id="massYearLte" type="number" min="1900" max="2100" placeholder="Ex.: 2026"></div>
+          <div class="field"><label><i data-lucide="star"></i> Nota mínima</label><input id="massVote" type="number" min="0" max="10" step="0.1" placeholder="Ex.: 7.0"></div>
         </div>
       </div>
-      <div class="actions"><button id="massImportBtn"><i data-lucide="download-cloud"></i> Iniciar importação</button><button class="secondary" id="massStopBtn" disabled><i data-lucide="square"></i> Parar</button><button class="secondary" id="massSaveNowBtn" style="display:none"><i data-lucide="save"></i> Salvar agora</button></div>
+      <div class="actions"><button id="massImportBtn"><i data-lucide="download-cloud"></i> Iniciar importação em massa</button><button class="secondary" id="massStopBtn" disabled><i data-lucide="square"></i> Parar</button><button class="secondary" id="massSaveNowBtn" style="display:none"><i data-lucide="save"></i> Salvar no Supabase agora</button></div>
       <div class="progress-wrap" id="massProgressWrap">
         <div class="progress-bar"><div class="progress-fill" id="massProgressFill"></div></div>
         <div class="progress-meta"><span id="massProgressLabel">Preparando…</span><b id="massProgressPct">0%</b></div>
         <div class="progress-stats"><span class="p-ok" id="massCountOk">✅ 0</span><span class="p-skip" id="massCountSkip">⏭ 0</span><span class="p-err" id="massCountErr">❌ 0</span><span class="p-eta" id="massEta">⏱ —</span></div>
         <div class="import-log" id="massLog"></div>
       </div>
-      <div id="massStatus" class="status">Configure o token TMDB em Configurações.</div>
+      <div id="massStatus" class="status">Configure o token do TMDB em Configurações para habilitar o importador em massa.</div>
     </div>
     <div class="panel" style="margin-top:16px">
-      <h2><i data-lucide="search"></i> Pesquisar</h2>
-      <div class="two"><div class="field"><label><i data-lucide="search"></i> Termo</label><input id="tmdbQuery" placeholder="Ex.: Naruto" autocomplete="off"></div><div class="field"><label><i data-lucide="filter"></i> Tipo</label><select id="tmdbType"><option value="multi">Filmes e séries</option><option value="movie">Filmes</option><option value="tv">Séries e animes</option></select></div></div>
-      <div class="actions"><button id="searchTmdbBtn"><i data-lucide="search"></i> Pesquisar</button><button class="secondary" id="tmdbTestBtn"><i data-lucide="plug-zap"></i> Testar TMDB</button></div>
-      <div id="tmdbStatus" class="status">Configure o token TMDB.</div>
+      <h2><i data-lucide="search"></i> Pesquisar filmes, séries e animes</h2>
+      <div class="two">
+        <div class="field"><label><i data-lucide="search"></i> Termo de pesquisa</label><input id="tmdbQuery" placeholder="Ex.: Interestelar, Naruto" autocomplete="off"></div>
+        <div class="field"><label><i data-lucide="filter"></i> Tipo</label><select id="tmdbType"><option value="multi">Filmes e séries</option><option value="movie">Filmes</option><option value="tv">Séries e animes</option></select></div>
+      </div>
+      <div class="actions"><button id="searchTmdbBtn"><i data-lucide="search"></i> Pesquisar</button><button class="secondary" id="tmdbTestBtn"><i data-lucide="plug-zap"></i> Testar conexão TMDB</button></div>
+      <div id="tmdbStatus" class="status">Configure o token ou a chave do TMDB em Configurações.</div>
       <div id="tmdbResults" class="results"></div>
     </div>
     <div class="panel" style="margin-top:16px">
-      <h2><i data-lucide="hash"></i> Importar por ID</h2>
-      <div class="two"><div class="field"><label><i data-lucide="monitor-play"></i> Tipo</label><select id="idType"><option value="movie">Filme</option><option value="tv">Série / anime</option></select></div><div class="field"><label><i data-lucide="hash"></i> ID</label><input id="tmdbId" inputmode="numeric" placeholder="Ex.: 550"></div></div>
-      <button id="importIdBtn"><i data-lucide="download-cloud"></i> Importar</button>
+      <h2><i data-lucide="hash"></i> Importar por ID do TMDB</h2>
+      <div class="two">
+        <div class="field"><label><i data-lucide="monitor-play"></i> Tipo</label><select id="idType"><option value="movie">Filme</option><option value="tv">Série / anime</option></select></div>
+        <div class="field"><label><i data-lucide="hash"></i> ID numérico</label><input id="tmdbId" inputmode="numeric" placeholder="Ex.: 550"></div>
+      </div>
+      <button id="importIdBtn"><i data-lucide="download-cloud"></i> Buscar e importar dados</button>
     </div>
   </section>
 
@@ -472,65 +557,106 @@ label i{width:13px;height:13px;color:var(--muted)}
   <section data-page="manual" class="hidden">
    <div class="panel">
      <h2 id="formTitle"><i data-lucide="plus-circle"></i> Adicionar título</h2>
-     <p>Campos com <b style="color:#ff6b72">*</b> são obrigatórios.</p>
+     <p>Preencha os dados do título. Campos com <b style="color:#ff6b72">*</b> são obrigatórios.</p>
      <form id="titleForm">
       <input type="hidden" id="editId">
-      <div class="two"><div class="field"><label><i data-lucide="type"></i> Título *</label><input id="fTitle" required maxlength="160"></div><div class="field"><label><i data-lucide="monitor-play"></i> Tipo *</label><select id="fKind"><option value="filme">Filme</option><option value="serie">Série / anime</option></select></div></div>
+      <div class="two">
+        <div class="field"><label><i data-lucide="type"></i> Título *</label><input id="fTitle" required maxlength="160"></div>
+        <div class="field"><label><i data-lucide="monitor-play"></i> Tipo *</label><select id="fKind"><option value="filme">Filme</option><option value="serie">Série / anime</option></select></div>
+      </div>
       <div class="field"><label><i data-lucide="align-left"></i> Sinopse</label><textarea id="fDesc" rows="4"></textarea></div>
-      <div class="two"><div class="field"><label><i data-lucide="calendar"></i> Ano</label><input id="fYear" type="number" min="1888" max="2200"></div><div class="field"><label><i data-lucide="tags"></i> Gêneros</label><input id="fGenre" placeholder="Ação, aventura, anime"></div></div>
-      <div class="two"><div class="field"><label><i data-lucide="image"></i> URL pôster</label><input id="fPoster" type="url"></div><div class="field"><label><i data-lucide="wallpaper"></i> URL banner</label><input id="fBackdrop" type="url"></div></div>
-      <div class="two"><div class="field"><label><i data-lucide="star"></i> Nota</label><input id="fVote" type="number" min="0" max="10" step=".1"></div><div class="field"><label><i data-lucide="shield"></i> Classificação</label><select id="fRating"><option>L</option><option>10</option><option>12</option><option>14</option><option>16</option><option>18</option></select></div></div>
-      <div class="two"><div class="field"><label><i data-lucide="users"></i> Elenco</label><input id="fCast"></div><div class="field"><label><i data-lucide="award"></i> Selo</label><select id="fStatus"><option value="novo">Novo</option><option value="lancamento">Lançamento</option><option value="em_breve">Em breve</option><option value="em_alta">Em alta</option><option value="mais_avaliado">Mais avaliado</option><option value="dublado">Dublado</option><option value="legendado">Legendado</option><option value="especial">Especial</option><option value="manutencao">Manutenção</option><option value="personalizado">Personalizado</option><option value="nenhum">Sem selo</option></select></div></div>
+      <div class="two">
+        <div class="field"><label><i data-lucide="calendar"></i> Ano</label><input id="fYear" type="number" min="1888" max="2200"></div>
+        <div class="field"><label><i data-lucide="tags"></i> Gêneros / categoria</label><input id="fGenre" placeholder="Ação, aventura, anime"></div>
+      </div>
+      <div class="two">
+        <div class="field"><label><i data-lucide="image"></i> URL do pôster</label><input id="fPoster" type="url" placeholder="https://…"></div>
+        <div class="field"><label><i data-lucide="wallpaper"></i> URL do banner/fundo</label><input id="fBackdrop" type="url" placeholder="https://…"></div>
+      </div>
+      <div class="two">
+        <div class="field"><label><i data-lucide="star"></i> Nota (0–10)</label><input id="fVote" type="number" min="0" max="10" step=".1"></div>
+        <div class="field"><label><i data-lucide="shield"></i> Classificação indicativa</label><select id="fRating"><option>L</option><option>10</option><option>12</option><option>14</option><option>16</option><option>18</option></select></div>
+      </div>
+      <div class="two">
+        <div class="field"><label><i data-lucide="users"></i> Elenco</label><input id="fCast"></div>
+        <div class="field"><label><i data-lucide="award"></i> Status/selo</label><select id="fStatus">
+          <option value="novo">Novo</option><option value="lancamento">Lançamento</option><option value="em_breve">Em breve</option>
+          <option value="em_alta">Em alta</option><option value="mais_avaliado">Mais avaliado</option><option value="dublado">Dublado</option>
+          <option value="legendado">Legendado</option><option value="especial">Especial</option><option value="manutencao">Manutenção</option>
+          <option value="personalizado">Personalizado</option><option value="nenhum">Sem selo</option>
+        </select></div>
+      </div>
       <div class="three">
         <div class="field"><label><i data-lucide="trophy"></i> Top 10</label><select id="fTop10"><option value="">Fora do Top 10</option><option value="1">🥇 #1</option><option value="2">🥈 #2</option><option value="3">🥉 #3</option><option value="4">#4</option><option value="5">#5</option><option value="6">#6</option><option value="7">#7</option><option value="8">#8</option><option value="9">#9</option><option value="10">#10</option></select></div>
         <div class="field"><label><i data-lucide="sparkles"></i> É anime?</label><select id="fIsAnime"><option value="">Auto-detectar</option><option value="1">Sim, é anime</option><option value="0">Não é anime</option></select></div>
-        <div class="field"><label><i data-lucide="folder-plus"></i> Aba</label><select id="fTabId"><option value="">Nenhuma</option></select></div>
+        <div class="field"><label><i data-lucide="folder-plus"></i> Adicionar à aba</label><select id="fTabId"><option value="">Nenhuma aba</option></select></div>
       </div>
-      <div class="two"><div class="field"><label><i data-lucide="link"></i> Player</label><input id="fSrc" type="url"></div><div class="field"><label><i data-lucide="play-circle"></i> Tipo player</label><select id="fPlayerType"><option value="embed">Embed</option><option value="video">Vídeo</option></select></div></div>
-      <div class="two"><div class="field"><label><i data-lucide="badge"></i> Texto selo custom</label><input id="fBadgeText" maxlength="18"></div><div class="field"><label><i data-lucide="palette"></i> Cor</label><input id="fBadgeColor" type="color" value="#E50914" style="height:43px;padding:4px"></div></div>
-      <div class="actions"><button type="submit"><i data-lucide="save"></i> Salvar</button><button type="button" class="secondary" id="clearFormBtn"><i data-lucide="eraser"></i> Limpar</button><button type="button" class="secondary" data-goto="catalog"><i data-lucide="arrow-left"></i> Voltar</button></div>
-      <div id="formStatus" class="status">Pendente até sincronizar.</div>
+      <div class="two">
+        <div class="field"><label><i data-lucide="link"></i> Link do player autorizado</label><input id="fSrc" type="url" placeholder="https://…"></div>
+        <div class="field"><label><i data-lucide="play-circle"></i> Tipo de player</label><select id="fPlayerType"><option value="embed">Embed / iframe</option><option value="video">Vídeo direto</option></select></div>
+      </div>
+      <div class="two">
+        <div class="field"><label><i data-lucide="badge"></i> Texto do selo personalizado</label><input id="fBadgeText" maxlength="18" placeholder="Ex.: Exclusivo"></div>
+        <div class="field"><label><i data-lucide="palette"></i> Cor do selo personalizado</label><input id="fBadgeColor" type="color" value="#E50914" style="height:43px;padding:4px"></div>
+      </div>
+      <div class="actions">
+        <button type="submit"><i data-lucide="save"></i> Salvar título</button>
+        <button type="button" class="secondary" id="clearFormBtn"><i data-lucide="eraser"></i> Limpar</button>
+        <button type="button" class="secondary" data-goto="catalog"><i data-lucide="arrow-left"></i> Voltar ao catálogo</button>
+      </div>
+      <div id="formStatus" class="status">Os dados ficam pendentes até serem sincronizados com o Supabase.</div>
      </form>
    </div>
   </section>
 
   <section data-page="badges" class="hidden">
    <div class="panel" style="margin-bottom:16px">
-     <h2><i data-lucide="plus-circle"></i> Criar selo</h2>
-     <div class="two"><div class="field"><label><i data-lucide="type"></i> Nome *</label><input id="newBadgeName" maxlength="18" autocomplete="off"></div><div class="field"><label><i data-lucide="palette"></i> Cor</label><input id="newBadgeColor" type="color" value="#8b5cf6" style="height:43px;padding:4px"></div></div>
-     <div class="actions"><button id="createBadgeBtn"><i data-lucide="plus"></i> Criar</button></div>
-     <div id="createBadgeStatus" class="status">Salvos no registro __badges__.</div>
+     <h2><i data-lucide="plus-circle"></i> Criar novo selo</h2>
+     <p>Crie selos personalizados com nome e cor. Ao aplicar em um título, ele é convertido em <code>status: personalizado</code> para que o site KiraFlix exiba corretamente.</p>
+     <div class="two">
+       <div class="field"><label><i data-lucide="type"></i> Nome do selo *</label><input id="newBadgeName" maxlength="18" placeholder="Ex.: Exclusivo, Top 10" autocomplete="off"></div>
+       <div class="field"><label><i data-lucide="palette"></i> Cor do selo</label><input id="newBadgeColor" type="color" value="#8b5cf6" style="height:43px;padding:4px"></div>
+     </div>
+     <div class="actions"><button id="createBadgeBtn"><i data-lucide="plus"></i> Criar selo</button></div>
+     <div id="createBadgeStatus" class="status">Os selos personalizados ficam salvos no registro __badges__ do catálogo.</div>
      <div id="customBadgesList" class="results" style="margin-top:12px"></div>
    </div>
    <div class="panel">
-     <h2><i data-lucide="award"></i> Todos os selos</h2>
+     <h2><i data-lucide="award"></i> Todos os selos do KiraFlix</h2>
      <div id="badgeLegend" class="results"></div>
-     <div class="two" style="margin-top:18px"><div class="field"><label><i data-lucide="filter"></i> Filtrar</label><select id="badgeFilter"></select></div><div class="field"><label><i data-lucide="search"></i> Buscar</label><input id="badgeSearch" autocomplete="off"></div></div>
-     <div id="badgeStatus" class="status">Conecte o catálogo.</div>
+     <div class="two" style="margin-top:18px">
+       <div class="field"><label><i data-lucide="filter"></i> Filtrar títulos por selo</label><select id="badgeFilter"></select></div>
+       <div class="field"><label><i data-lucide="search"></i> Buscar título</label><input id="badgeSearch" placeholder="Nome do filme, série ou anime" autocomplete="off"></div>
+     </div>
+     <div id="badgeStatus" class="status">Conecte o catálogo para ver todos os selos existentes.</div>
      <div id="badgeList" class="catalog"></div>
    </div>
   </section>
 
   <section data-page="tabs" class="hidden">
    <div class="panel">
-     <h2><i data-lucide="layout-list"></i> Abas personalizadas</h2>
-     <div class="two"><div class="field"><label><i data-lucide="type"></i> Nome</label><input id="tabName" maxlength="28"></div><div class="field"><label><i data-lucide="smile"></i> Ícone</label><select id="tabIcon"><option>folder-open</option><option>sparkles</option><option>clapperboard</option><option>tv</option><option>ghost</option><option>heart</option><option>rocket</option><option>gamepad-2</option><option>star</option><option>flame</option></select></div></div>
-     <div class="field"><label><i data-lucide="arrow-down-to-line"></i> Posição</label><select id="tabAfter"><option value="home">Após Início</option><option value="filme">Após Filmes</option><option value="serie">Após Séries</option><option value="new">Após Bombando</option><option value="list" selected>Após Minha lista</option></select></div>
-     <div class="actions"><button id="createTabBtn"><i data-lucide="folder-plus"></i> Criar</button><button class="secondary" id="refreshTabsBtn"><i data-lucide="refresh-cw"></i> Atualizar</button></div>
-     <div id="tabsStatus" class="status">Conecte primeiro.</div>
+     <h2><i data-lucide="layout-list"></i> Abas personalizadas da navegação</h2>
+     <p>As abas usam o mesmo formato do KiraFlix: <code>id</code>, <code>name</code>, <code>icon</code> e <code>after</code>. Ao excluir uma aba, os títulos permanecem no catálogo, mas deixam de estar associados àquela aba.</p>
+     <div class="two">
+       <div class="field"><label><i data-lucide="type"></i> Nome da aba</label><input id="tabName" maxlength="28" placeholder="Ex.: Anime, Documentários, Shorts"></div>
+       <div class="field"><label><i data-lucide="smile"></i> Ícone</label><select id="tabIcon"><option>folder-open</option><option>sparkles</option><option>clapperboard</option><option>tv</option><option>ghost</option><option>heart</option><option>rocket</option><option>gamepad-2</option><option>star</option><option>flame</option></select></div>
+     </div>
+     <div class="field"><label><i data-lucide="arrow-down-to-line"></i> Posição na navegação</label><select id="tabAfter"><option value="home">Depois de Início</option><option value="filme">Depois de Filmes</option><option value="serie">Depois de Séries</option><option value="new">Depois de Bombando</option><option value="list" selected>Depois de Minha lista</option></select></div>
+     <div class="actions"><button id="createTabBtn"><i data-lucide="folder-plus"></i> Criar aba</button><button class="secondary" id="refreshTabsBtn"><i data-lucide="refresh-cw"></i> Atualizar lista</button></div>
+     <div id="tabsStatus" class="status">Conecte e carregue o catálogo para editar as abas compartilhadas.</div>
      <div id="tabsList" style="margin-top:12px"></div>
    </div>
   </section>
 
   <section data-page="themes" class="hidden">
    <div class="panel">
-     <h2><i data-lucide="sparkles"></i> Temas Prontos</h2>
-     <div class="banner-info" id="themesGhWarning"><i data-lucide="info"></i><div>Configure GitHub em Configurações.</div></div>
+     <h2><i data-lucide="sparkles"></i> Temas Prontos para o Site</h2>
+     <div class="banner-info" id="themesGhWarning"><i data-lucide="info"></i><div><b>Como o tema chega ao site:</b> o painel edita o HTML do site diretamente no GitHub, substituindo as variáveis CSS de cor. Configure o <b>arquivo HTML do site</b> em Configurações → GitHub.</div></div>
      <div id="themesGrid" class="themes-grid"></div>
-     <div id="themesStatus" class="status">Selecione um tema.</div>
+     <div id="themesStatus" class="status">Selecione um tema para aplicar.</div>
      <div class="panel" style="margin-top:16px;background:rgba(255,255,255,.02)">
-       <h2><i data-lucide="eye"></i> Preview do site</h2>
-       <div class="site-preview" id="sitePreviewThemes"><span class="sp-label">PREVIEW</span><div class="sp-logo" id="spLogoThemes">KiraFlix</div><div class="sp-slogan" id="spSloganThemes">Seu streaming</div></div>
+       <h2><i data-lucide="eye"></i> Pré-visualização do site KiraFlix</h2>
+       <div class="site-preview" id="sitePreviewThemes"><span class="sp-label">PREVIEW DO SITE</span><div class="sp-logo" id="spLogoThemes">KiraFlix</div><div class="sp-slogan" id="spSloganThemes">Seu streaming favorito</div></div>
        <div id="deployCountdownThemes"></div>
      </div>
    </div>
@@ -538,109 +664,129 @@ label i{width:13px;height:13px;color:var(--muted)}
 
   <section data-page="code" class="hidden">
    <div class="panel">
-     <h2><i data-lucide="code-2"></i> Editor de Código</h2>
+     <h2><i data-lucide="code-2"></i> Editor de Código do Repositório</h2>
+     <p>Escolha um arquivo do repositório GitHub, edite o código e salve direto no repositório. Alterações ficam no GitHub na hora — o site reflete após o deploy do GitHub Pages.</p>
      <div class="code-editor-toolbar">
-       <div class="field"><label><i data-lucide="file-code"></i> Arquivo</label><select id="editorFilePath"><option value="">— Listar —</option></select></div>
+       <div class="field"><label><i data-lucide="file-code"></i> Arquivo</label><select id="editorFilePath"><option value="">— Clique em "Listar" —</option></select></div>
        <button class="secondary" id="editorListBtn"><i data-lucide="folder-open"></i> Listar</button>
        <button id="editorLoadBtn"><i data-lucide="download"></i> Carregar</button>
-       <button class="secondary" id="editorCopyBtn"><i data-lucide="copy"></i> Copiar</button>
-       <button class="toggle-on" id="editorSaveBtn"><i data-lucide="upload"></i> Salvar</button>
+       <button class="secondary" id="editorCopyBtn" title="Copiar todo o código"><i data-lucide="copy"></i> Copiar tudo</button>
+       <button class="toggle-on" id="editorSaveBtn"><i data-lucide="upload"></i> Salvar no GitHub</button>
      </div>
-     <div class="code-info" id="editorInfo"><span>Nenhum arquivo.</span></div>
-     <div class="code-editor-wrap"><div class="code-line-numbers" id="editorLineNumbers">1</div><textarea id="editorTextarea" class="code-editor" spellcheck="false" placeholder="Listar → escolher → Carregar"></textarea></div>
-     <div id="editorStatus" class="status">Carregue um arquivo.</div>
+     <div class="code-info" id="editorInfo"><span><i data-lucide="file" style="width:12px;height:12px;vertical-align:-2px"></i> Nenhum arquivo carregado</span></div>
+     <div class="code-editor-wrap">
+       <div class="code-line-numbers" id="editorLineNumbers">1</div>
+       <textarea id="editorTextarea" class="code-editor" spellcheck="false" placeholder="Clique em Listar → escolha o arquivo → Carregar"></textarea>
+     </div>
+     <div id="editorStatus" class="status">Escolha um arquivo do repositório e clique em Carregar para começar a editar.</div>
      <div class="ai-section">
        <h3><i data-lucide="wand-2"></i> Editar com IA</h3>
-       <textarea id="aiPrompt" placeholder="Ex.: troque a cor principal para azul" rows="4" spellcheck="false"></textarea>
-       <div class="actions"><button id="aiEditBtn"><i data-lucide="wand-2"></i> Aplicar com IA</button><button class="secondary" id="aiUndoBtn" disabled><i data-lucide="undo-2"></i> Desfazer</button><button class="secondary" id="aiClearBtn"><i data-lucide="eraser"></i> Limpar</button></div>
-       <div id="aiStatus" class="status">Digite uma instrução.</div>
+       <p>Descreva o que quer mudar e a IA reescreve o código. <b style="color:#c4b5fd">Configure a chave da API de IA em Configurações.</b> Depois revise e clique em "Salvar no GitHub".</p>
+       <textarea id="aiPrompt" placeholder="Exemplos:&#10;• Troque a cor principal para azul neon (#00d9ff)&#10;• Aumente o tamanho do logo em 30%&#10;• Mude o texto do botão &quot;Assistir&quot; para &quot;Ver agora&quot;" rows="4" spellcheck="false"></textarea>
+       <div class="actions"><button id="aiEditBtn"><i data-lucide="wand-2"></i> Aplicar com IA</button><button class="secondary" id="aiUndoBtn" disabled><i data-lucide="undo-2"></i> Desfazer alteração da IA</button><button class="secondary" id="aiClearBtn"><i data-lucide="eraser"></i> Limpar prompt</button></div>
+       <div id="aiStatus" class="status">Digite uma instrução e clique em "Aplicar com IA".</div>
      </div>
-     <div class="code-editor-hint"><b>💡 Dica:</b> cores em <code>--red</code> e <code>--purple</code> no <code>:root{}</code>.</div>
+     <div class="code-editor-hint"><b>💡 Dica:</b> Use o editor para alterar cores, textos, nomes, ou qualquer parte do HTML. As variáveis de cor geralmente estão como <code>--red</code> e <code>--purple</code> dentro de <code>:root{}</code>. Após salvar, aguarde o deploy do GitHub Pages (1–3 min) para ver no site.</div>
      <div id="deployCountdownEditor"></div>
    </div>
   </section>
 
   <section data-page="players" class="hidden">
    <div class="panel">
-     <h2><i data-lucide="play-circle"></i> Players globais</h2>
-     <div class="field"><label><i data-lucide="film"></i> Filme — dublado</label><input id="plMovie"></div>
-     <div class="field"><label><i data-lucide="film"></i> Filme — legendado</label><input id="plMovieSub"></div>
-     <div class="field"><label><i data-lucide="tv"></i> Série — dublado</label><input id="plSerie"></div>
-     <div class="field"><label><i data-lucide="tv"></i> Série — legendado</label><input id="plSerieSub"></div>
-     <div class="actions"><button id="savePlayersBtn"><i data-lucide="save"></i> Salvar</button><button class="secondary" id="resetPlayersBtn"><i data-lucide="rotate-ccw"></i> Restaurar</button></div>
-     <div id="playersStatus" class="status">Sincronize para aplicar.</div>
+     <h2><i data-lucide="play-circle"></i> Players globais do KiraFlix</h2>
+     <p>Esses quatro campos correspondem à configuração compartilhada usada pelo site principal. Variáveis aceitas: <code>{tmdb_id}</code>, <code>{id}</code>, <code>{season_number}</code>, <code>{episode_number}</code>, <code>{season}</code>, <code>{episode}</code> e <code>{start}</code>. Use somente fontes de vídeo que você tem autorização para incorporar.</p>
+     <div class="field"><label><i data-lucide="film"></i> Filme — dublado</label><input id="plMovie" placeholder="https://.../{tmdb_id}"></div>
+     <div class="field"><label><i data-lucide="film"></i> Filme — legendado</label><input id="plMovieSub" placeholder="Deixe vazio se não houver player padrão"></div>
+     <div class="field"><label><i data-lucide="tv"></i> Série / anime — dublado</label><input id="plSerie" placeholder="https://.../{tmdb_id}/{season_number}/{episode_number}"></div>
+     <div class="field"><label><i data-lucide="tv"></i> Série / anime — legendado</label><input id="plSerieSub" placeholder="https://.../{tmdb_id}/{season_number}/{episode_number}"></div>
+     <div class="actions"><button id="savePlayersBtn"><i data-lucide="save"></i> Salvar players para todos</button><button class="secondary" id="resetPlayersBtn"><i data-lucide="rotate-ccw"></i> Restaurar padrões do site</button></div>
+     <div id="playersStatus" class="status">Os players só serão aplicados aos visitantes depois de sincronizar com o Supabase.</div>
    </div>
   </section>
 
   <section data-page="maintenance" class="hidden">
    <div class="panel">
      <h2><i data-lucide="wrench"></i> Modo de manutenção</h2>
-     <div id="maintenanceState" class="status">Desconhecido.</div>
-     <div class="field"><label><i data-lucide="message-square"></i> Mensagem</label><input id="maintenanceMessage" maxlength="140"></div>
-     <div class="actions"><button id="maintenanceToggleBtn"><i data-lucide="power"></i> Ativar</button><button class="secondary" id="saveMaintenanceMsgBtn"><i data-lucide="save"></i> Salvar msg</button></div>
-     <div id="maintenanceStatus" class="status">Requer conexão.</div>
+     <p>Quando ativado, o site principal mostra a tela de manutenção para visitantes. A alteração é compartilhada pelo registro especial <code>__maintenance__</code> dentro de <code>kira_catalog.data.tabs</code>.</p>
+     <div id="maintenanceState" class="status">Estado desconhecido — carregue o catálogo primeiro.</div>
+     <div class="field"><label><i data-lucide="message-square"></i> Mensagem que aparece aos visitantes</label><input id="maintenanceMessage" maxlength="140" placeholder="Estamos melhorando o KIRAFLIX para você. Voltamos em instantes!"></div>
+     <div class="actions"><button id="maintenanceToggleBtn"><i data-lucide="power"></i> Ativar manutenção</button><button class="secondary" id="saveMaintenanceMsgBtn"><i data-lucide="save"></i> Salvar mensagem</button></div>
+     <div id="maintenanceStatus" class="status">A alteração requer conexão administrativa e Supabase disponível.</div>
    </div>
   </section>
 
   <section data-page="settings" class="hidden">
    <div class="panel">
-     <h2><i data-lucide="database"></i> Supabase</h2>
-     <div class="banner-info"><i data-lucide="info"></i><div>Salvo automaticamente neste navegador.</div></div>
-     <div class="field"><label><i data-lucide="globe"></i> URL</label><input id="sbUrl" value="https://ahtuhrzizlwcvrgbzivx.supabase.co"></div>
-     <div class="field"><label><i data-lucide="key-round"></i> Chave pública</label><input id="sbKey" type="password" autocomplete="off"></div>
-     <div class="field"><label><i data-lucide="lock"></i> Senha admin</label><input id="adminPassword" type="password" autocomplete="off"></div>
-     <div class="actions"><button id="connectBtn"><i data-lucide="plug"></i> Conectar</button><button class="secondary" id="showSbKeyBtn"><i data-lucide="eye"></i> Mostrar</button><button class="secondary" id="forgetConfigBtn"><i data-lucide="trash-2"></i> Limpar</button></div>
-     <div id="sbStatus" class="status">Supabase pode estar em manutenção.</div>
+     <h2><i data-lucide="database"></i> Supabase do KiraFlix</h2>
+     <div class="banner-info"><i data-lucide="info"></i><div>As credenciais são salvas automaticamente neste navegador. Ao recarregar a página, a conexão é restaurada automaticamente.</div></div>
+     <div class="field"><label><i data-lucide="globe"></i> URL do projeto</label><input id="sbUrl" value="https://ahtuhrzizlwcvrgbzivx.supabase.co"></div>
+     <div class="field"><label><i data-lucide="key-round"></i> Chave pública (publishable / anon)</label><input id="sbKey" type="password" autocomplete="off" placeholder="sb_publishable_… ou chave anon"></div>
+     <div class="field"><label><i data-lucide="lock"></i> Senha administrativa do KiraFlix</label><input id="adminPassword" type="password" autocomplete="off" placeholder="Senha validada pela função do KiraFlix"></div>
+     <div class="actions"><button id="connectBtn"><i data-lucide="plug"></i> Conectar agora</button><button class="secondary" id="showSbKeyBtn"><i data-lucide="eye"></i> Mostrar chave</button><button class="secondary" id="forgetConfigBtn"><i data-lucide="trash-2"></i> Limpar tudo</button></div>
+     <div id="sbStatus" class="status">A manutenção do Supabase pode impedir a conexão temporariamente.</div>
    </div>
 
    <div class="panel" style="margin-top:16px">
      <h2><i data-lucide="clapperboard"></i> TMDB</h2>
-     <div class="field"><label><i data-lucide="key-round"></i> Token</label><textarea id="tmdbToken" rows="3" autocomplete="off"></textarea></div>
-     <div class="field"><label><i data-lucide="key"></i> Chave v3</label><input id="tmdbKey" type="password" autocomplete="off"></div>
-     <div class="actions"><button id="saveConfigBtn"><i data-lucide="save"></i> Salvar</button><button class="secondary" id="clearTmdbBtn"><i data-lucide="eraser"></i> Limpar</button></div>
+     <div class="field"><label><i data-lucide="key-round"></i> Token de leitura (Bearer)</label><textarea id="tmdbToken" rows="3" autocomplete="off" placeholder="Cole o token de leitura aqui"></textarea></div>
+     <div class="field"><label><i data-lucide="key"></i> Chave API v3 (alternativa)</label><input id="tmdbKey" type="password" autocomplete="off" placeholder="Chave API v3"></div>
+     <div class="actions"><button id="saveConfigBtn"><i data-lucide="save"></i> Salvar configurações</button><button class="secondary" id="clearTmdbBtn"><i data-lucide="eraser"></i> Limpar credenciais TMDB</button></div>
    </div>
 
    <div class="panel" style="margin-top:16px">
-     <h2><i data-lucide="github"></i> GitHub</h2>
-     <div class="two"><div class="field"><label><i data-lucide="user"></i> Usuário</label><input id="ghUser" autocomplete="off"></div><div class="field"><label><i data-lucide="folder-git-2"></i> Repositório</label><input id="ghRepo" autocomplete="off"></div></div>
-     <div class="two"><div class="field"><label><i data-lucide="git-branch"></i> Branch</label><input id="ghBranch" value="main" autocomplete="off"></div><div class="field"><label><i data-lucide="key-round"></i> Token PAT</label><input id="ghToken" type="password" autocomplete="off"></div></div>
-     <div class="two"><div class="field"><label><i data-lucide="file-json"></i> JSON</label><input id="ghPath" value="kira-settings.json" autocomplete="off"></div><div class="field"><label><i data-lucide="file-code"></i> HTML do site *</label><input id="ghSitePath" value="KIRAFLIX.html" autocomplete="off"></div></div>
-     <div class="actions"><button id="ghTestBtn"><i data-lucide="plug-zap"></i> Testar</button><button class="secondary" id="ghPushBtn"><i data-lucide="upload-cloud"></i> Enviar</button><button class="secondary" id="ghPullBtn"><i data-lucide="download-cloud"></i> Puxar</button><button class="secondary" id="ghClearBtn"><i data-lucide="trash-2"></i> Limpar</button></div>
-     <div id="ghStatus" class="status">Preencha as credenciais.</div>
+     <h2><i data-lucide="github"></i> Integração com GitHub</h2>
+     <div class="banner-info"><i data-lucide="info"></i><div>O painel modifica diretamente os arquivos do seu repositório. Os temas e o nome do site são aplicados no <b>arquivo HTML do site</b> (abaixo).</div></div>
+     <div class="two"><div class="field"><label><i data-lucide="user"></i> Usuário / organização</label><input id="ghUser" placeholder="seu-usuario" autocomplete="off"></div><div class="field"><label><i data-lucide="folder-git-2"></i> Repositório (nome ou URL)</label><input id="ghRepo" placeholder="meu-repo ou https://github.com/user/repo" autocomplete="off"></div></div>
+     <div class="two"><div class="field"><label><i data-lucide="git-branch"></i> Branch</label><input id="ghBranch" placeholder="main" value="main" autocomplete="off"></div><div class="field"><label><i data-lucide="key-round"></i> Token de acesso pessoal (PAT)</label><input id="ghToken" type="password" autocomplete="off" placeholder="ghp_… ou github_pat_…"></div></div>
+     <div class="two"><div class="field"><label><i data-lucide="file-json"></i> Arquivo de configurações (JSON)</label><input id="ghPath" placeholder="kira-settings.json" value="kira-settings.json" autocomplete="off"></div><div class="field"><label><i data-lucide="file-code"></i> Arquivo HTML do site *</label><input id="ghSitePath" placeholder="KIRAFLIX.html" value="KIRAFLIX.html" autocomplete="off"></div></div>
+     <div class="actions"><button id="ghTestBtn"><i data-lucide="plug-zap"></i> Testar conexão</button><button class="secondary" id="ghPushBtn"><i data-lucide="upload-cloud"></i> Enviar JSON</button><button class="secondary" id="ghPullBtn"><i data-lucide="download-cloud"></i> Puxar do GitHub</button><button class="secondary" id="ghClearBtn"><i data-lucide="trash-2"></i> Limpar GitHub</button></div>
+     <div id="ghStatus" class="status">Preencha as credenciais do GitHub para habilitar.</div>
+     <div class="hint"><i data-lucide="info" style="width:12px;height:12px;vertical-align:-2px"></i> O token precisa de escopo <code>repo</code>. O <b>arquivo HTML do site</b> é onde o tema/nome será aplicado. Ex.: <code>KIRAFLIX.html</code> ou <code>index.html</code>.</div>
    </div>
 
    <div class="panel" style="margin-top:16px">
-     <h2><i data-lucide="palette"></i> Identidade do Site</h2>
-     <div class="banner-ok"><i data-lucide="check-circle-2"></i><div><b>Altera o site real.</b> Aplica no HTML do GitHub.</div></div>
-     <div class="site-preview" id="sitePreview"><span class="sp-label">PREVIEW</span><div class="sp-logo" id="spLogo">KiraFlix</div><div class="sp-slogan" id="spSlogan">Seu streaming</div></div>
-     <div class="two"><div class="field"><label><i data-lucide="type"></i> Nome</label><input id="cfgSiteName" maxlength="40" autocomplete="off"></div><div class="field"><label><i data-lucide="quote"></i> Slogan</label><input id="cfgSlogan" maxlength="80" autocomplete="off"></div></div>
+     <h2><i data-lucide="palette"></i> Identidade do Site KiraFlix</h2>
+     <div class="banner-ok"><i data-lucide="check-circle-2"></i><div><b>Altera o site real (visitantes).</b> Ao salvar, o painel aplica nome, cores e imagens diretamente no <b>arquivo HTML do site</b> configurado acima.</div></div>
+     <div class="site-preview" id="sitePreview"><span class="sp-label">PREVIEW DO SITE</span><div class="sp-logo" id="spLogo">KiraFlix</div><div class="sp-slogan" id="spSlogan">Seu streaming favorito</div></div>
+     <div class="two"><div class="field"><label><i data-lucide="type"></i> Nome do site</label><input id="cfgSiteName" placeholder="KiraFlix" maxlength="40" autocomplete="off"></div><div class="field"><label><i data-lucide="quote"></i> Slogan</label><input id="cfgSlogan" placeholder="Seu streaming favorito" maxlength="80" autocomplete="off"></div></div>
      <div class="two"><div class="field"><label><i data-lucide="palette"></i> Cor primária</label><input id="cfgPrimaryColor" type="color" value="#e50914" style="height:43px;padding:4px"></div><div class="field"><label><i data-lucide="palette"></i> Cor secundária</label><input id="cfgSecondaryColor" type="color" value="#8b5cf6" style="height:43px;padding:4px"></div></div>
-     <div class="field"><label><i data-lucide="search"></i> Nome antigo no HTML</label><input id="cfgOldName" autocomplete="off"></div>
-     <div class="two"><div class="field"><label><i data-lucide="image"></i> Logo URL</label><input id="cfgLogoUrl" type="url" autocomplete="off"></div><div class="field"><label><i data-lucide="image"></i> Favicon URL</label><input id="cfgFaviconUrl" type="url" autocomplete="off"></div></div>
-     <div class="field"><label><i data-lucide="wallpaper"></i> Banner URL</label><input id="cfgBannerUrl" type="url" autocomplete="off"></div>
-     <div class="actions"><button id="saveSiteSettingsBtn"><i data-lucide="save"></i> Salvar e aplicar</button><button class="secondary" id="applyToSiteOnlyBtn"><i data-lucide="zap"></i> Só aplicar</button></div>
-     <div id="siteSettingsStatus" class="status">Configure.</div>
+     <div class="field"><label><i data-lucide="search"></i> Nome antigo no HTML (para substituir)</label><input id="cfgOldName" placeholder="KiraFlix" autocomplete="off"><div class="hint" style="font-size:10.5px;margin-top:4px">Se seu HTML tiver "KiraFlix" ou "KIRAFLIX", eles serão substituídos pelo novo nome. Padrão: detecta automaticamente.</div></div>
+     <div class="two"><div class="field"><label><i data-lucide="image"></i> URL do logo</label><input id="cfgLogoUrl" type="url" placeholder="https://…" autocomplete="off"></div><div class="field"><label><i data-lucide="image"></i> URL do favicon</label><input id="cfgFaviconUrl" type="url" placeholder="https://…" autocomplete="off"></div></div>
+     <div class="field"><label><i data-lucide="wallpaper"></i> URL do banner da home</label><input id="cfgBannerUrl" type="url" placeholder="https://…" autocomplete="off"></div>
+     <div class="actions"><button id="saveSiteSettingsBtn"><i data-lucide="save"></i> Salvar e aplicar no site</button><button class="secondary" id="applyToSiteOnlyBtn"><i data-lucide="zap"></i> Só aplicar no site (rápido)</button><button class="secondary" data-goto="themes"><i data-lucide="sparkles"></i> Escolher tema</button></div>
+     <div id="siteSettingsStatus" class="status">Configure e salve. As mudanças são aplicadas diretamente no HTML do site no GitHub.</div>
      <div id="deployCountdownSettings"></div>
    </div>
 
    <div class="panel" style="margin-top:16px">
-     <h2><i data-lucide="wand-2"></i> IA (Editor de Código)</h2>
-     <div class="two"><div class="field"><label><i data-lucide="server"></i> Provedor</label><select id="aiProvider"><option value="groq">⚡ Groq</option><option value="openai">🤖 OpenAI</option><option value="gemini">🌟 Gemini</option></select></div><div class="field"><label><i data-lucide="cpu"></i> Modelo</label><input id="aiModel" autocomplete="off"></div></div>
-     <div class="field"><label><i data-lucide="key-round"></i> Chave API</label><input id="aiApiKey" type="password" autocomplete="off"></div>
-     <div class="actions"><button id="saveAiConfigBtn"><i data-lucide="save"></i> Salvar</button><button class="secondary" id="testAiBtn"><i data-lucide="plug-zap"></i> Testar</button><button class="secondary" id="clearAiBtn"><i data-lucide="eraser"></i> Limpar</button></div>
-     <div id="aiConfigStatus" class="status">Configure a chave.</div>
+     <h2><i data-lucide="wand-2"></i> Inteligência Artificial (Editor de Código)</h2>
+     <div class="banner-info"><i data-lucide="info"></i><div>Configure a chave de API para usar o botão <b>"Aplicar com IA"</b> no Editor de Código. A chave fica só neste navegador. Escolha entre <b>Groq</b> (grátis e rápido), <b>OpenAI</b> (pago, mais preciso) ou <b>Gemini</b> (grátis com limites).</div></div>
+     <div class="two">
+       <div class="field"><label><i data-lucide="server"></i> Provedor</label><select id="aiProvider"><option value="groq">⚡ Groq (grátis, rápido)</option><option value="openai">🤖 OpenAI (pago)</option><option value="gemini">🌟 Google Gemini (grátis)</option></select></div>
+       <div class="field"><label><i data-lucide="cpu"></i> Modelo (opcional)</label><input id="aiModel" placeholder="Padrão do provedor" autocomplete="off"></div>
+     </div>
+     <div class="field"><label><i data-lucide="key-round"></i> Chave da API *</label><input id="aiApiKey" type="password" autocomplete="off" placeholder="Cole a chave da API aqui"></div>
+     <div class="hint" style="margin-bottom:12px;font-size:11px"><i data-lucide="info" style="width:12px;height:12px;vertical-align:-2px"></i> <b>Onde obter a chave:</b><br>• Groq: <code>console.groq.com/keys</code><br>• OpenAI: <code>platform.openai.com/api-keys</code><br>• Gemini: <code>aistudio.google.com/app/apikey</code></div>
+     <div class="actions"><button id="saveAiConfigBtn"><i data-lucide="save"></i> Salvar IA</button><button class="secondary" id="testAiBtn"><i data-lucide="plug-zap"></i> Testar IA</button><button class="secondary" id="clearAiBtn"><i data-lucide="eraser"></i> Limpar chave IA</button></div>
+     <div id="aiConfigStatus" class="status">Configure e teste a IA para habilitar a edição por prompt no Editor de Código.</div>
    </div>
 
    <div class="panel" style="margin-top:16px">
-     <h2><i data-lucide="users"></i> Perfis do Site</h2>
-     <div class="checkline" style="margin:9px 0"><input type="checkbox" id="cfgProfilesEnabled" checked><label for="cfgProfilesEnabled">Ativar perfis no site</label></div>
-     <div class="checkline" style="margin:9px 0"><input type="checkbox" id="cfgAllowRegister" checked><label for="cfgAllowRegister">Permitir cadastro</label></div>
-     <div class="checkline" style="margin:9px 0"><input type="checkbox" id="cfgAllowAvatar" checked><label for="cfgAllowAvatar">Upload de avatar</label></div>
-     <div class="checkline" style="margin:9px 0"><input type="checkbox" id="cfgAllowBio" checked><label for="cfgAllowBio">Bio no perfil</label></div>
-     <div class="checkline" style="margin:9px 0"><input type="checkbox" id="cfgRequireEmailVerify"><label for="cfgRequireEmailVerify">Exigir email</label></div>
-     <div class="two" style="margin-top:14px"><div class="field"><label><i data-lucide="shield"></i> Nível padrão</label><select id="cfgDefaultRole"><option value="user">Usuário</option><option value="vip">VIP</option><option value="admin">Admin</option></select></div><div class="field"><label><i data-lucide="layers"></i> Máx perfis</label><input id="cfgMaxProfiles" type="number" min="1" max="10" value="5"></div></div>
-     <div class="actions"><button id="saveProfilesBtn"><i data-lucide="save"></i> Salvar</button></div>
-     <div id="profilesStatus" class="status">Configure.</div>
+     <h2><i data-lucide="users"></i> Sistema de Perfis do Site KiraFlix</h2>
+     <div class="banner-info"><i data-lucide="info"></i><div>Configura como os <b>visitantes do site KiraFlix</b> podem criar conta, fazer login e personalizar perfis.</div></div>
+     <div class="checkline" style="margin:9px 0"><input type="checkbox" id="cfgProfilesEnabled" checked><label for="cfgProfilesEnabled">Ativar sistema de perfis no site</label></div>
+     <div class="checkline" style="margin:9px 0"><input type="checkbox" id="cfgAllowRegister" checked><label for="cfgAllowRegister">Permitir cadastro de novos usuários</label></div>
+     <div class="checkline" style="margin:9px 0"><input type="checkbox" id="cfgAllowAvatar" checked><label for="cfgAllowAvatar">Permitir upload de avatar</label></div>
+     <div class="checkline" style="margin:9px 0"><input type="checkbox" id="cfgAllowBio" checked><label for="cfgAllowBio">Permitir bio / descrição no perfil</label></div>
+     <div class="checkline" style="margin:9px 0"><input type="checkbox" id="cfgRequireEmailVerify"><label for="cfgRequireEmailVerify">Exigir verificação de email no cadastro</label></div>
+     <div class="two" style="margin-top:14px"><div class="field"><label><i data-lucide="shield"></i> Nível padrão do novo usuário</label><select id="cfgDefaultRole"><option value="user">Usuário comum</option><option value="vip">VIP</option><option value="admin">Administrador</option></select></div><div class="field"><label><i data-lucide="layers"></i> Máximo de perfis por conta</label><input id="cfgMaxProfiles" type="number" min="1" max="10" value="5"></div></div>
+     <div class="field" style="margin-top:4px"><label><i data-lucide="key-round"></i> Provedores OAuth (opcional — client IDs)</label>
+       <input id="cfgOAuthGoogle" placeholder="Google Client ID" autocomplete="off" style="margin-bottom:8px">
+       <input id="cfgOAuthGithub" placeholder="GitHub Client ID" autocomplete="off" style="margin-bottom:8px">
+       <input id="cfgOAuthDiscord" placeholder="Discord Client ID" autocomplete="off">
+     </div>
+     <div class="actions"><button id="saveProfilesBtn"><i data-lucide="save"></i> Salvar perfis</button></div>
+     <div id="profilesStatus" class="status">Configure as regras e clique em Salvar.</div>
    </div>
   </section>
 
@@ -747,13 +893,13 @@ const GENRE_MAP={28:'Ação',12:'Aventura',16:'Animação',35:'Comédia',80:'Cri
 function isOrdinaryTab(x){return x&&x.id!==MAINT_ID&&x.id!==PLAYERS_ID&&x.id!==BADGES_ID&&x.id!==SETTINGS_ID;}
 
 /* ============================================================
-   HELPERS ANIME
+   HELPERS ANIME / TOP10
    ============================================================ */
 function isAnimeTitle(t){
   if(!t)return false;
   if(t.isAnime===true)return true;
   if(/^anime/i.test(t.genre||'')||/\banime\b/i.test(t.genre||''))return true;
-  if(t.originalLanguage==='ja' && /anima|animation|animação/i.test(t.genre||''))return true;
+  if(t.originalLanguage==='ja'&&/anima|animation|animação/i.test(t.genre||''))return true;
   return false;
 }
 function detectAnimeFromTMDB(x){
@@ -784,11 +930,11 @@ function startDeployCountdown(){
       el.style.display='flex';
       if(remaining<=0){
         el.className='deploy-countdown done';
-        el.innerHTML=`<i data-lucide="check-circle-2"></i><div><b>Deploy provavelmente concluído!</b><br><span style="font-size:11.5px">Verifique o site (Ctrl+Shift+R).</span></div>`;
+        el.innerHTML=`<i data-lucide="check-circle-2"></i><div><b>Deploy provavelmente concluído!</b><br><span style="font-size:11.5px">Verifique o site agora. Se ainda não atualizou, aguarde mais 1-2 min e recarregue com Ctrl+Shift+R.</span></div>`;
       }else{
         const sec=Math.ceil(remaining/1000);const min=Math.floor(sec/60);const s=sec%60;
         el.className='deploy-countdown counting';
-        el.innerHTML=`<i data-lucide="clock"></i><div><b>Aguardando deploy do GitHub Pages…</b><br><span style="font-size:11.5px">${min}:${String(s).padStart(2,'0')} restantes</span></div>`;
+        el.innerHTML=`<i data-lucide="clock"></i><div><b>Aguardando deploy do GitHub Pages…</b><br><span style="font-size:11.5px">${min}:${String(s).padStart(2,'0')} restantes (estimativa)</span></div>`;
       }
     });
     refreshIcons();
@@ -851,10 +997,7 @@ function updateAutoImportCountdown(){
 }
 function updateAutoImportUI(){
   const badge=$('#autoStatusBadge');
-  if(badge){
-    badge.textContent=autoImportConfig.enabled?'✅ Ativo':'⏸ Desativado';
-    badge.style.color=autoImportConfig.enabled?'#86efac':'#fcd34d';
-  }
+  if(badge){badge.textContent=autoImportConfig.enabled?'✅ Ativo':'⏸ Desativado';badge.style.color=autoImportConfig.enabled?'#86efac':'#fcd34d';}
   const totalEl=$('#autoTotalImported');
   if(totalEl)totalEl.textContent=fmtNum(autoImportConfig.totalImported||0);
   const toggleBtn=$('#autoImportToggleBtn');
@@ -906,7 +1049,7 @@ async function runAutoImportPull(){
   const maxPages=Math.ceil(qty/20)+2;
   while((imported+skipped+errors)<qty && page<=maxPages){
     let data;
-    try{data=await fetchMassBatch(autoImportConfig.category,type,page,true);}
+    try{data=await fetchMassBatch(autoImportConfig.category,type,page);}
     catch(e){logAutoImport(`⚠ Erro página ${page}: ${e.message}`,'err');break;}
     const results=data.results||[];
     if(!results.length)break;
@@ -934,9 +1077,7 @@ async function runAutoImportPull(){
       autoImportConfig.totalImported=(autoImportConfig.totalImported||0)+imported;
       logAutoImport(`✅ ${imported} importado(s), ${skipped} pulado(s), ${errors} erro(s)`,'ok');
       safeRender('renderAll',renderAll);
-    }catch(e){
-      logAutoImport(`⚠ Importados ${imported} localmente, falha no sync: ${e.message}`,'err');
-    }
+    }catch(e){logAutoImport(`⚠ Importados ${imported} localmente, falha no sync: ${e.message}`,'err');}
   }else{
     logAutoImport(`Nenhum novo (${skipped} pulado, ${errors} erro)`,'skip');
   }
@@ -946,7 +1087,7 @@ async function runAutoImportPull(){
 /* ============================================================
    NAVEGAÇÃO
    ============================================================ */
-const pageMeta={home:{title:'Visão geral',icon:'layout-dashboard'},catalog:{title:'Catálogo',icon:'library'},tmdb:{title:'Importar do TMDB',icon:'clapperboard'},autoimport:{title:'Auto-Importar',icon:'timer'},manual:{title:'Adicionar / editar',icon:'plus-circle'},badges:{title:'Selos',icon:'award'},tabs:{title:'Abas',icon:'layout-list'},themes:{title:'Temas',icon:'sparkles'},code:{title:'Editor',icon:'code-2'},players:{title:'Players',icon:'play-circle'},maintenance:{title:'Manutenção',icon:'wrench'},settings:{title:'Configurações',icon:'settings'}};
+const pageMeta={home:{title:'Visão geral',icon:'layout-dashboard'},catalog:{title:'Catálogo',icon:'library'},tmdb:{title:'Importar do TMDB',icon:'clapperboard'},autoimport:{title:'Auto-Importar',icon:'timer'},manual:{title:'Adicionar / editar',icon:'plus-circle'},badges:{title:'Selos do catálogo',icon:'award'},tabs:{title:'Abas do site',icon:'layout-list'},themes:{title:'Temas Prontos',icon:'sparkles'},code:{title:'Editor de Código',icon:'code-2'},players:{title:'Players e idiomas',icon:'play-circle'},maintenance:{title:'Modo de manutenção',icon:'wrench'},settings:{title:'Configurações',icon:'settings'}};
 function goto(view){
   $$('[data-page]').forEach(x=>x.classList.toggle('hidden',x.dataset.page!==view));
   $$('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.view===view));
@@ -1031,11 +1172,11 @@ async function rpc(name,body,timeoutMs=45000){
 }
 async function connect(){
   checkConfig();
-  if(!sbUrl||!sbKey||!adminPassword){status('#sbStatus','Preencha URL, chave e senha.','bad');return false;}
+  if(!sbUrl||!sbKey||!adminPassword){status('#sbStatus','Preencha URL, chave pública e senha.','bad');return false;}
   status('#sbStatus','Conectando…','warn');
   try{
     const ok=await rpc('verify_kira_admin',{p_password:adminPassword},15000);
-    if(ok!==true)throw Error('Senha não confirmada.');
+    if(ok!==true)throw Error('Senha administrativa não confirmada.');
     state.adminOk=true;
     const r=await fetch(sbUrl+'/rest/v1/kira_catalog?id=eq.main&select=data',{headers:sbHeaders(),cache:'no-store'});
     const j=await r.json().catch(()=>[]);
@@ -1053,12 +1194,8 @@ async function connect(){
     status('#catalogStatus',`Catálogo carregado: ${fmtNum(state.titles.length)} título(s).`,'ok');
     status('#homeStatus','Catálogo carregado.','ok');
     safeRender('renderAfterConnect',()=>renderAll());
-    if(autoImportConfig.enabled){
-      logAutoImport('🔄 Auto-import retomado','info');
-      startAutoImportTimer();
-    }
-    updateAutoImportUI();
-    updateBulkPreview();
+    if(autoImportConfig.enabled){logAutoImport('🔄 Auto-import retomado','info');startAutoImportTimer();}
+    updateAutoImportUI();updateBulkPreview();
     refreshIcons();
     return true;
   }catch(e){
@@ -1103,7 +1240,7 @@ let syncRetryTimer=null;
 async function saveCloud(opts={}){
   const silent=!!opts.silent;
   checkConfig();
-  if(!state.adminOk){state.hasUnsavedChanges=true;state.syncPending=true;setHeaderSync('pending','Pendente');setSyncState('pending','Pendente');throw Error('Conecte primeiro.');}
+  if(!state.adminOk){state.hasUnsavedChanges=true;state.syncPending=true;setHeaderSync('pending','Pendente');setSyncState('pending','Pendente — conecte o Supabase');throw Error('Conecte primeiro.');}
   setHeaderSync('syncing','Sincronizando…');setSyncState('syncing','Sincronizando…');
   if(syncRetryTimer){clearTimeout(syncRetryTimer);syncRetryTimer=null;}
   const MAX=3;
@@ -1113,7 +1250,7 @@ async function saveCloud(opts={}){
       if(i<MAX){setHeaderSync('syncing',`Tentativa ${i+1}/${MAX}…`);setSyncState('pending',`Retry ${i}/${MAX}…`);await new Promise(r=>setTimeout(r,1500*i));continue;}
       state.hasUnsavedChanges=true;state.syncPending=true;
       setHeaderSync('pending','Pendente');setSyncState('error','Falha. Retry em 30s.');
-      status('#catalogStatus','⚠ Falha: '+e.message,'bad');
+      status('#catalogStatus','⚠ Falha ao sincronizar: '+e.message,'bad');
       if(!syncRetryTimer){syncRetryTimer=setTimeout(async()=>{syncRetryTimer=null;if(state.adminOk&&state.hasUnsavedChanges){try{await saveCloud({silent:true});}catch(_){}}},30000);}
       throw e;
     }
@@ -1144,8 +1281,8 @@ function buildTabsForSave(){
    ============================================================ */
 async function applyToSiteHTML(opts={}){
   const{user,repo,branch,sitePath,token}=getNormalizedGHConfig();
-  if(!user||!repo||!token)throw Error('Configure usuário, repositório e token do GitHub.');
-  if(!sitePath)throw Error('Configure o arquivo HTML do site.');
+  if(!user||!repo||!token)throw Error('Configure usuário, repositório e token do GitHub em Configurações.');
+  if(!sitePath)throw Error('Configure o "Arquivo HTML do site".');
   const apiUrl=`https://api.github.com/repos/${user}/${repo}/contents/${encodeURIComponent(sitePath)}`;
   const getR=await ghFetch(`${apiUrl}?ref=${encodeURIComponent(branch)}`,{headers:ghHeaders(token)});
   if(!getR.ok){const err=await getR.json().catch(()=>({message:`HTTP ${getR.status}`}));throw Error(`Ler ${sitePath}: ${err.message||('HTTP '+getR.status)}`);}
@@ -1171,7 +1308,7 @@ async function applyToSiteHTML(opts={}){
   if(currentPrimaryFromFile&&newPrimary&&currentPrimaryFromFile.toLowerCase()!==newPrimary.toLowerCase()){const re=new RegExp(currentPrimaryFromFile.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');const before=content;content=content.replace(re,newPrimary);if(content!==before)changes.push(`primária ${currentPrimaryFromFile}→${newPrimary}`);}
   if(currentSecondaryFromFile&&newSecondary&&currentSecondaryFromFile.toLowerCase()!==newSecondary.toLowerCase()){const re=new RegExp(currentSecondaryFromFile.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');const before=content;content=content.replace(re,newSecondary);if(content!==before)changes.push(`secundária ${currentSecondaryFromFile}→${newSecondary}`);}
   if(siteName){const before=content;content=content.replace(/(<title[^>]*>)([^<]*)(<\/title>)/i,`$1${esc(siteName)}$3`);if(content!==before)changes.push('<title>');}
-  if(oldName&&siteName&&oldName!==siteName){const before=content;const re=new RegExp(oldName.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'g');content=content.replace(re,siteName);if(content!==before)changes.push(`nome`);}
+  if(oldName&&siteName&&oldName!==siteName){const before=content;const re=new RegExp(oldName.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'g');content=content.replace(re,siteName);if(content!==before)changes.push(`nome "${oldName}"→"${siteName}"`);}
   else if(siteName){const before=content;content=content.replace(/>KiraFlix</g,`>${siteName}<`);content=content.replace(/>KIRAFLIX</g,`>${siteName.toUpperCase()}<`);if(content!==before)changes.push('nome entre tags');}
   if(logoUrl){const before=content;content=content.replace(/(<meta[^>]+property=["']og:image["'][^>]+content=["'])[^"']*(["'])/gi,`$1${logoUrl}$2`);if(content!==before)changes.push('og:image');}
   if(faviconUrl){const before=content;content=content.replace(/(<link[^>]+rel=["']icon["'][^>]+href=["'])[^"']*(["'])/gi,`$1${faviconUrl}$2`);if(content!==before)changes.push('favicon');}
@@ -1192,7 +1329,7 @@ function readAIFields(){aiConfig.provider=$('#aiProvider').value||'groq';aiConfi
 function fillAIFields(){$('#aiProvider').value=aiConfig.provider||'groq';$('#aiApiKey').value=aiConfig.apiKey||'';$('#aiModel').value=aiConfig.model||'';}
 async function callAI(systemPrompt,userPrompt){
   const{provider,apiKey,model}=aiConfig;
-  if(!apiKey)throw Error('Configure a chave da API de IA.');
+  if(!apiKey)throw Error('Configure a chave da API de IA em Configurações.');
   if(provider==='gemini'){
     const m=model||'gemini-1.5-flash';
     const url=`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(m)}:generateContent?key=${encodeURIComponent(apiKey)}`;
@@ -1208,27 +1345,32 @@ async function callAI(systemPrompt,userPrompt){
 }
 async function testAI(){
   readAIFields();persistAIConfig();
-  if(!aiConfig.apiKey)return status('#aiConfigStatus','Informe a chave.','bad');
-  status('#aiConfigStatus','Testando…','warn');
-  try{const result=await callAI('Responda curto.','Responda apenas com "OK".');status('#aiConfigStatus',`✅ IA OK! "${result.trim().slice(0,60)}"`,'ok');toast('IA OK');}
+  if(!aiConfig.apiKey)return status('#aiConfigStatus','Informe a chave da API.','bad');
+  status('#aiConfigStatus','Testando IA…','warn');
+  try{const result=await callAI('Responda de forma curta.','Responda apenas com "OK".');status('#aiConfigStatus',`✅ IA funcionando! "${result.trim().slice(0,60)}"`,'ok');toast('IA OK');}
   catch(e){status('#aiConfigStatus','❌ '+e.message,'bad');toast('IA falhou','err');}
 }
 async function editCodeWithAI(){
   const prompt=$('#aiPrompt').value.trim();
-  if(!prompt)return status('#aiStatus','Digite o que mudar.','bad');
+  if(!prompt)return status('#aiStatus','Digite o que quer mudar.','bad');
   const currentCode=$('#editorTextarea').value;
-  if(!currentCode)return status('#aiStatus','Carregue um arquivo.','bad');
-  if(!aiConfig.apiKey)return status('#aiStatus','Configure a chave IA.','bad');
+  if(!currentCode)return status('#aiStatus','Carregue um arquivo no editor.','bad');
+  if(!aiConfig.apiKey)return status('#aiStatus','Configure a chave IA em Configurações.','bad');
   state.aiUndoBuffer=currentCode;$('#aiUndoBtn').disabled=false;
-  status('#aiStatus','🤖 IA pensando…','warn');toast('Enviando para IA…','warn');
+  status('#aiStatus','🤖 A IA está pensando…','warn');toast('Enviando para IA…','warn');
   try{
-    const systemPrompt=`Expert em HTML/CSS/JS. Retorne APENAS código completo, sem explicações, sem \`\`\`.`;
-    const userPrompt=`CÓDIGO ATUAL:\n${currentCode}\n\n---INSTRUÇÃO---\n${prompt}\n\nRetorne código completo.`;
+    const systemPrompt=`Você é um expert em editar código HTML/CSS/JS de sites de streaming.
+REGRAS ABSOLUTAS:
+- Retorne APENAS o código completo e atualizado, SEM explicações
+- NÃO envolva em markdown, NÃO use \`\`\`html
+- Preserve TODA a estrutura existente, só mude o que foi pedido
+- Se não puder aplicar, retorne o código original`;
+    const userPrompt=`CÓDIGO ATUAL (${currentCode.length} caracteres):\n\n${currentCode}\n\n---INSTRUÇÃO---\n${prompt}\n\nRetorne o código completo editado.`;
     let result=await callAI(systemPrompt,userPrompt);
     result=result.replace(/^```(?:html|html5|xml)?\s*/i,'').replace(/\s*```\s*$/,'').trim();
-    if(!result||result.length<100)throw Error('Resposta inválida.');
+    if(!result||result.length<100)throw Error('Resposta inválida. Tente novamente.');
     $('#editorTextarea').value=result;updateLineNumbers();
-    status('#aiStatus',`✅ Código editado (${fmtNum(result.length)} chars). Revise e salve.`,'ok');
+    status('#aiStatus',`✅ Código editado (${fmtNum(result.length)} chars). Revise e clique em "Salvar no GitHub".`,'ok');
     toast('IA aplicou');
   }catch(e){status('#aiStatus','❌ '+e.message,'bad');toast('Erro','err');}
 }
@@ -1268,8 +1410,8 @@ function renderCatalog(){
   else if(order==='newest')filtered.sort((a,b)=>(b.t.added||0)-(a.t.added||0));
   else if(order==='az')filtered.sort((a,b)=>String(a.t.title||'').localeCompare(String(b.t.title||''),'pt-BR'));
   const shown=filtered.slice(0,catalogLimit);
-  let html=shown.length?shown.map(({t,i})=>card(t,i)).join(''):'<div class="empty"><i data-lucide="inbox"></i>Nenhum título.</div>';
-  if(shown.length<filtered.length)html+=`<div class="load-more-wrap"><button class="secondary" id="loadMoreCatalog"><i data-lucide="chevron-down"></i> Carregar mais (${fmtNum(filtered.length-shown.length)})</button></div>`;
+  let html=shown.length?shown.map(({t,i})=>card(t,i)).join(''):'<div class="empty"><i data-lucide="inbox"></i>Nenhum título encontrado.</div>';
+  if(shown.length<filtered.length)html+=`<div class="load-more-wrap"><button class="secondary" id="loadMoreCatalog"><i data-lucide="chevron-down"></i> Carregar mais (${fmtNum(filtered.length-shown.length)} restantes)</button></div>`;
   $('#catalogList').innerHTML=html;
   const cc=$('#catalogCount');if(cc)cc.textContent=fmtNum(state.titles.length);
   refreshIcons();
@@ -1277,26 +1419,24 @@ function renderCatalog(){
 function renderHome(){
   renderStats();
   const arr=state.titles.slice(-6).reverse();
-  $('#recentList').innerHTML=arr.length?arr.map(t=>{const meta=getBadgeMeta(t.status,t);const t10=t.top10Rank?`<span class="top10-badge" style="position:static">🏆 #${t.top10Rank}</span> `:'';return `<div class="listrow"><img src="${esc(safeUrl(t.poster))}" onerror="this.style.opacity=0"><div><b>${esc(t.title||'Sem título')}</b><br><small>${esc(t.kind||'')} · ${esc(t.year||'')}</small></div><div>${t10}<span class="badge-chip" style="background:${esc(meta.bg)};color:${esc(meta.fg)}">${esc(meta.label.toUpperCase())}</span></div><div></div></div>`;}).join(''):'<div class="empty"><i data-lucide="inbox"></i>Nenhum título.</div>';
+  $('#recentList').innerHTML=arr.length?arr.map(t=>{const meta=getBadgeMeta(t.status,t);const t10=t.top10Rank?`<span class="top10-badge" style="position:static">🏆 #${t.top10Rank}</span> `:'';return `<div class="listrow"><img src="${esc(safeUrl(t.poster))}" onerror="this.style.opacity=0"><div><b>${esc(t.title||'Sem título')}</b><br><small>${esc(t.kind||'')} · ${esc(t.year||'')}</small></div><div>${t10}<span class="badge-chip" style="background:${esc(meta.bg)};color:${esc(meta.fg)}">${esc(meta.label.toUpperCase())}</span></div><div></div></div>`;}).join(''):'<div class="empty"><i data-lucide="inbox"></i>Nenhum título carregado ainda.</div>';
   const top10List=state.titles.filter(t=>t.top10Rank).sort((a,b)=>a.top10Rank-b.top10Rank);
   const top10El=$('#homeTop10');
   if(top10El){
     if(top10List.length===0){top10El.innerHTML='<div class="empty" style="padding:14px"><i data-lucide="trophy"></i>Nenhum título no Top 10</div>';}
-    else{
-      top10El.innerHTML=top10List.map(t=>`<div style="display:flex;align-items:center;gap:10px;padding:6px 8px;border-radius:8px;background:rgba(245,197,24,.06);border:1px solid rgba(245,197,24,.18)"><span style="font-weight:900;color:#f5c518;font-size:14px;min-width:28px">#${t.top10Rank}</span><span style="flex:1;font-size:12px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(t.title||'Sem título')}</span></div>`).join('');
-    }
+    else{top10El.innerHTML=top10List.map(t=>`<div style="display:flex;align-items:center;gap:10px;padding:6px 8px;border-radius:8px;background:rgba(245,197,24,.06);border:1px solid rgba(245,197,24,.18)"><span style="font-weight:900;color:#f5c518;font-size:14px;min-width:28px">#${t.top10Rank}</span><span style="flex:1;font-size:12px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(t.title||'Sem título')}</span></div>`).join('');}
   }
   refreshIcons();
 }
 function renderCustomBadges(){
   const wrap=$('#customBadgesList');if(!wrap)return;
-  if(!customBadges.length){wrap.innerHTML='<div class="empty" style="padding:18px"><i data-lucide="award"></i>Nenhum selo.</div>';refreshIcons();return;}
-  wrap.innerHTML=customBadges.map(b=>{const count=state.titles.filter(t=>t.customBadgeId===b.id||t.status==='cb:'+b.id).length;return `<div class="cb-item"><div class="cb-preview"><span class="badge-chip" style="background:${esc(b.color)};color:#fff">${esc((b.name||'').toUpperCase())}</span></div><div class="cb-info"><b>${esc(b.name)}</b><small>${fmtNum(count)} usando</small></div><button class="danger" data-delete-cb="${esc(b.id)}"><i data-lucide="trash-2"></i></button></div>`;}).join('');
+  if(!customBadges.length){wrap.innerHTML='<div class="empty" style="padding:18px"><i data-lucide="award"></i>Nenhum selo personalizado criado ainda.</div>';refreshIcons();return;}
+  wrap.innerHTML=customBadges.map(b=>{const count=state.titles.filter(t=>t.customBadgeId===b.id||t.status==='cb:'+b.id).length;return `<div class="cb-item"><div class="cb-preview"><span class="badge-chip" style="background:${esc(b.color)};color:#fff">${esc((b.name||'').toUpperCase())}</span></div><div class="cb-info"><b>${esc(b.name)}</b><small>${fmtNum(count)} título(s) usando</small></div><button class="danger" data-delete-cb="${esc(b.id)}" title="Excluir selo"><i data-lucide="trash-2"></i></button></div>`;}).join('');
   refreshIcons();
 }
 function renderBadges(){
   const legendItems=[...Object.entries(badgeInfo).map(([k,v])=>({key:k,label:v[0],bg:v[1],fg:v[2],type:'system'})),...customBadges.map(b=>({key:'cb:'+b.id,label:b.name,bg:b.color,fg:'#fff',type:'custom'}))];
-  $('#badgeLegend').innerHTML=legendItems.map(it=>`<div class="badge-preview"><span class="badge-chip" style="background:${esc(it.bg)};color:${esc(it.fg)}">${esc(it.label.toUpperCase())}</span><div><b style="font-size:12px">${esc(it.type==='custom'?'Personalizado':it.key)}</b><div class="hint" style="font-size:10px">${it.type==='custom'?'Seu selo':(it.key==='novo'||it.key==='lancamento'?'Pode expirar':'Persistente')}</div></div></div>`).join('');
+  $('#badgeLegend').innerHTML=legendItems.map(it=>`<div class="badge-preview"><span class="badge-chip" style="background:${esc(it.bg)};color:${esc(it.fg)}">${esc(it.label.toUpperCase())}</span><div><b style="font-size:12px">${esc(it.type==='custom'?'Personalizado':it.key)}</b><div class="hint" style="font-size:10px">${it.type==='custom'?'Selo criado por você':(it.key==='novo'||it.key==='lancamento'?'Pode expirar automaticamente':'Persistente')}</div></div></div>`).join('');
   const q=($('#badgeSearch')?.value||'').toLowerCase().trim();
   const f=$('#badgeFilter')?.value||'';
   const arr=state.titles.map((t,i)=>({t,i})).filter(({t})=>{
@@ -1305,34 +1445,34 @@ function renderBadges(){
     return matchBadge&&(!q||String(t.title||'').toLowerCase().includes(q));
   });
   const shown=arr.slice(0,badgeLimit);
-  let html=shown.length?shown.map(({t,i})=>{const meta=getBadgeMeta(t.status,t);return `<article class="item"><img loading="lazy" src="${esc(safeUrl(t.poster))}" onerror="this.style.opacity=0"><div class="itembody"><b>${esc(t.title||'Sem título')}</b><small>${esc(t.kind||'')} · ${esc(t.year||'')}</small><span class="badge-chip" style="background:${esc(meta.bg)};color:${esc(meta.fg)};margin-bottom:9px;display:inline-flex">${esc(meta.label.toUpperCase())}</span><button class="secondary" style="width:100%" data-badge-edit="${i}"><i data-lucide="pencil"></i> Editar</button></div></article>`;}).join(''):'<div class="empty"><i data-lucide="inbox"></i>Nenhum.</div>';
-  if(shown.length<arr.length)html+=`<div class="load-more-wrap"><button class="secondary" id="loadMoreBadges"><i data-lucide="chevron-down"></i> Carregar mais (${fmtNum(arr.length-shown.length)})</button></div>`;
+  let html=shown.length?shown.map(({t,i})=>{const meta=getBadgeMeta(t.status,t);return `<article class="item"><img loading="lazy" src="${esc(safeUrl(t.poster))}" onerror="this.style.opacity=0"><div class="itembody"><b>${esc(t.title||'Sem título')}</b><small>${esc(t.kind||'')} · ${esc(t.year||'')}</small><span class="badge-chip" style="background:${esc(meta.bg)};color:${esc(meta.fg)};margin-bottom:9px;display:inline-flex">${esc(meta.label.toUpperCase())}</span><button class="secondary" style="width:100%" data-badge-edit="${i}"><i data-lucide="pencil"></i> Editar</button></div></article>`;}).join(''):'<div class="empty"><i data-lucide="inbox"></i>Nenhum título corresponde.</div>';
+  if(shown.length<arr.length)html+=`<div class="load-more-wrap"><button class="secondary" id="loadMoreBadges"><i data-lucide="chevron-down"></i> Carregar mais (${fmtNum(arr.length-shown.length)} restantes)</button></div>`;
   $('#badgeList').innerHTML=html;
-  status('#badgeStatus',`${fmtNum(arr.length)} título(s).`,state.connected?'ok':'');
+  status('#badgeStatus',`${fmtNum(arr.length)} título(s) · ${fmtNum(state.titles.length)} no catálogo.`,state.connected?'ok':'');
   refreshIcons();
 }
 function refreshTabSelect(){
   const sel=$('#fTabId');if(!sel)return;
   const chosen=sel.value;
   const ordinary=state.tabs.filter(isOrdinaryTab);
-  sel.innerHTML='<option value="">Nenhuma</option>'+ordinary.map(t=>`<option value="${esc(t.id)}">${esc(t.name||t.id)}</option>`).join('');
+  sel.innerHTML='<option value="">Nenhuma aba</option>'+ordinary.map(t=>`<option value="${esc(t.id)}">${esc(t.name||t.id)}</option>`).join('');
   if(ordinary.some(t=>t.id===chosen))sel.value=chosen;
 }
 function renderTabs(){
   const ordinary=state.tabs.filter(isOrdinaryTab);
-  $('#tabsList').innerHTML=ordinary.length?ordinary.map((t,i)=>`<div class="listrow"><div class="pill" style="justify-content:center"><i data-lucide="${esc(t.icon||'folder-open')}"></i></div><div><b>${esc(t.name||'Aba sem nome')}</b><br><small>ID: ${esc(t.id||'—')} · ${esc(t.after||'list')}</small></div><div><span class="pill">${fmtNum(state.titles.filter(x=>x.tabId===t.id).length)}</span></div><div class="rowactions"><button class="danger" data-tab-delete="${i}"><i data-lucide="trash-2"></i> Excluir</button></div></div>`).join(''):'<div class="empty"><i data-lucide="folder-open"></i>Nenhuma.</div>';
+  $('#tabsList').innerHTML=ordinary.length?ordinary.map((t,i)=>`<div class="listrow"><div class="pill" style="justify-content:center"><i data-lucide="${esc(t.icon||'folder-open')}"></i></div><div><b>${esc(t.name||'Aba sem nome')}</b><br><small>ID: ${esc(t.id||'—')} · posição: ${esc(t.after||'list')}</small></div><div><span class="pill">${fmtNum(state.titles.filter(x=>x.tabId===t.id).length)} títulos</span></div><div class="rowactions"><button class="danger" data-tab-delete="${i}"><i data-lucide="trash-2"></i> Excluir</button></div></div>`).join(''):'<div class="empty"><i data-lucide="folder-open"></i>Nenhuma aba carregada.</div>';
   status('#tabsStatus',`${ordinary.length} aba(s).`,state.connected?'ok':'');
   refreshIcons();
 }
 async function createTab(){
   const name=$('#tabName').value.trim();
-  if(!name)return status('#tabsStatus','Digite nome.','bad');
+  if(!name)return status('#tabsStatus','Digite o nome.','bad');
   const existing=state.tabs.filter(isOrdinaryTab);
   if(existing.some(x=>String(x.name||'').toLowerCase()===name.toLowerCase()))return status('#tabsStatus','Já existe.','bad');
   const item={id:'tab'+Date.now(),name,icon:$('#tabIcon').value,after:$('#tabAfter').value||'list'};
   state.tabs.push(item);refreshTabSelect();renderTabs();
   try{await saveCloud();$('#tabName').value='';status('#tabsStatus','Criada.','ok');toast('Aba criada');}
-  catch(e){status('#tabsStatus','Local: '+e.message,'warn');toast('Pendente','warn');}
+  catch(e){status('#tabsStatus','Local. Falha sync: '+e.message,'warn');toast('Pendente','warn');}
 }
 function loadPlayerFields(){
   readSpecialTabs();
@@ -1359,7 +1499,7 @@ async function saveSpecialConfig(kind){
     }else maintenanceMsg=$('#maintenanceMessage').value.trim();
     await saveCloud();
     if(kind==='players'){status('#playersStatus','Salvos.','ok');toast('Players salvos');}
-    else{status('#maintenanceStatus','Sincronizado.','ok');toast('Manutenção');}
+    else{status('#maintenanceStatus','Sincronizado.','ok');toast('Manutenção atualizada');}
     renderMaintenance();
   }catch(e){status(kind==='players'?'#playersStatus':'#maintenanceStatus','Erro: '+e.message,'bad');toast('Erro','err');}
 }
@@ -1370,9 +1510,9 @@ async function createBadge(){
   if(customBadges.some(b=>b.name.toLowerCase()===name.toLowerCase()))return status('#createBadgeStatus','Já existe.','bad');
   const item={id:'cb_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),name,color};
   customBadges.push(item);refreshStatusDropdown();refreshBadgeFilter();renderCustomBadges();renderBadges();
-  $('#newBadgeName').value='';status('#createBadgeStatus',`"${item.name}" criado.`,'ok');
+  $('#newBadgeName').value='';status('#createBadgeStatus',`Selo "${item.name}" criado.`,'ok');
   try{await saveCloud({silent:true});toast('Selo criado');}
-  catch(e){status('#createBadgeStatus',`Local. Pendente: ${e.message}`,'warn');toast('Pendente','warn');}
+  catch(e){status('#createBadgeStatus',`Criado local. Pendente: ${e.message}`,'warn');toast('Pendente','warn');}
 }
 async function deleteCustomBadge(id){
   const cb=customBadges.find(b=>b.id===id);if(!cb)return;
@@ -1383,7 +1523,7 @@ async function deleteCustomBadge(id){
   refreshStatusDropdown();refreshBadgeFilter();renderCustomBadges();renderBadges();renderHome();
   status('#createBadgeStatus',`Removido. Sincronizando…`,'warn');
   try{await saveCloud({silent:true});status('#createBadgeStatus',`✅ "${cb.name}" excluído.`,'ok');toast('Selo excluído');}
-  catch(e){status('#createBadgeStatus',`⚠ Removido local.`,'bad');toast('Local','warn');}
+  catch(e){status('#createBadgeStatus',`⚠ Removido local. Retry em 30s.`,'bad');toast('Removido local','warn');}
 }
 function renderAll(){
   safeRender('stats',renderStats);safeRender('catalog',renderCatalog);safeRender('home',renderHome);
@@ -1429,7 +1569,7 @@ function updateBulkPreview(){
     const poster=safeUrl(t.poster)||'';
     html+=`<div class="bulk-preview-item"><img src="${esc(poster)}" onerror="this.style.visibility='hidden'"><div class="bp-info"><b>${esc(t.title||'Sem título')}</b><small>${esc(t.kind==='serie'?'Série':'Filme')}${t.top10Rank?' · #'+t.top10Rank:''} · ${esc(t.year||'—')}</small></div></div>`;
   }
-  if(moreCount>0)html+=`<div class="bulk-preview-more">+ ${fmtNum(moreCount)} outro(s)…</div>`;
+  if(moreCount>0)html+=`<div class="bulk-preview-more">+ ${fmtNum(moreCount)} outro(s) título(s)…</div>`;
   html+='</div>';
   wrap.innerHTML=html;refreshIcons();
 }
@@ -1499,7 +1639,7 @@ async function restoreFromBackupFile(file){
 function emptyForm(){
   $('#titleForm').reset();refreshTabSelect();
   $('#editId').value='';$('#formTitle').innerHTML='<i data-lucide="plus-circle"></i> Adicionar título';
-  $('#formStatus').textContent='Pendente.';refreshIcons();
+  $('#formStatus').textContent='Os dados ficam pendentes.';refreshIcons();
 }
 function editTitle(i){
   const t=state.titles[i];if(!t)return;
@@ -1521,7 +1661,7 @@ function editTitle(i){
   if(![...$('#fStatus').options].some(o=>o.value===statusVal))statusVal='nenhum';
   $('#fStatus').value=statusVal;
   $('#fSrc').value=t.src||'';$('#fPlayerType').value=t.type||'embed';
-  status('#formStatus','Editando.');refreshIcons();
+  status('#formStatus','Editando. Clique em Salvar título.');refreshIcons();
 }
 function formToTitle(old={}){
   const statusRaw=$('#fStatus').value;
@@ -1541,12 +1681,12 @@ $('#titleForm').onsubmit=async e=>{
   const idx=$('#editId').value;
   const old=idx!==''?state.titles[Number(idx)]:{};
   const item=formToTitle(old);
-  if(!item.title){status('#formStatus','Informe título.','bad');return;}
+  if(!item.title){status('#formStatus','Informe o título.','bad');return;}
   if(item.top10Rank)state.titles=applyTop10Exclusive(state.titles,item.top10Rank,item.id);
   if(idx!=='')state.titles[Number(idx)]=item;else state.titles.push(item);
   status('#formStatus','Sincronizando…');renderAll();
-  try{await saveCloud();status('#formStatus','✅ Salvo.','ok');toast('Salvo');}
-  catch(err){status('#formStatus','⚠ Local: '+err.message,'warn');toast('Local','warn');}
+  try{await saveCloud();status('#formStatus','✅ Salvo e sincronizado.','ok');toast('Título salvo');}
+  catch(err){status('#formStatus','⚠ Salvo local. Falha sync: '+err.message,'warn');toast('Local','warn');}
 };
 $('#clearFormBtn').onclick=emptyForm;
 async function deleteTitle(i){
@@ -1609,7 +1749,7 @@ function renderTMDBResults(results){
   refreshIcons();
 }
 async function importOne(id,kind,button){
-  if(button){button.disabled=true;button.innerHTML='<i data-lucide="loader-2" class="spin"></i>…';refreshIcons();}
+  if(button){button.disabled=true;button.innerHTML='<i data-lucide="loader-2" class="spin"></i> Buscando…';refreshIcons();}
   try{
     let item=await tmdbDetails(id,kind);
     const idx=state.titles.findIndex(t=>String(t.tmdbId)===String(item.tmdbId)||t.id===item.id);
@@ -1641,7 +1781,7 @@ $('#tmdbTestBtn').onclick=async()=>{status('#tmdbStatus','Testando…');try{awai
    ============================================================ */
 const massCategoryEl=$('#massCategory'),massTypeEl=$('#massType'),massQuantityEl=$('#massQuantity'),massDuplicatesEl=$('#massDuplicates'),discoverFiltersEl=$('#discoverFilters');
 massCategoryEl.onchange=()=>{discoverFiltersEl.style.display=massCategoryEl.value==='discover'?'block':'none';};
-$$('[data-quick-qty]').forEach(b=>{b.onclick=()=>{const q=Number(b.dataset.quickQty);massQuantityEl.value=q;if(q>=500&&$('#massFastMode'))$('#massFastMode').checked=true;toast(`${fmtNum(q)} definidos`,'ok');};});
+$$('[data-quick-qty]').forEach(b=>{b.onclick=()=>{const q=Number(b.dataset.quickQty);massQuantityEl.value=q;if(q>=500&&$('#massFastMode'))$('#massFastMode').checked=true;toast(`${fmtNum(q)} títulos definidos${q>=500?' (modo rápido ativado)':''}`,'ok');};});
 function buildDiscoverParams(){
   const p={sort_by:'popularity.desc'};
   const g=$('#massGenre').value.trim();if(g)p.with_genres=g;
@@ -1650,7 +1790,7 @@ function buildDiscoverParams(){
   const v=$('#massVote').value.trim();if(v)p['vote_average.gte']=v;
   return p;
 }
-async function fetchMassBatch(category,type,page,isAutoImport){
+async function fetchMassBatch(category,type,page){
   if(type==='anime'||category==='anime'){
     const params={with_genres:'16',with_original_language:'ja',sort_by:'popularity.desc',page};
     return tmdbFetch('/discover/tv',params);
@@ -1694,8 +1834,8 @@ $('#massImportBtn').onclick=async()=>{
   refreshIcons();$('#massProgressWrap').classList.add('active');$('#massLog').innerHTML='';
   massProgress(0,'Preparando…');
   $('#massCountOk').textContent='✅ 0';$('#massCountSkip').textContent='⏭ 0';$('#massCountErr').textContent='❌ 0';$('#massEta').textContent='⏱ —';
-  const modeLabel=fastMode?'rápido':'detalhado';
-  status('#massStatus',`Iniciando ${fmtNum(quantity)} (${modeLabel})…`,'ok');
+  const modeLabel=fastMode?'modo rápido':'detalhado';
+  status('#massStatus',`Iniciando ${fmtNum(quantity)} título(s) (${modeLabel})…`,'ok');
   massLog(`▶ ${fmtNum(quantity)} títulos · ${category} · ${type} · ${modeLabel}`,'ok');
   const startTime=Date.now();
   let imported=0,skipped=0,errors=0,page=1;
@@ -1722,7 +1862,7 @@ $('#massImportBtn').onclick=async()=>{
       updateProgressMeta();
       let data;
       try{data=await fetchMassBatch(category,type,page);}
-      catch(err){massLog(`⚠ Erro pág ${page}, retry 2s…`,'err');await new Promise(r=>setTimeout(r,2000));try{data=await fetchMassBatch(category,type,page);}catch(err2){throw new Error(`Pág ${page}: ${err2.message}`);}}
+      catch(err){massLog(`⚠ Erro página ${page}, retry em 2s…`,'err');await new Promise(r=>setTimeout(r,2000));try{data=await fetchMassBatch(category,type,page);}catch(err2){throw new Error(`Página ${page} falhou: ${err2.message}`);}}
       const results=data.results||[];
       if(!results.length)break;
       if(fastMode){
@@ -1769,13 +1909,13 @@ $('#massImportBtn').onclick=async()=>{
     $('#massEta').textContent=`✅ Total: ${elapsed}s`;
     massLog(`🏁 Concluído em ${elapsed}s — ${fmtNum(imported)} ok, ${fmtNum(skipped)} pulado, ${fmtNum(errors)} erro.`,'ok');
     if(imported>0||skipped>0){
-      massLog(`💾 Sincronizando…`,'ok');
+      massLog(`💾 Sincronizando com Supabase…`,'ok');
       status('#massStatus','Salvando no Supabase…','warn');
       try{await saveCloud({silent:true});massLog(`💾 Sincronizado!`,'ok');toast(`${fmtNum(imported)} importado(s)`);status('#massStatus',`✅ Concluído: ${fmtNum(imported)} ok, ${fmtNum(skipped)} pulado, ${fmtNum(errors)} erro.`,'ok');}
-      catch(e){massLog(`⚠ Falha sync: ${e.message}`,'err');massLog('Use "Salvar agora".','skip');status('#massStatus',`⚠ Sync falhou: ${e.message}`,'bad');$('#massSaveNowBtn').style.display='inline-flex';state.hasUnsavedChanges=true;}
+      catch(e){massLog(`⚠ Falha sync: ${e.message}`,'err');massLog('Use "Salvar no Supabase agora".','skip');status('#massStatus',`⚠ Sync falhou: ${e.message}`,'bad');$('#massSaveNowBtn').style.display='inline-flex';state.hasUnsavedChanges=true;}
     }else status('#massStatus',`Nenhum novo. ${fmtNum(skipped)} já existiam.`,'warn');
   }catch(e){status('#massStatus','Erro: '+e.message,'bad');massLog('❌ '+e.message,'err');toast('Erro','err');}
-  finally{state.massImporting=false;btn.disabled=false;btn.innerHTML='<i data-lucide="download-cloud"></i> Iniciar importação';$('#massStopBtn').disabled=true;refreshIcons();}
+  finally{state.massImporting=false;btn.disabled=false;btn.innerHTML='<i data-lucide="download-cloud"></i> Iniciar importação em massa';$('#massStopBtn').disabled=true;refreshIcons();}
 };
 
 /* ============================================================
@@ -1787,16 +1927,9 @@ $('#autoImportToggleBtn').onclick=()=>{
   if(autoImportConfig.enabled){
     if(!state.adminOk){toast('Conecte o Supabase primeiro','err');autoImportConfig.enabled=false;updateAutoImportUI();return;}
     if(!tmdbToken&&!tmdbKey){toast('Configure o TMDB primeiro','err');autoImportConfig.enabled=false;updateAutoImportUI();return;}
-    startAutoImportTimer();
-    logAutoImport('▶ Auto-import ativado','ok');
-    toast('Auto-import ativado');
-  }else{
-    stopAutoImportTimer();
-    logAutoImport('⏸ Auto-import pausado','info');
-    toast('Auto-import pausado');
-  }
-  saveAutoImportToSettings();
-  updateAutoImportUI();
+    startAutoImportTimer();logAutoImport('▶ Auto-import ativado','ok');toast('Auto-import ativado');
+  }else{stopAutoImportTimer();logAutoImport('⏸ Auto-import pausado','info');toast('Auto-import pausado');}
+  saveAutoImportToSettings();updateAutoImportUI();
 };
 $('#autoImportRunNowBtn').onclick=async()=>{
   readAutoImportFields();
@@ -1866,7 +1999,7 @@ function renderThemes(){
   const gh=getNormalizedGHConfig();
   const ready=gh.token&&gh.user&&gh.repo&&gh.sitePath;
   const warn=$('#themesGhWarning');
-  if(warn){warn.className='banner-'+(ready?'ok':'warn');warn.innerHTML=`<i data-lucide="${ready?'check-circle-2':'alert-triangle'}"></i><div>${ready?'<b>GitHub conectado. O tema será aplicado no HTML do site.</b>':'<b>Configure GitHub em Configurações.</b>'}</div>`;}
+  if(warn){warn.className='banner-'+(ready?'ok':'warn');warn.innerHTML=`<i data-lucide="${ready?'check-circle-2':'alert-triangle'}"></i><div>${ready?'<b>GitHub conectado. O tema será aplicado no HTML do site automaticamente.</b>':'<b>Para o tema chegar ao site real:</b> configure usuário, repositório, token e o arquivo HTML do site em Configurações → GitHub.'}</div>`;}
   refreshIcons();
 }
 function updateThemesPreview(){
@@ -1883,14 +2016,14 @@ async function applyTheme(theme){
   updateThemesPreview();updateSitePreview();
   const gh=getNormalizedGHConfig();
   const ready=gh.token&&gh.user&&gh.repo&&gh.sitePath;
-  if(!ready){status('#themesStatus',`Tema "${theme.name}" local. Configure GitHub.`,'warn');toast('Tema local','warn');try{await saveCloud({silent:true});}catch(e){}renderThemes();return;}
-  status('#themesStatus',`Aplicando "${theme.name}"…`,'warn');
+  if(!ready){status('#themesStatus',`Tema "${theme.name}" selecionado. Configure o GitHub.`,'warn');toast('Tema local. Configure GitHub','warn');try{await saveCloud({silent:true});}catch(e){}renderThemes();return;}
+  status('#themesStatus',`Aplicando "${theme.name}" no site…`,'warn');
   try{
     const r=await applyToSiteHTML({primary:theme.primary,secondary:theme.secondary});
     try{await saveCloud({silent:true});}catch(e){}
-    status('#themesStatus',`✅ "${theme.name}" aplicado!\n${r.changes.join(', ')}`,'ok');
-    toast('Tema aplicado');renderThemes();
-  }catch(e){status('#themesStatus',`Local. Erro: ${e.message}`,'bad');toast('Falha','err');}
+    status('#themesStatus',`✅ Tema "${theme.name}" aplicado em ${r.sitePath}!\n\nAlterações: ${r.changes.join(', ')}\nO site reflete em ~1–3 min após deploy.`,'ok');
+    toast('Tema aplicado no site');renderThemes();
+  }catch(e){status('#themesStatus',`Tema salvo local. Erro: ${e.message}`,'bad');toast('Falha','err');}
 }
 
 /* ============================================================
@@ -1913,6 +2046,9 @@ function loadAllSettingsFields(){
   $('#cfgRequireEmailVerify').checked=!!siteSettings.profiles.requireEmailVerify;
   $('#cfgDefaultRole').value=siteSettings.profiles.defaultRole||'user';
   $('#cfgMaxProfiles').value=siteSettings.profiles.maxProfiles||5;
+  $('#cfgOAuthGoogle').value=siteSettings.profiles.oauth.google||'';
+  $('#cfgOAuthGithub').value=siteSettings.profiles.oauth.github||'';
+  $('#cfgOAuthDiscord').value=siteSettings.profiles.oauth.discord||'';
   const gh=getNormalizedGHConfig();
   $('#ghUser').value=gh.user||'';$('#ghRepo').value=gh.repo||'';$('#ghBranch').value=gh.branch||'main';
   $('#ghPath').value=gh.path||'kira-settings.json';$('#ghSitePath').value=gh.sitePath||'KIRAFLIX.html';
@@ -1953,26 +2089,29 @@ function readProfileFields(){
   siteSettings.profiles.requireEmailVerify=!!$('#cfgRequireEmailVerify').checked;
   siteSettings.profiles.defaultRole=$('#cfgDefaultRole').value||'user';
   siteSettings.profiles.maxProfiles=Math.max(1,Math.min(10,Number($('#cfgMaxProfiles').value)||5));
+  siteSettings.profiles.oauth.google=$('#cfgOAuthGoogle').value.trim();
+  siteSettings.profiles.oauth.github=$('#cfgOAuthGithub').value.trim();
+  siteSettings.profiles.oauth.discord=$('#cfgOAuthDiscord').value.trim();
 }
 async function doApplySite(){
   readSiteSettingsFields();
   const gh=getNormalizedGHConfig();
-  if(!(gh.token&&gh.user&&gh.repo&&gh.sitePath))throw Error('Configure GitHub.');
+  if(!(gh.token&&gh.user&&gh.repo&&gh.sitePath))throw Error('Configure usuário, repositório, token e o arquivo HTML do site em Configurações → GitHub.');
   return await applyToSiteHTML({primary:siteSettings.colors.primary,secondary:siteSettings.colors.secondary,siteName:siteSettings.siteName,slogan:siteSettings.slogan,logoUrl:siteSettings.logoUrl,faviconUrl:siteSettings.faviconUrl});
 }
 $('#saveSiteSettingsBtn').onclick=async()=>{
-  status('#siteSettingsStatus','Salvando…','warn');
-  try{try{await saveCloud({silent:true});}catch(e){}const r=await doApplySite();status('#siteSettingsStatus',`✅ Aplicado!\n${r.changes.join(', ')}`,'ok');toast('Aplicado');}
+  status('#siteSettingsStatus','Salvando e aplicando no site…','warn');
+  try{try{await saveCloud({silent:true});}catch(e){console.warn('sync:',e.message);}const r=await doApplySite();status('#siteSettingsStatus',`✅ Aplicado em ${r.sitePath}!\nAlterações: ${r.changes.join(', ')}\n\nO site reflete em ~1-3 min após deploy do GitHub Pages.`,'ok');toast('Aplicado no site');}
   catch(e){status('#siteSettingsStatus','Erro: '+e.message,'bad');toast('Erro','err');}
 };
 $('#applyToSiteOnlyBtn').onclick=async()=>{
-  status('#siteSettingsStatus','Aplicando…','warn');
-  try{const r=await doApplySite();status('#siteSettingsStatus',`✅ Aplicado! ${r.changes.join(', ')}`,'ok');toast('Aplicado');}
+  status('#siteSettingsStatus','Aplicando no site…','warn');
+  try{const r=await doApplySite();status('#siteSettingsStatus',`✅ Aplicado em ${r.sitePath}!\nAlterações: ${r.changes.join(', ')}`,'ok');toast('Aplicado');}
   catch(e){status('#siteSettingsStatus','Erro: '+e.message,'bad');toast('Erro','err');}
 };
 $('#saveProfilesBtn').onclick=async()=>{
   readProfileFields();status('#profilesStatus','Salvando…','warn');
-  try{await saveCloud({silent:true});status('#profilesStatus','✅ Salvo.','ok');toast('Salvo');}
+  try{await saveCloud({silent:true});status('#profilesStatus','✅ Salvo no Supabase.','ok');toast('Salvo');}
   catch(e){status('#profilesStatus','Erro: '+e.message,'bad');toast('Erro','err');}
 };
 
@@ -1982,30 +2121,31 @@ $('#saveProfilesBtn').onclick=async()=>{
 async function testGitHub(){
   checkConfig();
   const cfg=getNormalizedGHConfig();
-  if(!cfg.token){status('#ghStatus','Informe o token.','bad');return;}
-  if(!cfg.user||!cfg.repo){status('#ghStatus','Preencha user e repo.','bad');return;}
-  status('#ghStatus','Verificando…','warn');
+  if(!cfg.token){status('#ghStatus','Informe o token do GitHub.','bad');$('#ghToken').focus();return;}
+  if(!cfg.user||!cfg.repo){status('#ghStatus','Preencha usuário e repositório.','bad');return;}
+  status('#ghStatus','Verificando token…','warn');
   try{
     const r=await ghFetch('https://api.github.com/user',{headers:ghHeaders(cfg.token)});
     if(!r.ok){const err=await r.json().catch(()=>({message:`HTTP ${r.status}`}));throw new Error(`Token inválido: ${err.message}`);}
     const u=await r.json();
-    let msg=`✅ @${u.login}`;
+    let msg=`✅ Conectado como @${u.login}`;
+    status('#ghStatus',`Verificando ${cfg.user}/${cfg.repo}…`,'warn');
     const rr=await ghFetch(`https://api.github.com/repos/${cfg.user}/${cfg.repo}`,{headers:ghHeaders(cfg.token)});
-    if(rr.ok){const rj=await rr.json();msg+=`\n\n✅ ${rj.full_name}\n✍️ ${rj.permissions?.push?'SIM':'NÃO'}`;
-      if(cfg.sitePath){const fr=await ghFetch(`https://api.github.com/repos/${cfg.user}/${cfg.repo}/contents/${encodeURIComponent(cfg.sitePath)}?ref=${encodeURIComponent(cfg.branch)}`,{headers:ghHeaders(cfg.token)});if(fr.ok){msg+=`\n📄 ${cfg.sitePath} OK`;}else msg+=`\n⚠ ${cfg.sitePath} não encontrado`;}
-    }else{msg+=`\n⚠ Repo inacessível`;}
+    if(rr.ok){const rj=await rr.json();msg+=`\n\n✅ Repo: ${rj.full_name}\n🔒 ${rj.private?'Privado':'Público'}\n✍️ Escrita: ${rj.permissions?.push?'SIM ✅':'NÃO ❌'}`;
+      if(cfg.sitePath){const fr=await ghFetch(`https://api.github.com/repos/${cfg.user}/${cfg.repo}/contents/${encodeURIComponent(cfg.sitePath)}?ref=${encodeURIComponent(cfg.branch)}`,{headers:ghHeaders(cfg.token)});if(fr.ok){const fj=await fr.json();msg+=`\n\n📄 ${cfg.sitePath} encontrado (${Math.round((fj.size||0)/1024)}KB)`;}else msg+=`\n\n⚠ ${cfg.sitePath} NÃO encontrado.`;}
+    }else{const err=await rr.json().catch(()=>({message:`HTTP ${rr.status}`}));msg+=`\n\n⚠ Repo inacessível: ${err.message}`;}
     status('#ghStatus',msg,'ok');toast('GitHub OK');
   }catch(e){status('#ghStatus','❌ '+e.message,'bad');toast('Falha','err');}
 }
 async function pushToGitHub(){
   checkConfig();
   const{user,repo,branch,path,token}=getNormalizedGHConfig();
-  if(!token||!user||!repo)throw Error('Preencha credenciais.');
+  if(!token||!user||!repo)throw Error('Preencha usuário, repo e token.');
   const payload={siteName:siteSettings.siteName,slogan:siteSettings.slogan,colors:siteSettings.colors,logoUrl:siteSettings.logoUrl,faviconUrl:siteSettings.faviconUrl,bannerUrl:siteSettings.bannerUrl,profiles:siteSettings.profiles,autoImport:autoImportConfig,updatedAt:new Date().toISOString()};
   const content=b64Encode(JSON.stringify(payload,null,2));
   const apiUrl=`https://api.github.com/repos/${user}/${repo}/contents/${encodeURIComponent(path)}`;
   const headers={...ghHeaders(token),'Content-Type':'application/json'};
-  status('#ghStatus','Enviando…','warn');
+  status('#ghStatus','Enviando JSON…','warn');
   try{
     let sha=null;
     const getR=await ghFetch(`${apiUrl}?ref=${encodeURIComponent(branch)}`,{headers:ghHeaders(token)});
@@ -2024,7 +2164,7 @@ async function pushToGitHub(){
 async function pullFromGitHub(){
   checkConfig();
   const{user,repo,branch,path,token}=getNormalizedGHConfig();
-  if(!user||!repo||!path){status('#ghStatus','Preencha.','bad');return;}
+  if(!user||!repo||!path){status('#ghStatus','Preencha os campos.','bad');return;}
   status('#ghStatus','Baixando…','warn');
   try{
     let content=null;
@@ -2037,7 +2177,7 @@ async function pullFromGitHub(){
     if(parsed.logoUrl!==undefined)siteSettings.logoUrl=parsed.logoUrl;
     if(parsed.faviconUrl!==undefined)siteSettings.faviconUrl=parsed.faviconUrl;
     if(parsed.bannerUrl!==undefined)siteSettings.bannerUrl=parsed.bannerUrl;
-    if(parsed.profiles)siteSettings.profiles={...siteSettings.profiles,...parsed.profiles};
+    if(parsed.profiles)siteSettings.profiles={...siteSettings.profiles,...parsed.profiles,oauth:{...siteSettings.profiles.oauth,...(parsed.profiles.oauth||{})}};
     if(parsed.autoImport)autoImportConfig={...DEFAULT_AUTO_IMPORT,...parsed.autoImport};
     loadAllSettingsFields();renderThemes();
     try{await saveCloud({silent:true});}catch(e){}
@@ -2051,18 +2191,18 @@ async function pullFromGitHub(){
 async function listRepoFiles(){
   checkConfig();
   const{user,repo,branch,token}=getNormalizedGHConfig();
-  if(!user||!repo||!token){status('#editorStatus','Configure GitHub.','bad');return;}
+  if(!user||!repo||!token){status('#editorStatus','Configure GitHub em Configurações.','bad');return;}
   const sel=$('#editorFilePath');
   sel.innerHTML='<option value="">Carregando…</option>';
-  status('#editorStatus','Listando…','warn');
+  status('#editorStatus','Listando arquivos…','warn');
   try{
     const url=`https://api.github.com/repos/${user}/${repo}/contents/?ref=${encodeURIComponent(branch)}`;
     const r=await ghFetch(url,{headers:ghHeaders(token)});
     if(!r.ok){const err=await r.json().catch(()=>({message:`HTTP ${r.status}`}));throw new Error(err.message||`HTTP ${r.status}`);}
     const items=await r.json();
     const files=Array.isArray(items)?items.filter(f=>f.type==='file'):[];
-    if(!files.length){sel.innerHTML='<option value="">Nenhum</option>';status('#editorStatus','Nenhum arquivo.','warn');return;}
-    sel.innerHTML='<option value="">— Escolha —</option>'+files.map(f=>`<option value="${esc(f.path)}">${esc(f.name)} · ${Math.round((f.size||0)/1024)}KB</option>`).join('');
+    if(!files.length){sel.innerHTML='<option value="">Nenhum arquivo na raiz</option>';status('#editorStatus','Nenhum arquivo encontrado.','warn');return;}
+    sel.innerHTML='<option value="">— Escolha um arquivo —</option>'+files.map(f=>`<option value="${esc(f.path)}">${esc(f.name)} · ${Math.round((f.size||0)/1024)}KB</option>`).join('');
     status('#editorStatus',`✅ ${files.length} arquivo(s).`,'ok');
   }catch(e){sel.innerHTML='<option value="">Erro</option>';status('#editorStatus','Erro: '+e.message,'bad');}
 }
@@ -2070,22 +2210,23 @@ async function loadFileToEditor(){
   checkConfig();
   const{user,repo,branch,token}=getNormalizedGHConfig();
   const path=$('#editorFilePath').value.trim();
-  if(!path){status('#editorStatus','Escolha arquivo.','bad');return;}
-  status('#editorStatus','Carregando…','warn');
+  if(!path){status('#editorStatus','Escolha um arquivo.','bad');return;}
+  if(!token||!user||!repo){status('#editorStatus','Configure GitHub.','bad');return;}
+  status('#editorStatus','Carregando '+path+'…','warn');
   try{
     const apiUrl=`https://api.github.com/repos/${user}/${repo}/contents/${encodeURIComponent(path)}?ref=${encodeURIComponent(branch)}`;
     const r=await ghFetch(apiUrl,{headers:ghHeaders(token)});
     if(!r.ok){const err=await r.json().catch(()=>({message:`HTTP ${r.status}`}));throw new Error(err.message||`HTTP ${r.status}`);}
     const j=await r.json();
-    if(j.encoding==='none'||!j.content)throw Error('Muito grande.');
+    if(j.encoding==='none'||!j.content)throw Error(`Arquivo muito grande. Edite direto no GitHub.`);
     const content=b64Decode(j.content);
     $('#editorTextarea').value=content;
     state.editorSha=j.sha;state.editorPath=path;
     state.aiUndoBuffer=null;$('#aiUndoBtn').disabled=true;
     updateLineNumbers();
     const kb=(j.size/1024).toFixed(1);const lines=content.split('\n').length;
-    $('#editorInfo').innerHTML=`<span><b>${esc(path)}</b></span><span>${kb} KB</span><span>${lines} linhas</span><span>sha: ${state.editorSha.slice(0,7)}</span>`;
-    status('#editorStatus','✅ Carregado.','ok');
+    $('#editorInfo').innerHTML=`<span><i data-lucide="file-code" style="width:12px;height:12px;vertical-align:-2px"></i> <b>${esc(path)}</b></span><span><i data-lucide="database" style="width:12px;height:12px;vertical-align:-2px"></i> ${kb} KB</span><span><i data-lucide="list" style="width:12px;height:12px;vertical-align:-2px"></i> ${lines} linha(s)</span><span><i data-lucide="git-commit" style="width:12px;height:12px;vertical-align:-2px"></i> sha: <code style="font-family:ui-monospace;font-size:10px">${state.editorSha.slice(0,7)}</code></span><span><i data-lucide="git-branch" style="width:12px;height:12px;vertical-align:-2px"></i> ${esc(branch)}</span>`;
+    status('#editorStatus',`✅ Carregado. Edite e clique em "Salvar no GitHub".`,'ok');
     refreshIcons();
   }catch(e){status('#editorStatus','Erro: '+e.message,'bad');}
 }
@@ -2103,19 +2244,20 @@ async function copyEditorContent(){
   try{
     if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(ta.value);}
     else{ta.focus();ta.select();document.execCommand('copy');ta.setSelectionRange(0,0);}
-    toast(`✅ Copiado! (${fmtNum(ta.value.length)})`);
-    status('#editorStatus',`✅ Copiado (${fmtNum(ta.value.length)}).`,'ok');
-  }catch(e){toast('Erro ao copiar','err');}
+    toast(`✅ Copiado! (${fmtNum(ta.value.length)} caracteres)`);
+    status('#editorStatus',`✅ Código copiado (${fmtNum(ta.value.length)} caracteres).`,'ok');
+  }catch(e){toast('Não foi possível copiar','err');}
 }
 async function saveEditorToGitHub(){
   checkConfig();
   const{user,repo,branch,token}=getNormalizedGHConfig();
   const path=state.editorPath;
-  if(!path){status('#editorStatus','Carregue arquivo.','bad');return;}
+  if(!path){status('#editorStatus','Carregue um arquivo primeiro.','bad');return;}
+  if(!token||!user||!repo){status('#editorStatus','Configure GitHub.','bad');return;}
   const content=$('#editorTextarea').value;
-  if(!content){status('#editorStatus','Vazio.','bad');return;}
+  if(!content){status('#editorStatus','Arquivo vazio.','bad');return;}
   const apiUrl=`https://api.github.com/repos/${user}/${repo}/contents/${encodeURIComponent(path)}`;
-  status('#editorStatus','Salvando…','warn');
+  status('#editorStatus','Salvando no GitHub…','warn');
   try{
     let sha=state.editorSha;
     const getR=await ghFetch(`${apiUrl}?ref=${encodeURIComponent(branch)}`,{headers:ghHeaders(token)});
@@ -2126,27 +2268,29 @@ async function saveEditorToGitHub(){
     if(!putR.ok){const err=await putR.json().catch(()=>({message:`HTTP ${putR.status}`}));throw new Error(err.message||`HTTP ${putR.status}`);}
     const j=await putR.json();
     state.editorSha=j.content.sha;
-    status('#editorStatus',`✅ Salvo em ${path}!\n\nAguarde 1-3 min.`,'ok');
+    status('#editorStatus',`✅ Salvo em ${path}!\n\nO GitHub Pages reflete em ~1–3 min.\nURL raw: https://raw.githubusercontent.com/${user}/${repo}/${branch}/${path}`,'ok');
     toast('Salvo no GitHub');
     startDeployCountdown();
+    const kb=(content.length/1024).toFixed(1);const lines=content.split('\n').length;
+    $('#editorInfo').innerHTML=`<span><i data-lucide="file-code" style="width:12px;height:12px;vertical-align:-2px"></i> <b>${esc(path)}</b></span><span><i data-lucide="database" style="width:12px;height:12px;vertical-align:-2px"></i> ${kb} KB</span><span><i data-lucide="list" style="width:12px;height:12px;vertical-align:-2px"></i> ${lines} linha(s)</span><span><i data-lucide="git-commit" style="width:12px;height:12px;vertical-align:-2px"></i> sha: <code style="font-family:ui-monospace;font-size:10px">${state.editorSha.slice(0,7)}</code></span><span><i data-lucide="check-circle-2" style="width:12px;height:12px;vertical-align:-2px;color:#86efac"></i> Salvo</span>`;
     refreshIcons();
-  }catch(e){status('#editorStatus','Erro: '+e.message,'bad');toast('Erro','err');}
+  }catch(e){status('#editorStatus','Erro ao salvar: '+e.message,'bad');toast('Erro ao salvar','err');}
 }
 $('#editorListBtn').onclick=listRepoFiles;
 $('#editorLoadBtn').onclick=loadFileToEditor;
 $('#editorCopyBtn').onclick=copyEditorContent;
 $('#editorSaveBtn').onclick=saveEditorToGitHub;
-$('#editorFilePath').onchange=()=>{$('#editorStatus').textContent='Arquivo selecionado.';$('#editorStatus').className='status';};
+$('#editorFilePath').onchange=()=>{$('#editorStatus').textContent='Arquivo selecionado. Clique em Carregar.';$('#editorStatus').className='status';};
 $('#aiEditBtn').onclick=editCodeWithAI;
-$('#aiUndoBtn').onclick=()=>{if(!state.aiUndoBuffer)return;$('#editorTextarea').value=state.aiUndoBuffer;updateLineNumbers();state.aiUndoBuffer=null;$('#aiUndoBtn').disabled=true;status('#aiStatus','↩ Desfeito.','ok');toast('Desfeito');};
+$('#aiUndoBtn').onclick=()=>{if(!state.aiUndoBuffer)return;$('#editorTextarea').value=state.aiUndoBuffer;updateLineNumbers();state.aiUndoBuffer=null;$('#aiUndoBtn').disabled=true;status('#aiStatus','↩ Alteração da IA desfeita.','ok');toast('Desfeito');};
 $('#aiClearBtn').onclick=()=>{$('#aiPrompt').value='';status('#aiStatus','Prompt limpo.','');};
-$('#saveAiConfigBtn').onclick=()=>{readAIFields();persistAIConfig();status('#aiConfigStatus',`✅ Salvo (${aiConfig.provider}).`,'ok');toast('IA salva');};
+$('#saveAiConfigBtn').onclick=()=>{readAIFields();persistAIConfig();status('#aiConfigStatus',`✅ Configuração de IA salva (${aiConfig.provider}).`,'ok');toast('IA salva');};
 $('#testAiBtn').onclick=testAI;
-$('#clearAiBtn').onclick=()=>{aiConfig={provider:'groq',apiKey:'',model:''};persistAIConfig();fillAIFields();status('#aiConfigStatus','Removida.','ok');toast('IA limpa');};
+$('#clearAiBtn').onclick=()=>{aiConfig={provider:'groq',apiKey:'',model:''};persistAIConfig();fillAIFields();status('#aiConfigStatus','Chave da IA removida.','ok');toast('IA limpa');};
 $('#ghTestBtn').onclick=testGitHub;
 $('#ghPushBtn').onclick=async()=>{try{await pushToGitHub();}catch(e){}};
 $('#ghPullBtn').onclick=pullFromGitHub;
-$('#ghClearBtn').onclick=()=>{$('#ghUser').value='';$('#ghRepo').value='';$('#ghBranch').value='main';$('#ghPath').value='kira-settings.json';$('#ghSitePath').value='KIRAFLIX.html';$('#ghToken').value='';githubConfig={user:'',repo:'',branch:'main',path:'kira-settings.json',sitePath:'KIRAFLIX.html',token:''};try{localStorage.removeItem('kiraflix_github_cfg')}catch(e){}status('#ghStatus','Limpo.');toast('GitHub limpo');};
+$('#ghClearBtn').onclick=()=>{$('#ghUser').value='';$('#ghRepo').value='';$('#ghBranch').value='main';$('#ghPath').value='kira-settings.json';$('#ghSitePath').value='KIRAFLIX.html';$('#ghToken').value='';githubConfig={user:'',repo:'',branch:'main',path:'kira-settings.json',sitePath:'KIRAFLIX.html',token:''};try{localStorage.removeItem('kiraflix_github_cfg')}catch(e){}status('#ghStatus','Credenciais do GitHub removidas.');toast('GitHub limpo');};
 
 /* ============================================================
    BULK DELETE EVENTS
@@ -2154,9 +2298,9 @@ $('#ghClearBtn').onclick=()=>{$('#ghUser').value='';$('#ghRepo').value='';$('#gh
 $('#bulkQty').addEventListener('input',debounce(updateBulkPreview,250));
 $('#bulkType').addEventListener('change',updateBulkPreview);
 $('#bulkOrder').addEventListener('change',updateBulkPreview);
-$$('[data-bulk-qty]').forEach(b=>{b.onclick=()=>{const v=b.dataset.bulkQty;if(v==='all'){$('#bulkQty').value=state.titles.length;}else{$('#bulkQty').value=v;}updateBulkPreview();toast(`Definido: ${v==='all'?fmtNum(state.titles.length):v}`,'ok');};});
+$$('[data-bulk-qty]').forEach(b=>{b.onclick=()=>{const v=b.dataset.bulkQty;if(v==='all'){$('#bulkQty').value=state.titles.length;}else{$('#bulkQty').value=v;}updateBulkPreview();toast(`Quantidade definida: ${v==='all'?fmtNum(state.titles.length):v}`,'ok');};});
 $('#bulkDeleteBtn').onclick=executeBulkDelete;
-$('#bulkBackupBtn').onclick=()=>{if(!state.titles.length)return toast('Nada','warn');downloadBackupBeforeDelete();toast(`Backup (${fmtNum(state.titles.length)})`);};
+$('#bulkBackupBtn').onclick=()=>{if(!state.titles.length)return toast('Nada para backup','warn');downloadBackupBeforeDelete();toast(`Backup baixado (${fmtNum(state.titles.length)} títulos)`);};
 $('#bulkRestoreBtn').onclick=()=>{$('#bulkRestoreInput').click();};
 $('#bulkRestoreInput').addEventListener('change',async e=>{const file=e.target.files?.[0];if(file){await restoreFromBackupFile(file);e.target.value='';}});
 
@@ -2176,7 +2320,7 @@ $('#customBadgesList').addEventListener('click',e=>{const btn=e.target.closest('
 $('#tabsList').addEventListener('click',async e=>{
   const btn=e.target.closest('[data-tab-delete]');if(!btn)return;
   const i=Number(btn.dataset.tabDelete);const ordinary=state.tabs.filter(isOrdinaryTab);const tab=ordinary[i];
-  if(!tab||!confirm(`Excluir "${tab.name}"?`))return;
+  if(!tab||!confirm(`Excluir a aba "${tab.name}"?`))return;
   state.tabs=state.tabs.filter(x=>x.id!==tab.id);
   state.titles=state.titles.map(t=>t.tabId===tab.id?{...t,tabId:''}:t);
   refreshTabSelect();renderAll();
@@ -2198,15 +2342,15 @@ $('#refreshBtn').onclick=()=>connect();
 $('#createTabBtn').onclick=createTab;
 $('#refreshTabsBtn').onclick=renderTabs;
 $('#savePlayersBtn').onclick=()=>saveSpecialConfig('players');
-$('#resetPlayersBtn').onclick=()=>{if(!confirm('Restaurar?'))return;playerCfg={...DEFAULT_PLAYERS};loadPlayerFields();saveSpecialConfig('players');};
+$('#resetPlayersBtn').onclick=()=>{if(!confirm('Restaurar padrões?'))return;playerCfg={...DEFAULT_PLAYERS};loadPlayerFields();saveSpecialConfig('players');};
 $('#maintenanceToggleBtn').onclick=async()=>{maintenanceOn=!maintenanceOn;maintenanceMsg=$('#maintenanceMessage').value.trim();await saveSpecialConfig('maintenance');};
 $('#saveMaintenanceMsgBtn').onclick=()=>saveSpecialConfig('maintenance');
 $('#loadCatalogBtn').onclick=connect;
 $('#createBadgeBtn').onclick=createBadge;
 $('#newBadgeName').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();createBadge();}});
-$('#showSbKeyBtn').onclick=()=>{const i=$('#sbKey');i.type=i.type==='password'?'text':'password';$('#showSbKeyBtn').innerHTML=i.type==='password'?'<i data-lucide="eye"></i> Mostrar':'<i data-lucide="eye-off"></i> Ocultar';refreshIcons();};
+$('#showSbKeyBtn').onclick=()=>{const i=$('#sbKey');i.type=i.type==='password'?'text':'password';$('#showSbKeyBtn').innerHTML=i.type==='password'?'<i data-lucide="eye"></i> Mostrar chave':'<i data-lucide="eye-off"></i> Ocultar chave';refreshIcons();};
 $('#saveConfigBtn').onclick=()=>{checkConfig();status('#sbStatus','✅ Salvo.','ok');toast('Salvo');};
-$('#clearTmdbBtn').onclick=()=>{$('#tmdbToken').value='';$('#tmdbKey').value='';tmdbToken='';tmdbKey='';persistAllCredentials();status('#sbStatus','TMDB limpo.');toast('Limpo');};
+$('#clearTmdbBtn').onclick=()=>{$('#tmdbToken').value='';$('#tmdbKey').value='';tmdbToken='';tmdbKey='';persistAllCredentials();status('#sbStatus','TMDB limpo.');toast('TMDB limpo');};
 $('#forgetConfigBtn').onclick=()=>{
   try{localStorage.removeItem('kiraflix_admin_config');localStorage.removeItem('kiraflix_admin_pw');localStorage.removeItem('kiraflix_github_cfg');localStorage.removeItem('kiraflix_ai_cfg');}catch(e){}
   $('#sbKey').value='';$('#adminPassword').value='';$('#tmdbToken').value='';$('#tmdbKey').value='';$('#aiApiKey').value='';
@@ -2217,7 +2361,7 @@ $('#forgetConfigBtn').onclick=()=>{
   setHeaderSync('error','Desconectado');status('#sbStatus','Limpo.');refreshIcons();
 };
 $('#exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify({titles:state.titles,tabs:state.tabs},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='kiraflix-catalog-backup.json';a.click();URL.revokeObjectURL(a.href);toast('Backup exportado');};
-window.addEventListener('beforeunload',e=>{if(state.hasUnsavedChanges){e.preventDefault();e.returnValue='Alterações não sincronizadas.';return e.returnValue;}});
+window.addEventListener('beforeunload',e=>{if(state.hasUnsavedChanges){e.preventDefault();e.returnValue='Alterações não sincronizadas. Sair mesmo assim?';return e.returnValue;}});
 
 /* ============================================================
    INIT
@@ -2239,8 +2383,7 @@ window.addEventListener('beforeunload',e=>{if(state.hasUnsavedChanges){e.prevent
 ['aiProvider','aiApiKey','aiModel'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('change',()=>{readAIFields();persistAIConfig();});});
 
 refreshStatusDropdown();refreshBadgeFilter();loadAllSettingsFields();
-fillAutoImportFields();
-updateAutoImportUI();
+fillAutoImportFields();updateAutoImportUI();
 safeRender('initialHome',renderHome);
 goto('home');
 refreshIcons();
