@@ -27,11 +27,50 @@ button.ghost{background:transparent;border:1px solid transparent;color:var(--mut
 button.ghost:hover{color:#fff;background:rgba(255,255,255,.06)}
 button:disabled{opacity:.45;cursor:not-allowed;transform:none!important;filter:none!important}
 button i{flex-shrink:0}
+
+/* === DROPDOWNS PREMIUM === */
+.select-wrap{position:relative;display:block}
+.select-wrap .select-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:15px;height:15px;color:var(--purple-soft);pointer-events:none;z-index:2;opacity:.85}
+.select-wrap select{padding-left:36px;background-image:none;appearance:none;border:1px solid var(--line-strong);background:linear-gradient(180deg,rgba(30,30,48,.85),rgba(18,18,30,.9));font-weight:500;cursor:pointer}
+.select-wrap select:hover{border-color:rgba(139,92,246,.45);background:linear-gradient(180deg,rgba(36,36,56,.9),rgba(22,22,36,.95))}
+.select-wrap select:focus{border-color:var(--purple);box-shadow:0 0 0 4px rgba(139,92,246,.18);background:rgba(8,8,15,.95)}
+.select-wrap::after{content:"";position:absolute;right:14px;top:50%;width:7px;height:7px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:translateY(-70%) rotate(45deg);pointer-events:none;transition:transform .2s}
+.select-wrap:focus-within::after{border-color:var(--purple-soft);transform:translateY(-30%) rotate(-135deg)}
+.select-wrap select option{background:#15151f;color:#f2f2f7;padding:8px}
+.select-wrap select optgroup{background:#0f0f18;color:#a78bfa;font-weight:700}
+
+/* === ICON PICKER === */
+.icon-picker-btn{width:100%;justify-content:flex-start;gap:10px;background:linear-gradient(180deg,rgba(30,30,48,.85),rgba(18,18,30,.9));border:1px solid var(--line-strong);color:var(--text);font-weight:500;padding:10px 14px;text-align:left}
+.icon-picker-btn:hover{border-color:rgba(139,92,246,.45);background:linear-gradient(180deg,rgba(36,36,56,.9),rgba(22,22,36,.95))}
+.icon-picker-btn .ip-preview{width:32px;height:32px;border-radius:8px;background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.25);display:grid;place-items:center;flex-shrink:0}
+.icon-picker-btn .ip-preview i{width:16px;height:16px;color:var(--purple-soft)}
+.icon-picker-btn .ip-text{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:ui-monospace,monospace;font-size:12px;color:#c4b5fd}
+.icon-picker-btn .ip-chevron{width:16px;height:16px;color:var(--muted)}
+
+.icon-picker-modal{position:fixed;inset:0;z-index:10000;background:rgba(3,3,8,.82);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:20px;animation:fadeUp .25s ease}
+.icon-picker-modal.active{display:flex}
+.icon-picker-panel{width:100%;max-width:900px;max-height:85vh;background:linear-gradient(160deg,#181826,#0e0e18);border:1px solid rgba(139,92,246,.35);border-radius:20px;box-shadow:0 30px 80px -20px rgba(0,0,0,.9),0 0 0 1px rgba(139,92,246,.15);display:flex;flex-direction:column;overflow:hidden}
+.icon-picker-head{display:flex;align-items:center;gap:12px;padding:18px 20px;border-bottom:1px solid var(--line);background:rgba(139,92,246,.06)}
+.icon-picker-head h3{font-size:16px;font-weight:800;display:flex;align-items:center;gap:8px;flex:1}
+.icon-picker-head h3 i{width:18px;height:18px;color:#c4b5fd}
+.icon-picker-head .ip-count{font-size:11px;color:var(--muted);background:rgba(255,255,255,.05);padding:4px 10px;border-radius:99px;border:1px solid var(--line)}
+.icon-picker-search-wrap{padding:14px 20px;border-bottom:1px solid var(--line)}
+.icon-picker-search{position:relative}
+.icon-picker-search i{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--muted)}
+.icon-picker-search input{padding-left:42px;background:rgba(8,8,15,.8)}
+.icon-picker-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(74px,1fr));gap:6px;padding:16px 20px;overflow-y:auto;flex:1;align-content:start}
+.icon-picker-item{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 6px;border-radius:10px;background:rgba(255,255,255,.025);border:1px solid transparent;cursor:pointer;transition:all .15s ease;color:#b9b9cc}
+.icon-picker-item:hover{background:rgba(139,92,246,.12);border-color:rgba(139,92,246,.35);color:#fff;transform:translateY(-2px)}
+.icon-picker-item.selected{background:rgba(34,197,94,.14);border-color:rgba(34,197,94,.45);color:#86efac}
+.icon-picker-item i{width:22px;height:22px}
+.icon-picker-item span{font-size:9px;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:100%;line-height:1.2}
+.icon-picker-empty{padding:40px;text-align:center;color:var(--muted);grid-column:1/-1}
+
+/* === RESTO === */
 input,select,textarea{width:100%;background:rgba(8,8,15,.7);color:var(--text);border:1px solid var(--line);border-radius:var(--radius-sm);padding:11px 13px;outline:none;transition:border-color var(--transition),box-shadow var(--transition),background var(--transition)}
 input:hover,select:hover,textarea:hover{border-color:rgba(255,255,255,.16)}
 input:focus,select:focus,textarea:focus{border-color:var(--purple);box-shadow:0 0 0 4px rgba(139,92,246,.15);background:rgba(8,8,15,.9)}
 input::placeholder,textarea::placeholder{color:#5b5b74}
-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%238e8ea8' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;padding-right:34px}
 label{display:flex;align-items:center;gap:6px;color:#b9b9cc;font-size:11.5px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;margin:0 0 7px}
 label i{width:13px;height:13px;color:var(--muted)}
 .app{display:grid;grid-template-columns:252px minmax(0,1fr);min-height:100vh}
@@ -248,8 +287,8 @@ label i{width:13px;height:13px;color:var(--muted)}
 .auto-stat.total b{color:#86efac}
 .auto-stat.status b{font-size:13px}
 .auto-log-timestamped{font-family:ui-monospace,monospace}
-@media(max-width:980px){.app{grid-template-columns:1fr}.side{display:none}.side.open{display:flex;position:fixed;inset:0 auto 0 0;width:270px;z-index:50;box-shadow:0 0 0 100vmax rgba(0,0,0,.6)}.mobilemenu{display:inline-flex}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.layout{grid-template-columns:1fr}.content{padding:18px}.top{padding:14px 16px}.listrow{grid-template-columns:42px minmax(100px,1fr) 70px}.listrow .rowactions{grid-column:2/-1;justify-content:flex-start}.topright .hide-mobile{display:none}.sync-indicator{bottom:12px;left:12px;right:12px;max-width:none}.three{grid-template-columns:1fr 1fr}}
-@media(max-width:460px){.cards{gap:9px}.stat{padding:14px}.stat b{font-size:22px}.two,.three{grid-template-columns:1fr}.results,.catalog{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.top h1{font-size:16px}.mass-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:980px){.app{grid-template-columns:1fr}.side{display:none}.side.open{display:flex;position:fixed;inset:0 auto 0 0;width:270px;z-index:50;box-shadow:0 0 0 100vmax rgba(0,0,0,.6)}.mobilemenu{display:inline-flex}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.layout{grid-template-columns:1fr}.content{padding:18px}.top{padding:14px 16px}.listrow{grid-template-columns:42px minmax(100px,1fr) 70px}.listrow .rowactions{grid-column:2/-1;justify-content:flex-start}.topright .hide-mobile{display:none}.sync-indicator{bottom:12px;left:12px;right:12px;max-width:none}.three{grid-template-columns:1fr 1fr}.icon-picker-grid{grid-template-columns:repeat(auto-fill,minmax(64px,1fr))}}
+@media(max-width:460px){.cards{gap:9px}.stat{padding:14px}.stat b{font-size:22px}.two,.three{grid-template-columns:1fr}.results,.catalog{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.top h1{font-size:16px}.mass-grid{grid-template-columns:1fr 1fr}.icon-picker-modal{padding:0}.icon-picker-panel{max-height:100vh;border-radius:0}}
 </style>
 </head>
 <body>
@@ -340,20 +379,28 @@ label i{width:13px;height:13px;color:var(--muted)}
    <div class="panel">
      <div class="three">
        <div class="field"><label><i data-lucide="search"></i> Pesquisar no catálogo</label><input id="catalogSearch" placeholder="Título, gênero, ID TMDB…" autocomplete="off"></div>
-       <div class="field"><label><i data-lucide="filter"></i> Categoria</label><select id="catalogFilter">
-         <option value="">Todos</option>
-         <option value="filme">Filmes</option>
-         <option value="serie">Séries</option>
-         <option value="anime">Animes</option>
-         <option value="top10">🏆 Top 10</option>
-         <option value="nao-top10">Fora do Top 10</option>
-       </select></div>
-       <div class="field"><label><i data-lucide="arrow-down-up"></i> Ordenar</label><select id="catalogOrder">
-         <option value="default">Padrão</option>
-         <option value="top10">Top 10 primeiro</option>
-         <option value="newest">Mais recentes</option>
-         <option value="az">A → Z (título)</option>
-       </select></div>
+       <div class="field"><label><i data-lucide="filter"></i> Categoria</label>
+         <div class="select-wrap"><i data-lucide="filter" class="select-icon"></i>
+           <select id="catalogFilter">
+             <option value="">Todos</option>
+             <option value="filme">Filmes</option>
+             <option value="serie">Séries</option>
+             <option value="anime">Animes</option>
+             <option value="top10">🏆 Top 10</option>
+             <option value="nao-top10">Fora do Top 10</option>
+           </select>
+         </div>
+       </div>
+       <div class="field"><label><i data-lucide="arrow-down-up"></i> Ordenar</label>
+         <div class="select-wrap"><i data-lucide="arrow-down-up" class="select-icon"></i>
+           <select id="catalogOrder">
+             <option value="default">Padrão</option>
+             <option value="top10">Top 10 primeiro</option>
+             <option value="newest">Mais recentes</option>
+             <option value="az">A → Z (título)</option>
+           </select>
+         </div>
+       </div>
      </div>
      <div class="actions">
        <button id="loadCatalogBtn"><i data-lucide="cloud-download"></i> Carregar do Supabase</button>
@@ -377,22 +424,26 @@ label i{width:13px;height:13px;color:var(--muted)}
      </div>
      <div class="two">
        <div class="field"><label><i data-lucide="filter"></i> Filtrar por tipo</label>
-         <select id="bulkType">
-           <option value="">Todos os tipos</option>
-           <option value="filme">Apenas filmes</option>
-           <option value="serie">Apenas séries/animes</option>
-           <option value="anime">Apenas animes</option>
-         </select>
+         <div class="select-wrap"><i data-lucide="filter" class="select-icon"></i>
+           <select id="bulkType">
+             <option value="">Todos os tipos</option>
+             <option value="filme">Apenas filmes</option>
+             <option value="serie">Apenas séries/animes</option>
+             <option value="anime">Apenas animes</option>
+           </select>
+         </div>
        </div>
        <div class="field"><label><i data-lucide="arrow-down-up"></i> Ordem de exclusão</label>
-         <select id="bulkOrder">
-           <option value="oldest">Mais antigos primeiro</option>
-           <option value="newest">Mais recentes primeiro</option>
-           <option value="az">A → Z (título)</option>
-           <option value="za">Z → A (título)</option>
-           <option value="random">Aleatório</option>
-           <option value="non-top10">Fora do Top 10 (protege os top 10)</option>
-         </select>
+         <div class="select-wrap"><i data-lucide="arrow-down-up" class="select-icon"></i>
+           <select id="bulkOrder">
+             <option value="oldest">Mais antigos primeiro</option>
+             <option value="newest">Mais recentes primeiro</option>
+             <option value="az">A → Z (título)</option>
+             <option value="za">Z → A (título)</option>
+             <option value="random">Aleatório</option>
+             <option value="non-top10">Fora do Top 10 (protege os top 10)</option>
+           </select>
+         </div>
        </div>
      </div>
      <div class="field"><label><i data-lucide="hash"></i> Quantidade a excluir</label>
@@ -439,27 +490,33 @@ label i{width:13px;height:13px;color:var(--muted)}
       </div>
       <div class="mass-grid">
         <div class="field"><label><i data-lucide="list-filter"></i> Categoria</label>
-          <select id="massCategory">
-            <option value="trending_day">🔥 Trending (dia)</option>
-            <option value="trending_week" selected>🔥 Trending (semana)</option>
-            <option value="popular">⭐ Populares</option>
-            <option value="top_rated">🏆 Mais avaliados</option>
-            <option value="now_playing">🎬 Em cartaz (filmes)</option>
-            <option value="upcoming">📅 Em breve (filmes)</option>
-            <option value="discover">🎯 Discover (filtros)</option>
-          </select>
+          <div class="select-wrap"><i data-lucide="list-filter" class="select-icon"></i>
+            <select id="massCategory">
+              <option value="trending_day">🔥 Trending (dia)</option>
+              <option value="trending_week" selected>🔥 Trending (semana)</option>
+              <option value="popular">⭐ Populares</option>
+              <option value="top_rated">🏆 Mais avaliados</option>
+              <option value="now_playing">🎬 Em cartaz (filmes)</option>
+              <option value="upcoming">📅 Em breve (filmes)</option>
+              <option value="discover">🎯 Discover (filtros)</option>
+            </select>
+          </div>
         </div>
         <div class="field"><label><i data-lucide="monitor-play"></i> Tipo</label>
-          <select id="massType">
-            <option value="movie">Filmes</option>
-            <option value="tv">Séries / animes</option>
-            <option value="anime">🎌 Animes</option>
-            <option value="all">Todos (trending)</option>
-          </select>
+          <div class="select-wrap"><i data-lucide="monitor-play" class="select-icon"></i>
+            <select id="massType">
+              <option value="movie">Filmes</option>
+              <option value="tv">Séries / animes</option>
+              <option value="anime">🎌 Animes</option>
+              <option value="all">Todos (trending)</option>
+            </select>
+          </div>
         </div>
         <div class="field"><label><i data-lucide="hash"></i> Quantidade (1 a 10.000)</label><input type="number" id="massQuantity" min="1" max="10000" value="100" placeholder="Ex.: 100, 1000, 6000" autocomplete="off"></div>
         <div class="field"><label><i data-lucide="shield-alert"></i> Duplicados</label>
-          <select id="massDuplicates"><option value="skip" selected>Pular existentes</option><option value="update">Atualizar metadados</option></select>
+          <div class="select-wrap"><i data-lucide="shield-alert" class="select-icon"></i>
+            <select id="massDuplicates"><option value="skip" selected>Pular existentes</option><option value="update">Atualizar metadados</option></select>
+          </div>
         </div>
       </div>
       <div class="quick-qty">
@@ -494,7 +551,11 @@ label i{width:13px;height:13px;color:var(--muted)}
       <h2><i data-lucide="search"></i> Pesquisar filmes, séries e animes</h2>
       <div class="two">
         <div class="field"><label><i data-lucide="search"></i> Termo de pesquisa</label><input id="tmdbQuery" placeholder="Ex.: Interestelar, Naruto" autocomplete="off"></div>
-        <div class="field"><label><i data-lucide="filter"></i> Tipo</label><select id="tmdbType"><option value="multi">Filmes e séries</option><option value="movie">Filmes</option><option value="tv">Séries e animes</option></select></div>
+        <div class="field"><label><i data-lucide="filter"></i> Tipo</label>
+          <div class="select-wrap"><i data-lucide="filter" class="select-icon"></i>
+            <select id="tmdbType"><option value="multi">Filmes e séries</option><option value="movie">Filmes</option><option value="tv">Séries e animes</option></select>
+          </div>
+        </div>
       </div>
       <div class="actions"><button id="searchTmdbBtn"><i data-lucide="search"></i> Pesquisar</button><button class="secondary" id="tmdbTestBtn"><i data-lucide="plug-zap"></i> Testar conexão TMDB</button></div>
       <div id="tmdbStatus" class="status">Configure o token ou a chave do TMDB em Configurações.</div>
@@ -503,7 +564,11 @@ label i{width:13px;height:13px;color:var(--muted)}
     <div class="panel" style="margin-top:16px">
       <h2><i data-lucide="hash"></i> Importar por ID do TMDB</h2>
       <div class="two">
-        <div class="field"><label><i data-lucide="monitor-play"></i> Tipo</label><select id="idType"><option value="movie">Filme</option><option value="tv">Série / anime</option></select></div>
+        <div class="field"><label><i data-lucide="monitor-play"></i> Tipo</label>
+          <div class="select-wrap"><i data-lucide="monitor-play" class="select-icon"></i>
+            <select id="idType"><option value="movie">Filme</option><option value="tv">Série / anime</option></select>
+          </div>
+        </div>
         <div class="field"><label><i data-lucide="hash"></i> ID numérico</label><input id="tmdbId" inputmode="numeric" placeholder="Ex.: 550"></div>
       </div>
       <button id="importIdBtn"><i data-lucide="download-cloud"></i> Buscar e importar dados</button>
@@ -521,26 +586,42 @@ label i{width:13px;height:13px;color:var(--muted)}
       </div>
       <div class="two" style="margin-top:16px">
         <div class="field"><label><i data-lucide="clock"></i> Intervalo</label><input type="number" id="autoImportInterval" min="5" value="5"></div>
-        <div class="field"><label><i data-lucide="ruler"></i> Unidade</label><select id="autoImportUnit"><option value="seconds">Segundos</option><option value="minutes" selected>Minutos</option><option value="hours">Horas</option></select></div>
+        <div class="field"><label><i data-lucide="ruler"></i> Unidade</label>
+          <div class="select-wrap"><i data-lucide="ruler" class="select-icon"></i>
+            <select id="autoImportUnit"><option value="seconds">Segundos</option><option value="minutes" selected>Minutos</option><option value="hours">Horas</option></select>
+          </div>
+        </div>
       </div>
       <div class="three">
-        <div class="field"><label><i data-lucide="list-filter"></i> Categoria</label><select id="autoImportCategory">
-          <option value="trending_day">🔥 Trending dia</option>
-          <option value="trending_week" selected>🔥 Trending semana</option>
-          <option value="popular">⭐ Populares</option>
-          <option value="top_rated">🏆 Mais avaliados</option>
-          <option value="anime">🎌 Animes</option>
-        </select></div>
-        <div class="field"><label><i data-lucide="monitor-play"></i> Tipo</label><select id="autoImportType">
-          <option value="movie">Filmes</option>
-          <option value="tv">Séries</option>
-          <option value="all" selected>Ambos</option>
-          <option value="anime">Animes</option>
-        </select></div>
+        <div class="field"><label><i data-lucide="list-filter"></i> Categoria</label>
+          <div class="select-wrap"><i data-lucide="list-filter" class="select-icon"></i>
+            <select id="autoImportCategory">
+              <option value="trending_day">🔥 Trending dia</option>
+              <option value="trending_week" selected>🔥 Trending semana</option>
+              <option value="popular">⭐ Populares</option>
+              <option value="top_rated">🏆 Mais avaliados</option>
+              <option value="anime">🎌 Animes</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label><i data-lucide="monitor-play"></i> Tipo</label>
+          <div class="select-wrap"><i data-lucide="monitor-play" class="select-icon"></i>
+            <select id="autoImportType">
+              <option value="movie">Filmes</option>
+              <option value="tv">Séries</option>
+              <option value="all" selected>Ambos</option>
+              <option value="anime">Animes</option>
+            </select>
+          </div>
+        </div>
         <div class="field"><label><i data-lucide="hash"></i> Por pull</label><input type="number" id="autoImportQuantity" min="1" max="50" value="10"></div>
       </div>
       <div class="two">
-        <div class="field"><label><i data-lucide="shield-alert"></i> Se já existe</label><select id="autoImportDupMode"><option value="skip" selected>Pular</option><option value="update">Atualizar</option></select></div>
+        <div class="field"><label><i data-lucide="shield-alert"></i> Se já existe</label>
+          <div class="select-wrap"><i data-lucide="shield-alert" class="select-icon"></i>
+            <select id="autoImportDupMode"><option value="skip" selected>Pular</option><option value="update">Atualizar</option></select>
+          </div>
+        </div>
         <div class="field"><label><i data-lucide="alert-octagon"></i> Máx. no catálogo</label><input type="number" id="autoImportMax" min="100" value="5000"></div>
       </div>
       <div class="checkline" style="margin:10px 0 14px"><input type="checkbox" id="autoImportFast" checked><label for="autoImportFast">⚡ Modo rápido (sem detalhes)</label></div>
@@ -562,7 +643,11 @@ label i{width:13px;height:13px;color:var(--muted)}
       <input type="hidden" id="editId">
       <div class="two">
         <div class="field"><label><i data-lucide="type"></i> Título *</label><input id="fTitle" required maxlength="160"></div>
-        <div class="field"><label><i data-lucide="monitor-play"></i> Tipo *</label><select id="fKind"><option value="filme">Filme</option><option value="serie">Série / anime</option></select></div>
+        <div class="field"><label><i data-lucide="monitor-play"></i> Tipo *</label>
+          <div class="select-wrap"><i data-lucide="monitor-play" class="select-icon"></i>
+            <select id="fKind"><option value="filme">Filme</option><option value="serie">Série / anime</option></select>
+          </div>
+        </div>
       </div>
       <div class="field"><label><i data-lucide="align-left"></i> Sinopse</label><textarea id="fDesc" rows="4"></textarea></div>
       <div class="two">
@@ -575,25 +660,49 @@ label i{width:13px;height:13px;color:var(--muted)}
       </div>
       <div class="two">
         <div class="field"><label><i data-lucide="star"></i> Nota (0–10)</label><input id="fVote" type="number" min="0" max="10" step=".1"></div>
-        <div class="field"><label><i data-lucide="shield"></i> Classificação indicativa</label><select id="fRating"><option>L</option><option>10</option><option>12</option><option>14</option><option>16</option><option>18</option></select></div>
+        <div class="field"><label><i data-lucide="shield"></i> Classificação indicativa</label>
+          <div class="select-wrap"><i data-lucide="shield" class="select-icon"></i>
+            <select id="fRating"><option>L</option><option>10</option><option>12</option><option>14</option><option>16</option><option>18</option></select>
+          </div>
+        </div>
       </div>
       <div class="two">
         <div class="field"><label><i data-lucide="users"></i> Elenco</label><input id="fCast"></div>
-        <div class="field"><label><i data-lucide="award"></i> Status/selo</label><select id="fStatus">
-          <option value="novo">Novo</option><option value="lancamento">Lançamento</option><option value="em_breve">Em breve</option>
-          <option value="em_alta">Em alta</option><option value="mais_avaliado">Mais avaliado</option><option value="dublado">Dublado</option>
-          <option value="legendado">Legendado</option><option value="especial">Especial</option><option value="manutencao">Manutenção</option>
-          <option value="personalizado">Personalizado</option><option value="nenhum">Sem selo</option>
-        </select></div>
+        <div class="field"><label><i data-lucide="award"></i> Status/selo</label>
+          <div class="select-wrap"><i data-lucide="award" class="select-icon"></i>
+            <select id="fStatus">
+              <option value="novo">Novo</option><option value="lancamento">Lançamento</option><option value="em_breve">Em breve</option>
+              <option value="em_alta">Em alta</option><option value="mais_avaliado">Mais avaliado</option><option value="dublado">Dublado</option>
+              <option value="legendado">Legendado</option><option value="especial">Especial</option><option value="manutencao">Manutenção</option>
+              <option value="personalizado">Personalizado</option><option value="nenhum">Sem selo</option>
+            </select>
+          </div>
+        </div>
       </div>
       <div class="three">
-        <div class="field"><label><i data-lucide="trophy"></i> Top 10</label><select id="fTop10"><option value="">Fora do Top 10</option><option value="1">🥇 #1</option><option value="2">🥈 #2</option><option value="3">🥉 #3</option><option value="4">#4</option><option value="5">#5</option><option value="6">#6</option><option value="7">#7</option><option value="8">#8</option><option value="9">#9</option><option value="10">#10</option></select></div>
-        <div class="field"><label><i data-lucide="sparkles"></i> É anime?</label><select id="fIsAnime"><option value="">Auto-detectar</option><option value="1">Sim, é anime</option><option value="0">Não é anime</option></select></div>
-        <div class="field"><label><i data-lucide="folder-plus"></i> Adicionar à aba</label><select id="fTabId"><option value="">Nenhuma aba</option></select></div>
+        <div class="field"><label><i data-lucide="trophy"></i> Top 10</label>
+          <div class="select-wrap"><i data-lucide="trophy" class="select-icon"></i>
+            <select id="fTop10"><option value="">Fora do Top 10</option><option value="1">🥇 #1</option><option value="2">🥈 #2</option><option value="3">🥉 #3</option><option value="4">#4</option><option value="5">#5</option><option value="6">#6</option><option value="7">#7</option><option value="8">#8</option><option value="9">#9</option><option value="10">#10</option></select>
+          </div>
+        </div>
+        <div class="field"><label><i data-lucide="sparkles"></i> É anime?</label>
+          <div class="select-wrap"><i data-lucide="sparkles" class="select-icon"></i>
+            <select id="fIsAnime"><option value="">Auto-detectar</option><option value="1">Sim, é anime</option><option value="0">Não é anime</option></select>
+          </div>
+        </div>
+        <div class="field"><label><i data-lucide="folder-plus"></i> Adicionar à aba</label>
+          <div class="select-wrap"><i data-lucide="folder-plus" class="select-icon"></i>
+            <select id="fTabId"><option value="">Nenhuma aba</option></select>
+          </div>
+        </div>
       </div>
       <div class="two">
         <div class="field"><label><i data-lucide="link"></i> Link do player autorizado</label><input id="fSrc" type="url" placeholder="https://…"></div>
-        <div class="field"><label><i data-lucide="play-circle"></i> Tipo de player</label><select id="fPlayerType"><option value="embed">Embed / iframe</option><option value="video">Vídeo direto</option></select></div>
+        <div class="field"><label><i data-lucide="play-circle"></i> Tipo de player</label>
+          <div class="select-wrap"><i data-lucide="play-circle" class="select-icon"></i>
+            <select id="fPlayerType"><option value="embed">Embed / iframe</option><option value="video">Vídeo direto</option></select>
+          </div>
+        </div>
       </div>
       <div class="two">
         <div class="field"><label><i data-lucide="badge"></i> Texto do selo personalizado</label><input id="fBadgeText" maxlength="18" placeholder="Ex.: Exclusivo"></div>
@@ -625,7 +734,9 @@ label i{width:13px;height:13px;color:var(--muted)}
      <h2><i data-lucide="award"></i> Todos os selos do KiraFlix</h2>
      <div id="badgeLegend" class="results"></div>
      <div class="two" style="margin-top:18px">
-       <div class="field"><label><i data-lucide="filter"></i> Filtrar títulos por selo</label><select id="badgeFilter"></select></div>
+       <div class="field"><label><i data-lucide="filter"></i> Filtrar títulos por selo</label>
+         <div class="select-wrap"><i data-lucide="filter" class="select-icon"></i><select id="badgeFilter"></select></div>
+       </div>
        <div class="field"><label><i data-lucide="search"></i> Buscar título</label><input id="badgeSearch" placeholder="Nome do filme, série ou anime" autocomplete="off"></div>
      </div>
      <div id="badgeStatus" class="status">Conecte o catálogo para ver todos os selos existentes.</div>
@@ -633,15 +744,33 @@ label i{width:13px;height:13px;color:var(--muted)}
    </div>
   </section>
 
+  <!-- ===================== ABAS COM ICON PICKER ===================== -->
   <section data-page="tabs" class="hidden">
    <div class="panel">
      <h2><i data-lucide="layout-list"></i> Abas personalizadas da navegação</h2>
-     <p>As abas usam o mesmo formato do KiraFlix: <code>id</code>, <code>name</code>, <code>icon</code> e <code>after</code>. Ao excluir uma aba, os títulos permanecem no catálogo, mas deixam de estar associados àquela aba.</p>
+     <p>As abas usam o mesmo formato do KiraFlix: <code>id</code>, <code>name</code>, <code>icon</code> e <code>after</code>. Escolha qualquer ícone do <b>Lucide Icons</b> (1.500+ opções) no seletor abaixo.</p>
      <div class="two">
        <div class="field"><label><i data-lucide="type"></i> Nome da aba</label><input id="tabName" maxlength="28" placeholder="Ex.: Anime, Documentários, Shorts"></div>
-       <div class="field"><label><i data-lucide="smile"></i> Ícone</label><select id="tabIcon"><option>folder-open</option><option>sparkles</option><option>clapperboard</option><option>tv</option><option>ghost</option><option>heart</option><option>rocket</option><option>gamepad-2</option><option>star</option><option>flame</option></select></div>
+       <div class="field"><label><i data-lucide="smile"></i> Ícone da aba</label>
+         <button type="button" class="icon-picker-btn" id="tabIconPickerBtn">
+           <span class="ip-preview"><i data-lucide="folder-open" id="tabIconPreview"></i></span>
+           <span class="ip-text" id="tabIconLabel">folder-open</span>
+           <i data-lucide="chevron-down" class="ip-chevron"></i>
+         </button>
+         <input type="hidden" id="tabIcon" value="folder-open">
+       </div>
      </div>
-     <div class="field"><label><i data-lucide="arrow-down-to-line"></i> Posição na navegação</label><select id="tabAfter"><option value="home">Depois de Início</option><option value="filme">Depois de Filmes</option><option value="serie">Depois de Séries</option><option value="new">Depois de Bombando</option><option value="list" selected>Depois de Minha lista</option></select></div>
+     <div class="field"><label><i data-lucide="arrow-down-to-line"></i> Posição na navegação</label>
+       <div class="select-wrap"><i data-lucide="arrow-down-to-line" class="select-icon"></i>
+         <select id="tabAfter">
+           <option value="home">Depois de Início</option>
+           <option value="filme">Depois de Filmes</option>
+           <option value="serie">Depois de Séries</option>
+           <option value="new">Depois de Bombando</option>
+           <option value="list" selected>Depois de Minha lista</option>
+         </select>
+       </div>
+     </div>
      <div class="actions"><button id="createTabBtn"><i data-lucide="folder-plus"></i> Criar aba</button><button class="secondary" id="refreshTabsBtn"><i data-lucide="refresh-cw"></i> Atualizar lista</button></div>
      <div id="tabsStatus" class="status">Conecte e carregue o catálogo para editar as abas compartilhadas.</div>
      <div id="tabsList" style="margin-top:12px"></div>
@@ -667,7 +796,11 @@ label i{width:13px;height:13px;color:var(--muted)}
      <h2><i data-lucide="code-2"></i> Editor de Código do Repositório</h2>
      <p>Escolha um arquivo do repositório GitHub, edite o código e salve direto no repositório. Alterações ficam no GitHub na hora — o site reflete após o deploy do GitHub Pages.</p>
      <div class="code-editor-toolbar">
-       <div class="field"><label><i data-lucide="file-code"></i> Arquivo</label><select id="editorFilePath"><option value="">— Clique em "Listar" —</option></select></div>
+       <div class="field"><label><i data-lucide="file-code"></i> Arquivo</label>
+         <div class="select-wrap"><i data-lucide="file-code" class="select-icon"></i>
+           <select id="editorFilePath"><option value="">— Clique em "Listar" —</option></select>
+         </div>
+       </div>
        <button class="secondary" id="editorListBtn"><i data-lucide="folder-open"></i> Listar</button>
        <button id="editorLoadBtn"><i data-lucide="download"></i> Carregar</button>
        <button class="secondary" id="editorCopyBtn" title="Copiar todo o código"><i data-lucide="copy"></i> Copiar tudo</button>
@@ -762,7 +895,11 @@ label i{width:13px;height:13px;color:var(--muted)}
      <h2><i data-lucide="wand-2"></i> Inteligência Artificial (Editor de Código)</h2>
      <div class="banner-info"><i data-lucide="info"></i><div>Configure a chave de API para usar o botão <b>"Aplicar com IA"</b> no Editor de Código. A chave fica só neste navegador. Escolha entre <b>Groq</b> (grátis e rápido), <b>OpenAI</b> (pago, mais preciso) ou <b>Gemini</b> (grátis com limites).</div></div>
      <div class="two">
-       <div class="field"><label><i data-lucide="server"></i> Provedor</label><select id="aiProvider"><option value="groq">⚡ Groq (grátis, rápido)</option><option value="openai">🤖 OpenAI (pago)</option><option value="gemini">🌟 Google Gemini (grátis)</option></select></div>
+       <div class="field"><label><i data-lucide="server"></i> Provedor</label>
+         <div class="select-wrap"><i data-lucide="server" class="select-icon"></i>
+           <select id="aiProvider"><option value="groq">⚡ Groq (grátis, rápido)</option><option value="openai">🤖 OpenAI (pago)</option><option value="gemini">🌟 Google Gemini (grátis)</option></select>
+         </div>
+       </div>
        <div class="field"><label><i data-lucide="cpu"></i> Modelo (opcional)</label><input id="aiModel" placeholder="Padrão do provedor" autocomplete="off"></div>
      </div>
      <div class="field"><label><i data-lucide="key-round"></i> Chave da API *</label><input id="aiApiKey" type="password" autocomplete="off" placeholder="Cole a chave da API aqui"></div>
@@ -779,7 +916,11 @@ label i{width:13px;height:13px;color:var(--muted)}
      <div class="checkline" style="margin:9px 0"><input type="checkbox" id="cfgAllowAvatar" checked><label for="cfgAllowAvatar">Permitir upload de avatar</label></div>
      <div class="checkline" style="margin:9px 0"><input type="checkbox" id="cfgAllowBio" checked><label for="cfgAllowBio">Permitir bio / descrição no perfil</label></div>
      <div class="checkline" style="margin:9px 0"><input type="checkbox" id="cfgRequireEmailVerify"><label for="cfgRequireEmailVerify">Exigir verificação de email no cadastro</label></div>
-     <div class="two" style="margin-top:14px"><div class="field"><label><i data-lucide="shield"></i> Nível padrão do novo usuário</label><select id="cfgDefaultRole"><option value="user">Usuário comum</option><option value="vip">VIP</option><option value="admin">Administrador</option></select></div><div class="field"><label><i data-lucide="layers"></i> Máximo de perfis por conta</label><input id="cfgMaxProfiles" type="number" min="1" max="10" value="5"></div></div>
+     <div class="two" style="margin-top:14px"><div class="field"><label><i data-lucide="shield"></i> Nível padrão do novo usuário</label>
+       <div class="select-wrap"><i data-lucide="shield" class="select-icon"></i>
+         <select id="cfgDefaultRole"><option value="user">Usuário comum</option><option value="vip">VIP</option><option value="admin">Administrador</option></select>
+       </div>
+     </div><div class="field"><label><i data-lucide="layers"></i> Máximo de perfis por conta</label><input id="cfgMaxProfiles" type="number" min="1" max="10" value="5"></div></div>
      <div class="field" style="margin-top:4px"><label><i data-lucide="key-round"></i> Provedores OAuth (opcional — client IDs)</label>
        <input id="cfgOAuthGoogle" placeholder="Google Client ID" autocomplete="off" style="margin-bottom:8px">
        <input id="cfgOAuthGithub" placeholder="GitHub Client ID" autocomplete="off" style="margin-bottom:8px">
@@ -794,6 +935,24 @@ label i{width:13px;height:13px;color:var(--muted)}
 </main>
 </div>
 <div class="sync-indicator" id="syncIndicator" style="display:none"></div>
+
+<!-- ===================== ICON PICKER MODAL ===================== -->
+<div class="icon-picker-modal" id="iconPickerModal">
+  <div class="icon-picker-panel">
+    <div class="icon-picker-head">
+      <h3><i data-lucide="sparkles"></i> Escolher ícone do Lucide</h3>
+      <span class="ip-count" id="iconPickerCount">0 ícones</span>
+      <button class="secondary" id="iconPickerClose" style="padding:6px 10px"><i data-lucide="x"></i></button>
+    </div>
+    <div class="icon-picker-search-wrap">
+      <div class="icon-picker-search">
+        <i data-lucide="search"></i>
+        <input id="iconPickerSearch" placeholder="Pesquisar ícone… (ex.: star, heart, flame, rocket)" autocomplete="off">
+      </div>
+    </div>
+    <div class="icon-picker-grid" id="iconPickerGrid"></div>
+  </div>
+</div>
 
 <script>
 /* ============================================================
@@ -833,6 +992,84 @@ function setHeaderSync(stateName,label){
   el.innerHTML=`<i data-lucide="${icon}"></i> ${esc(label)}`;
   refreshIcons();
 }
+
+/* ============================================================
+   ICON PICKER — carrega todos os ícones do Lucide via CDN
+   ============================================================ */
+let allLucideIcons = null;
+let selectedIconName = 'folder-open';
+
+async function loadAllLucideIcons(){
+  if(allLucideIcons) return allLucideIcons;
+  try{
+    const res = await fetch('https://unpkg.com/lucide-static/icon-nodes.json');
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const data = await res.json();
+    allLucideIcons = Object.keys(data).sort();
+    return allLucideIcons;
+  }catch(e){
+    console.warn('Falha ao carregar lista do Lucide, usando fallback:', e.message);
+    // Fallback com os ícones mais comuns
+    allLucideIcons = ['folder-open','sparkles','clapperboard','tv','ghost','heart','rocket','gamepad-2','star','flame','film','play','home','list','trophy','award','zap','music','book','image','video','camera','globe','map','compass','gift','party-popper','cake','tree-pine','snowflake','sun','moon','cloud','umbrella'];
+    return allLucideIcons;
+  }
+}
+
+function renderIconGrid(filter=''){
+  const grid = $('#iconPickerGrid');
+  if(!grid) return;
+  const list = allLucideIcons || [];
+  const q = filter.toLowerCase().trim();
+  const filtered = q ? list.filter(n => n.toLowerCase().includes(q)) : list;
+  $('#iconPickerCount').textContent = `${fmtNum(filtered.length)} ícone(s)`;
+  if(!filtered.length){
+    grid.innerHTML = '<div class="icon-picker-empty"><i data-lucide="search-x" style="width:32px;height:32px;opacity:.4;margin:0 auto 10px"></i><br>Nenhum ícone encontrado para "'+esc(filter)+'"</div>';
+    refreshIcons();
+    return;
+  }
+  grid.innerHTML = filtered.map(name => 
+    `<div class="icon-picker-item ${name===selectedIconName?'selected':''}" data-icon-name="${esc(name)}" title="${esc(name)}">
+       <i data-lucide="${esc(name)}"></i>
+       <span>${esc(name)}</span>
+     </div>`
+  ).join('');
+  refreshIcons();
+  // Event delegation
+  grid.querySelectorAll('.icon-picker-item').forEach(item => {
+    item.onclick = () => {
+      selectedIconName = item.dataset.iconName;
+      $('#tabIcon').value = selectedIconName;
+      $('#tabIconPreview').setAttribute('data-lucide', selectedIconName);
+      $('#tabIconLabel').textContent = selectedIconName;
+      refreshIcons();
+      closeIconPicker();
+      toast(`Ícone selecionado: ${selectedIconName}`,'ok');
+    };
+  });
+}
+
+async function openIconPicker(){
+  $('#iconPickerModal').classList.add('active');
+  $('#iconPickerSearch').value = '';
+  $('#iconPickerSearch').focus();
+  if(!allLucideIcons){
+    $('#iconPickerGrid').innerHTML = '<div class="icon-picker-empty"><i data-lucide="loader-2" class="spin" style="width:32px;height:32px;opacity:.6;margin:0 auto 10px"></i><br>Carregando ícones do Lucide…</div>';
+    refreshIcons();
+    await loadAllLucideIcons();
+  }
+  renderIconGrid('');
+}
+
+function closeIconPicker(){
+  $('#iconPickerModal').classList.remove('active');
+}
+
+// Setup icon picker events
+$('#tabIconPickerBtn').addEventListener('click', openIconPicker);
+$('#iconPickerClose').addEventListener('click', closeIconPicker);
+$('#iconPickerModal').addEventListener('click', e => { if(e.target === $('#iconPickerModal')) closeIconPicker(); });
+$('#iconPickerSearch').addEventListener('input', debounce(e => renderIconGrid(e.target.value), 150));
+document.addEventListener('keydown', e => { if(e.key==='Escape' && $('#iconPickerModal').classList.contains('active')) closeIconPicker(); });
 
 /* ============================================================
    GITHUB helpers
@@ -1466,10 +1703,11 @@ function renderTabs(){
 }
 async function createTab(){
   const name=$('#tabName').value.trim();
+  const icon=$('#tabIcon').value.trim()||'folder-open';
   if(!name)return status('#tabsStatus','Digite o nome.','bad');
   const existing=state.tabs.filter(isOrdinaryTab);
   if(existing.some(x=>String(x.name||'').toLowerCase()===name.toLowerCase()))return status('#tabsStatus','Já existe.','bad');
-  const item={id:'tab'+Date.now(),name,icon:$('#tabIcon').value,after:$('#tabAfter').value||'list'};
+  const item={id:'tab'+Date.now(),name,icon,after:$('#tabAfter').value||'list'};
   state.tabs.push(item);refreshTabSelect();renderTabs();
   try{await saveCloud();$('#tabName').value='';status('#tabsStatus','Criada.','ok');toast('Aba criada');}
   catch(e){status('#tabsStatus','Local. Falha sync: '+e.message,'warn');toast('Pendente','warn');}
@@ -1968,7 +2206,7 @@ function fillAutoImportFields(){
 });
 
 /* ============================================================
-   TEMAS
+   TEMAS (inclui sazonais)
    ============================================================ */
 const PRESET_THEMES=[
   {id:'kiraflix',name:'KiraFlix Clássico',primary:'#e50914',secondary:'#8b5cf6'},
@@ -1986,7 +2224,18 @@ const PRESET_THEMES=[
   {id:'royal',name:'Royal',primary:'#6366f1',secondary:'#a855f7'},
   {id:'blood',name:'Blood Moon',primary:'#7f1d1d',secondary:'#e50914'},
   {id:'mint',name:'Mint',primary:'#10b981',secondary:'#06b6d4'},
-  {id:'gold',name:'Gold',primary:'#f59e0b',secondary:'#fbbf24'}
+  {id:'gold',name:'Gold',primary:'#f59e0b',secondary:'#fbbf24'},
+  // === SAZONAIS ===
+  {id:'halloween',name:'🎃 Halloween',primary:'#ff6b00',secondary:'#1a0033'},
+  {id:'natal',name:'🎄 Natal',primary:'#c41e3a',secondary:'#165b33'},
+  {id:'pascoa',name:'🐣 Páscoa',primary:'#f8b4d9',secondary:'#a8e6cf'},
+  {id:'namorados',name:'💖 Dia dos Namorados',primary:'#ff4d6d',secondary:'#c9184a'},
+  {id:'carnaval',name:'🎭 Carnaval',primary:'#ffd700',secondary:'#8a2be2'},
+  {id:'anonovo',name:'🎆 Ano Novo',primary:'#ffd700',secondary:'#000000'},
+  {id:'primavera',name:'🌸 Primavera',primary:'#ffb7c5',secondary:'#98fb98'},
+  {id:'verao',name:'☀️ Verão',primary:'#ff8c00',secondary:'#00bfff'},
+  {id:'outono',name:'🍂 Outono',primary:'#d2691e',secondary:'#8b4513'},
+  {id:'inverno',name:'❄️ Inverno',primary:'#87ceeb',secondary:'#4682b4'}
 ];
 function renderThemes(){
   const grid=$('#themesGrid');if(!grid)return;
